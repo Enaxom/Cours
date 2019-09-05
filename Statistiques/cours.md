@@ -114,3 +114,36 @@ Groupes sexes différents
 
 #Former des groupes, choisir un groupe (par SRS) puis des individus dans le groupe (échantillonnage stratifié)
 (ref *3.png*)
+
+
+**S2**
+------
+
+=============
+|			|
+| données :	|
+|			|
+=============
+
+-> Statistiques descriptives (I)
+	Décrire sans apporter de conclusion sur la population.
+-> Statistiques inférientielles
+	-> Observer des paramètres (II)
+	-> Tests d'hypothèses (III)
+		II & III -> Conclure des choses sur la population.
+
+Tirage pour n = 8 d'avis sur l'arrêt d'utilisation d'énergie nucléaire.
+(x1 x2 x3 x4 x5 x6 x7 x8)
+(0  0  0  0  0  0  0  0 )
+
+x'1 x'2 x'3 x'4 x'5 x'6 x'7 x'8
+ 0   0   0   0   0   0   0   0
+Occurences de chaque yi réalisation possible dans le 8-échantillon
+
+Tirage nombre d'écrans pour travailler
+2 3 2 3 2 4 3 1
+(ref *4.png*)
+	Moyenne y barre = 2.5
+	Ecart type var y = 0.87
+
+
