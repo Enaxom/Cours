@@ -7,8 +7,17 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch test.js",
-            "program": "${workspaceFolder}/test.js"
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/premier.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch yesno.js",
+            "program": "${workspaceFolder}/yesno.js",
+            "args" : [
+                
+            ]
         }
     ]
 }

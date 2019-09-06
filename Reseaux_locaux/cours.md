@@ -239,4 +239,3 @@ Efficacité doublée car interval de collision réduit de moitié.
 
 *Combien de stations émettant à 100 kbps peuvent utiliser un canal type slotted aloha à 9600 kbps ?*
 9600 x 0.36 / 100 = 34
-
