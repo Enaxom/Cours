@@ -96,7 +96,6 @@ Pour qu'il y ait une méthode d'accès, il faut diffuser à tout le monde.
 SYNTHESE
 --------
 
-
 #15
 Equité : tout le monde a de la bande passante proportionnellement à ses besoins.
 Coût : complexité
@@ -125,3 +124,119 @@ Temps total TE + Tp + T latence
 Indiquez les composantes du délai pour transmettre une information de 64 octets et qu'elle fasse le tour de la boucle de 1km à 2 * 10^8 m/s et 1 Gbps avec une interface 1 bit par station de la boucle.
 TE = 64 * 8 / 10^9 = 5.12 * 10^-7s
 Tp = 1000 / 2 * 10^8 = 2.6s
+Latence = 10/10^9
+	10 machines, et une interface 1 bit par station de la boucle.
+
+#18
+Méthodes distribuées
+	Méthodes avec collision
+	Méthodes sans collision
+Méthodes centralisées
+	Pas de méthodes avec collision
+
+#19
+Le récepteur peut recevoir sur deux fréquences différentes, il n'y a pas de collision.
+
+Collision
+	Pas de décodage
+	Transmission en tension, filaire
+
+#20
+En sans fil, on traite des fréquences.
+Au delà de 90dbm, on ne reçoit pas.
+
+#21
+**Méthodes à collision**
+
+CSMA/CD sur Ethernet
+	Carrier Sense Multiple Access / Collision Detection
+
+#22
+
+**Aloha**
+3 phases
+	1. Emission
+	2. Détection de collision
+	3. Réémission, retransmission
+
+Méthode 
+
+#23
+Détection de collision quand on ne reçoit pas de ACK.
+Retransmission en cas de collision, mais aucune garantie que ça fonctionne.
+
+#24
+Algorithme aloha. Retransmettre dès que c'est bon.
+
+**Slotted aloha**
+Attendre un début de slot.
+Mettre en place un système de synchronisation.
+
+#25
+Le temps qu'il y a entre deux slots est constant.
+On considère qu'on transmet un appel durant un slot, taille fixe de paquet.
+Le paquet va être émis durant l'interval commençant par top. 
+***A chaque top son paquet.***
+
+#26
+Avec quels paquets P2 rentre t-il en collision en Aloha ?
+	Avec P1 et P3.
+En slotted Aloha ?
+	Moins, diminution des collisions.
+
+#27
+Les paquets partent au prochain top.
+Aloha - Premier cas
+	P1 P2 P3 P4 en collision
+	**Interval de collision 2TE**
+Slotted Aloha - Deuxième cas
+	P1 P2 P3 en collision
+	P4 part au prochain top
+	**Interval de collision 1TE** (1 Slot)
+
+#29
+**Efficacité Aloha - Modélisation**
+
+G : nombre de paquets total durant TE
+N : nombre de stations
+S : paquets neufs qui arrivent par TE
+C : paquets en collision
+
+G = S + C
+
+Loi poisson λ
+
+( (λt)^k / k! ) e^-λt
+
+Hypothèse
+	Le temps est compté en slot de TE.
+
+Nombre de paquets en collision :
+G X p
+
+p = probabilité qu'un paquet soit en collision
+p = 1 - paquet pas en collision
+p = 1 - 0 paquets arrivés durant TE
+p = e^-2G
+	2G car interval de collision 2TE
+
+G = S + (1 - e^-2G)G
+S est max pour G = 0.5
+S = Ge^-2G
+S = e^-1 / e
+S max = 1/2e = 0.18
+
+**Efficacité Slotted Aloha**
+
+On ne peut utiliser que 18% du système.
+
+Ce qui change avec le slotted Aloha
+	Un seul G, interval de collision = TE
+
+On peut utiliser 36% du système.
+
+Efficacité doublée car interval de collision réduit de moitié.
+
+*Combien de stations émettant à 100 kbps peuvent utiliser un canal type slotted aloha à 9600 kbps ?*
+9600 x 0.36 / 100 = 34
+
