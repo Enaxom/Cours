@@ -57,4 +57,5 @@ Cardinalité unité de mesure qui mesure le cardinal de l'ensemble, l'étendu de
 Eleves relation entité, Inscription relation association.
 
 #16
-
+Produire un schéma entité / association
+(ref *exo1.odt*)
