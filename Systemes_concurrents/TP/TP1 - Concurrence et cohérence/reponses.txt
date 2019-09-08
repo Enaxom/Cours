@@ -1,0 +1,111 @@
+TP1 - Concurrence et cohérence
+2App SN - Morgane Cadeau
+
+1 - Quel résultat « naïf » peut-on a priori espérer ?
+------------------------------------------------------------------------------------------------
+	Le résultat naïf serait que le programme avec l'exécution de N threads soit N fois plus rapide que le programme avec les N boucles en séquences. 
+
+
+2 - Evaluer le surcoût induit par la gestion des threads, en fonction de N (en faisant varier N entre 1 et 30, sans nécessairement prendre toutes les valeurs :)).
+------------------------------------------------------------------------------------------------
+	N = 1 et 100 ms de pause sur deux essais
+		Durée exécution mono : 102833 / 102951
+		Durée exécution non synchronisée (ms): 102851 / 102976
+		Temps de différence négligeable, ici 18ms / 25ms
+
+	N = 1 et 1ms de pause sur deux essais
+		Durée exécution mono : 1977 / 2039
+		Durée exécution non synchronisée (ms): 1824 / 1775
+		Différence : 153 / 264
+	Il n'y a pas de surcoût pour N = 1
+
+	N = 2 et 1ms de pause sur 5 essais en moyenne
+		Durée exécution mono : 3700
+		Durée exécution non synchronisée (ms): 1979
+		Différence : 1721ms
+	L'exécution par thread est 1,9 fois plus rapide que l'exécution séquentielle pour N=2. On commence déjà à s'éloigner du résultat naïf espéré.
+
+	N = 5 et 1ms de pause sur 5 essais en moyenne
+		Durée exécution mono : 9873
+		Durée exécution non synchronisée (ms): 2213
+		Différence : 7660ms
+	L'exécution par thread est 4,5 fois plus rapide que l'exécution séquentielle pour N=5.
+
+	N = 10 (5 essais)
+		Durée exécution mono : 19801
+		Durée exécution non synchronisée (ms) : 2332
+		Différence : 17469
+	Exécution par thread 8,5 fois plus rapide que séquentielle pour N = 10.
+
+	N = 20 (5 essais)
+		Durée exécution mono : 39626
+		Durée exécution non synchronisée (ms) : 4097
+		Différence : 35529
+	Exécution par thread 9,7 fois plus rapide que séquentielle pour N = 20.
+
+	N = 30 (5 essais)
+		Durée exécution mono : 58471
+		Durée exécution non synchronisée (ms) : 6612
+		Différence : 51859
+	Exécution par thread 7,8 fois plus rapide que séquentielle pour N = 30.
+
+
+3 - Interpréter ce résultat et conclure.
+------------------------------------------------------------------------------------------------
+	Le résultat naïf est obtenu jusqu'à N=5. Dès N=10, on s'en éloigne davantage du résultat espéré avec un surcoût de 15%. Pour N=20 et après, le surcoût ne fait qu'augmenter et l'exécution par thread n'est jamais plus de 10 fois plus rapide car plus on rajoute de thread et plus leur gestion prend du temps. 
+
+
+4 - Quelles seront a priori les valeurs affichées dans le cas où il n'y a pas préemption du processeur entre threads ?
+------------------------------------------------------------------------------------------------
+	Les valeurs affichées dans le cas où il n'y a pas de préemption du processeur entre threads seraient 0 avant de démarrer et 1Mrd après pour le premier thread, 1Mrd avant et 2Mrd après pour le second et de même N fois pour les N thread d'après. Le fait qu'il n'y ait pas de préemption fait que chaque thread a le temps de se finir avant que le prochain soit exécuté.
+
+
+5 - Quelles seront a priori les valeurs affichées dans le cas où la gestion des activités partage le temps processeur par quantum de temps entre threads ?
+------------------------------------------------------------------------------------------------
+	Pour un processeur monocoeur, les valeurs affichées seraient, pour 5 threads par exemple :
+	0, 1, 2, 3, 4 avant de démarrer et 5Mrd-4, 5Mrd-3, 5Mrd-2, 5mrd-1, 5Mrd pour un quantum de temps court.
+	Pour un quantum plus long et 3 threads, on pourrait avoir 0, 10k, 20k avant et 3Mrd-20k, 3Mrd - 10k et 3Mrd après.
+
+
+6 - Quelle est la politique effectivement suivie par la JVM utilisée pour le test ?
+------------------------------------------------------------------------------------------------
+	La politique suivie par la JVM serait le cas où la gestion des activités partage le temps processeur par quantum de temps entre threads.
+
+
+7 - La valeur finale du compteur devrait être égale au nombre total d'itérations. Vérifier que ce n'est pas le cas avec la version actuelle, et expliquer pourquoi.
+------------------------------------------------------------------------------------------------
+	Avec la version actuelle et l'exécution de 10 activités, on atteind 2Mrd2 en moyenne comme valeur du compteur après la boucle au lieu de 10Mrd espéré. Ce comportement est du car plusieurs threads incrémentent le compteur en même temps donc il n'est incrémenté qu'une fois.
+
+
+8 - Afin de garantir la cohérence du résultat final, on effectue les incrémentations du compteur en exclusion mutuelle, en plaçant l'incrémentation dans un bloc synchronized, associé à un objet global quelconque. (Déclarer par exemple un attribut static Object mutex = new Object(); dans la classe principale). Vérifier que le résultat est maintenant effectivement correct, et évaluer le coût de l'utilisation de ce mécanisme.
+------------------------------------------------------------------------------------------------
+	a) En plaçant uniquement l'incrémentation de la boucle interne dans le bloc synchronized
+		On arrive bien à 10Mrd pour le dernier affichage du compteur après la boucle et 9Mrd9 pour le premier affichage du compteur après la boucle. 
+		Le coût de l'utilisation de ce mécanisme est bien plus important : 566399ms contre 2332ms, donc 243 fois plus.
+	b) En plaçant la boucle interne dans le bloc synchronized
+		On arrive bien à 10Mrd pour le dernier affichage du compteur après la boucle et 8Mrd2 pour le premier affichage du compteur après la boucle. 
+		Le coût de l'utilisation de ce mécanisme est supérieur seulement de 4 fois : 9606ms contre 2332ms.
+	L'utilisation du bloc syncrhonized a donc un coût important, comme on peut le remarquer dans 8.a) quand il est utilisé 10Mrd de fois.
+
+
+9 - La correction du résultat est-elle garantie a priori si l'on utilise un objet de la classe java.util.concurrent.atomic.AtomicLong pour le compteur ? Argumenter, puis vérifier cet a priori. Evaluer le coût de l'utilisation de ce mécanisme
+------------------------------------------------------------------------------------------------
+	L'utilisation de l'objet AtomicLong et de la méthode incrementAndGet() devrait garantir un résultat correct car c'est l'objet qui se charge de s'incrémenter.
+	La correction du résultat est bien garantie pour 10 threads avec 10Mrd pour le dernier affichage du compteur AtomicLong. La durée d'exécution est de 166921ms contre 2332ms donc un coût de multiplication du temps de 71.
+
+
+10 - La correction du résultat est-elle garantie a priori si l'on déclare le compteur comme volatile ? Argumenter, puis vérifier cet a priori. Evaluer le coût de l'utilisation de ce mécanisme.
+------------------------------------------------------------------------------------------------
+	La correction du résultat devrait être garantie car volatile permet à la JVM de savoir que l'attribut est utilisé pour plusieurs threads.
+	Après test, le résultat n'est pas bon : 2Mrd2 pour le dernier affichage du compteur au lieu de 10Mrd pour 10 threads. La durée d'exécution est de 175652ms contre 2332ms donc un coût d'utilisation de 75 fois.
+
+
+11 - Conclure globalement sur les conditions d'utilisation (ou pas) de ces différents mécanismes.
+------------------------------------------------------------------------------------------------
+	Le bloc synchronize est plus efficace pour une suite d'instructions à exécuter sans qu'un autre thread y ait accès. 
+	L'objet AtomicLong est le plus adapté à notre cas car on n'utilise qu'une variable primitive qui doit être accessible pour tous les threads (cptAtomic).
+	Le mot-clé volatile n'est pas adapté lorsqu'il y a plusieurs écritures simultannées comme on a pu le voir dans la question 10. Cependant, il est efficace pour un cas d'un thread qui écrit et plusieurs qui lisent.
+
+12 - La classe PCA fournie dans l'archive est une implémentation du schéma producteur/consommateur, pour un unique producteur et un unique consommateur. L'algorithme semble correct, et pourtant... le test montre un comportement incorrect. Expliquez et rectifiez le code en conséquence.
+------------------------------------------------------------------------------------------------
+	Le consommateur récupérait la valeur de dépôt du cache donc dépôt valait 0 au lieu de 10. Il était donc bloqué dans le while (PCA.dépôt==PCA.retrait). On a vu précédemment que le mot-clé volatile est adapté pour le cas où un thread seulement écrit donc le cache n'est pas utilisé. Ainsi, la valeur de dépôt et volatile est toujours bonne en les déclarant static volatile.
