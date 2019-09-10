@@ -147,3 +147,70 @@ Tirage nombre d'écrans pour travailler
 	Ecart type var y = 0.87
 
 
+**S3 - Statistique descriptive**
+--------------------------------
+
+Construction d'un histogramme
+-> A partir d'une série statistique (réalisation d'un échantillon)
+
+Cas d'une **variable quantitative** qui prend des valeurs entières ou réelles (cas discret ou cantique).
+
+1. Découpage en classe de l'ensemble des valeurs en présence
+2. Calcul des effectifs d'occurences de ces classes
+
+i  |  1   |  2   |  3   |  4   |  5   |  6   |  7   | 8 |  9   |  10  |  11  |  12  |  13 |  14  | 15
+ti | 0.10 | 0.33 | 0.05 | 0.33 | 0.00 | 0.10 | 0.33 | 1 | 0.01 | 0.05 | 0.33 | 0.05 | 1.5 | 0.06 | 0.1
+
+Souvent, ces 2 premières étapes sont "déjà" effectuées lorsque la série statistique est donnée par un tableau d'effectifs.
+
+Exemple : les notes au premier partiel de la promo sont les suivantes
+
+Notes		[5; 7[	|	[7; 9[	|	[9; 12[	|	[12; 14[
+Effectif	10		|	31		|	33		|	26
+
+On en déduit que la promo comporte (10+31+33+26 = 100) étudiants.
+Ce tableau est plus compact que la donnée de toutes les notes (mais moins précis).
+
+Ex 6 5.5 6 5 5.5 5 6 5.5 6.5 6
+	10 notes ∈ [5; 7[
+	Moyenne 5.7
+-> Sans ces détails, une note représentant la première classe [5; 7[ serait une valeur moyenne entre ses bornes : 6.
+
+L'histogramme approche le graphe de la **densité de la loi** associée à la population.
+
+1 carreau représente (1 surface de 1 carreau) un effectif de 2 notes.
+(ref *5.png*)
+(7-5) x hauteur = 10 notes
+
+Cas d'une **variable qualitative**. Dans ce cas on parle de modalités (et non de valeurs numériques) pour les valeurs possibles.
+Dans ce cas là on fait un diagramme en baton. Il n'y a pas de rapprochement avec la densité de probabilité. 
+Pas d'intervalle, les barres ne se touchent pas.
+
+Une variable qualitative est nominale si ses modalités ne peuvent être données. Ordinale si on sait la trier. 
+
+**S4 - Statistique descriptive**
+--------------------------------
+
+Calculs de paramètres de position Quartiles, Quantiles, Médiane
+Idée on ordonne les valeurs présentées dans une série statistique
+(ref *feuille 1 - exercice*)
+
+tσ(i) 0.00 | 0.01 | 0.05 | *0.05* | 0.05 | 0.06 | 0.1 | **0.1** | 0.1 | 0.33 | 0.33 | *0.33* | 0.33 | 1 | 1.5
+
+Médiane à 0.1. Autant d'élements à gauche qu'à droite.
+Si on a un effectif pair, on sépare la série en deux séries de sous effectifs égales et la médiane est la moyenne de la valeur de borne extérieure et de borne intérieure.
+
+15/4 = 3.75. On cherche la 4eme valeur pour trouver le premier quartile : 0.05
+3eme quartile : 0.33.
+
+La médiane est un paramètre de tendance centrale qui a des propriétés différentes de la moyenne.
+Moyenne = 0.29
+
+Les paramètres de **dispersion** sont souvent donnés par la variance et l'écart type.
+Voir feuille pour formules
+
+Notion de modes maximum (local) de la distribution
+	-> distributions
+		monomodale : une bosse sur la courbe
+		binodales
+ 
