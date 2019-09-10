@@ -237,5 +237,95 @@ On peut utiliser 36% du système.
 
 Efficacité doublée car interval de collision réduit de moitié.
 
+#32
 *Combien de stations émettant à 100 kbps peuvent utiliser un canal type slotted aloha à 9600 kbps ?*
 9600 x 0.36 / 100 = 34
+
+#34
+Une fois qu'un paquet a eu une collision, tout le monde retransmet. Si les stations ne sont pas au même endroit physique, elles ne reçoient pas les ack au même moment.
+On utilise **random** pour décaler les retransmissions. 
+
+#36
+Ethernet CSMA/CD
+Différence : écoute avant émission par rapport à Aloha. 
+
+#40
+Si le temps d'écoute est rapide -> CSMA
+Sinon -> Aloha
+
+Est-ce que l'écoute supprime la collision ? Quel est son intérêt ?
+Non, si deux écoutent en même temps et émettent en même temps. L'intérêt est que ça diminue la collision. 
+
+#41
+Contraintes :
+	Taille minimale de trame
+	L / C temps pour réémettre la trame
+	Besoin d'être en train d'émettre pour que la collision se produise.
+	Pas de fullduplex en sans fil. Détection par logiciel
+
+#42
+En tout pour détecter une collision, il faut 2TP.
+
+#43
+Algorithme Binary Exponential Back off pour l'attente avant retransmission
+
+#44
+Plus les trames sont courtes, plus il y aura de collision.
+
+#47
+Gestion des timer dans le wifi.
+Il faut que ce soit équitable. 
+
+#48
+La norme 802.11 indique que les intervalles de temps réduits entre trame, les SIFS, doivent être plus petit que ceux définis entre trames, les DIFS, pourquoi ?
+	Pour donner la priorité à la transmission de l'acquittement devant une trame
+	Eviter que l'acquittement soit en collision
+
+Comment se passe la détection de collision pour les trafics destinés à plusieurs stations (broadcast) ?
+	On ne peut pas faire de détection de collision quand c'est du broadcast, on ne renvoie pas d'acquittement.
+
+#49
+Problème avec station cachée (stations pas dans la même zone).
+
+#50
+Prévenir tout le monde par RTS/CTS
+Ecoute virtuelle
+
+#51
+Mécanismes utilisés sur tous les wifi haut débit
+
+#52
+Wifi CSMA/CA avec RTS/CTS
+
+#53
+Si une station émet un 0 et l'autre un 1 : Celle qui émet le ° ne détecte pas la collision elle reçoit 0.
+Canal retour / Canal echo avec ce qui a été reçu qui a été envoyé. S'il a reçu quelque chose différent de ce qui a été envoyé, il y a collision.
+
+#54
+
+
+#56 - QUESTIONS RAPPEL
+
+Q1
+---
+a) Pourquoi l'utilisation d'un canal dont l'accès par plusieurs sources est géré en mode Aloha est-elle limitée ? Indiquez cette limitation, indiquez un moyen d'augmenter l'utilisation.
+	L'utilisation est limitée car il va finir par y avoir des collisions. Limitation de **18%**. Le moyen d'augmenter l'utilisation à **36%** est d'utiliser **Slotted Aloha**.
+
+b) Quelle différence y a-t-il entre les méthodes Aloha et CSMA ? Y a t-il une limite d'utilisation pour une gestion en CSMA ?
+	
+
+Q2
+---
+Une application réalisée par un poste client et un poste serveur consomme en communication presque 100% de la bande passante d'un support partagé à 10Mbps. L'administrateur installe le poste serveur et le poste client sur un réseau Ethernet, qu'en pensez-vous ?
+	
+
+Q3
+---
+Soit deux stations qui émettent en même temps une trame de longueur L sur un canal de diffusion de débit C et tp le temps de propagation entre les deux stations, y aura-t-il une collision détectable matériellement si tp < L/C ?
+	
+
+Q4
+---
+Quelle est la probabilité qu'une station Ethernet choisisse une valeur = K après la 5ème collision ?
+
+

@@ -7,8 +7,34 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/premier.js"
+            "name": "iss 2",
+            "program": "${workspaceFolder}/iss_v2.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Iss",
+            "program": "${workspaceFolder}/iss.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Express",
+            "program": "${workspaceFolder}/test_express.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch prime cor",
+            "program": "${workspaceFolder}/prime_cor.js",
+            "console": "integratedTerminal"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch premier",
+            "program": "${workspaceFolder}/premier.js",
+            "console": "integratedTerminal"
         },
         {
             "type": "node",

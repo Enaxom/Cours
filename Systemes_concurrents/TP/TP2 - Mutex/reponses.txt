@@ -1,0 +1,15 @@
+TP2 - Mutex
+2App SN - Morgane CADEAU
+
+1 - La classe Peterson fournie dans l'archive propose une implémentation du protocole d'exclusion mutuelle de Peterson vu en cours. Vérifiez et complétez éventuellement cette implémentation.
+--------------------------------------------------------------------------------------------------
+	L'implémentation semblait correcte. Pourtant, à l'exécution, on voit que les deux threads sont bloqué et attendent l'autre. Ceci est du aux variables Peterson.demande et Peterson.tour qui ont une valeur différente pour chaque thread à cause du cache.
+	En ajoutant le mot clé volatile lors de la déclaration de ces variables, le problème est résolu et les threads voient la même valeur pour chaque variable.
+
+2 - L'ordre des deux premières affectations de la méthode entrer() (lignes 29 et 30 : Peterson.demande[id] = true; et Peterson.tour = di;) est-il important ? Pourquoi ?
+--------------------------------------------------------------------------------------------------
+	L'ordre des deux premières affectations de la méthode entrer() n'est pas important car il n'y a pas de lien entre demande[id] et tour. L'important est que ces deux affectations soient juste avant le while.
+
+3 - La classe java.util.concurrent.atomic.AtomicBoolean propose une implantation logicielle de primitives de type TestAndSet, CompareAndSwap...
+--------------------------------------------------------------------------------------------------
+	
