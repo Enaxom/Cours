@@ -1,39 +1,26 @@
 const express = require('express')
 const app = express()
-const url = require('url')
-const bodyParser = require('body-parser')
 const axios = require('axios')
 
-let promiseAstros = new Promise(function (resolve, reject) {
-	axios.get("http://api.open-notify.org/astros.json")
-		.then(function (response) {
-			resolve(response.data.people)
-		})
-		.catch(function(err) {
-			reject(err)
-		})
-})
-
-let promiseLoc = new Promise(function (resolve, reject) {
-	axios.get("http://api.open-notify.org/iss-now.json")
-		.then(function (response) {
-			resolve(response.data.iss_position)
-		})
-		.catch(function(err) {
-			reject(err)
-		})
-})
-
 app.get('/', function (request, response) {
+	let promiseAstros = axios.get('http://api.open-notify.org/astros.json')
+	let promiseLoc = axios.get('http://api.open-notify.org/iss-now.json')
+
 	Promise.all([promiseAstros, promiseLoc])
 		.then(function (values) {
+			let people = values[0].data.people
+			let location = values[1].data.iss_position
+
 			let toSend = "<b>Liste des astronautes sur l\'ISS:</b><br><br>"
-			values[0].forEach(element => {
-				toSend += element.name + "<br>"
+			toSend += '<table border="2">'
+
+			people.forEach(element => {
+				toSend += "<tr><td>" + element.name + "</td></tr>"
 			});
-			toSend += "<br><br><b>Position de l\'ISS:</b><br><br>"
-			toSend += `<u>Longitude:</u> ${values[1].longitude}<br>`
-			toSend += `<u>Latitude:</u> ${values[1].latitude}<br>`
+
+			toSend += "</table><br><br><b>Position de l\'ISS:</b><br><br>"
+			toSend += `<u>Longitude:</u> ${location.longitude}<br>`
+			toSend += `<u>Latitude:</u> ${location.latitude}<br>`
 			response.send(toSend)
 		})
 		.catch(function(err) {

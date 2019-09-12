@@ -1,6 +1,6 @@
-=========================================================================================
-============================ EVALUATION PERFORMANCES RÉSEAUX ============================
-=========================================================================================
+===============================================================================
+======================= EVALUATION PERFORMANCES RÉSEAUX =======================
+===============================================================================
 
 #2
 Evaluation de performance :
@@ -69,6 +69,45 @@ Nombre moyen de client dans le serveur correspond au taux d'occupation du serveu
 Taux d'occupation = probabilité qu'il soit occupé = 1 - P(est vide)
 
 Λ < 1/E[S]
+Débit de sortie de la file va être limité
+
+Slide 2
+File avec un seul serveur
+Taille de la salle d'attente pas limitée, file à capacité illimitée
+Paramètres importants
+	Caractérise les arrivées dans la file
+	Caractérise les sorties
+
+Sans mémoire
+	Si on a un évènement, l'élément qui va suivre ne prend pas compte des évènements précédents
+
+Chaque paquet va être émis sur un support
+Paquets qui arrivent traités dans l'ordre premier arrivé premier servi
+
+MM1
+	Memory less
+
+#10
+Processus qui va être caractérisé par le nombre de clients dans la file
+Infinité d'états dans la chaine de markov
+Probabilité d'arrivée en fonction de λ
+Départ qui va dépendre du taux de service
+Une fois qu'on construit la chaine, on retrouve les paramètres de performance
+A partir de la chaine, on va déduire les probabilités d'état
+
+Probabilité de l'état 0 = proportion de temps passé où la file est vide
+	1 - ρ (taux d'occupation de la file)
+
+Une fois qu'on a la probabilité d'état, on peut déduire le nombre de clients dans la file et on peut en déduire le temps de réponse
+
+On construit la chaine de markov
+On calcule les probas des états
+On calcule l'espérance des clients
+On calcule le temps moyen de réponse
+***VOIR FORMULES SUR COURS***
+
+File simple un seul serveur
+File multiple
 
 #Page 19 - Schéma
 T = 15
@@ -88,3 +127,120 @@ L = 29 (somme des temps) / 15
 pi 0 = 2/15
 ...
 
+#11
+Chaque serveur représente un appel. Quand le serveur est vide on n'a pas d'appel.
+On s'intéresse à la probabilité de rejet
+Quatrième élément MMCC -> capacité de la file
+	C1 nombre de serveurs
+	C2 nombre de place dans la file
+		La capacité de la file prend en compte le nombre de place libres
+
+On a C canaux donc on peut avoir de 0 à C appels en parallèle.
+Chaine de markov finie. On s'intéresse à la probabilité de bloquage.
+	Probabilité d'être dans l'état C
+	On rejette les appels quand on a C appels en cours
+	Formule d'Erlang-B
+		Charge rho
+		Capacité C
+
+
+Exercices - ref exo1.pdf
+------------------------
+
+## Modèle du dentiste
+
+Λ		Débit moyen Λ
+E[R]	Temps moyen de réponse
+E[W]	Temps moyen d'attente
+E[S]	Temps moyen de service
+E[L]	Espérance de longueur de la file d'attente
+E[Lw]	Nombre moyen de clients en train d'attendre
+E[Ls]	Nombre moyen de clients en train d'être servis
+U		Probabilité pour que le serveur soir occupé, taux d'utilisation du serveur
+
+1 - Relation entre E[R], E[S] et E[W]
+E[R] = E[W] + E[S]
+R = W + S
+
+2 - Relation entre E[L], E[Lw], E[Ls]
+E[L] = E[Lw] + E[Ls]
+
+3 - E[Ls] en fonction de U
+Taux d'occupation U probabilité que le serveur soit occupé
+E[Ls] = O x (1 - U) + 1 x U
+	0 ou 1 client en service
+E[Ls] = U
+
+4 - Montrer le passage entre 1 et 2. Trouver une relation entre U, Λ et E[S]
+E[L] = E[R].Λ
+	Loi de Little
+E[Lw] = E[W].Λ
+	Loi de Little appliquée à la salle d'attente.
+E[Ls] = E[S].Λ
+**U = E[S].Λ**
+
+5 - Nombre moyen patients 2,8
+	Nombre moyen patients dans la salle 2
+	Nombre moyen de clients arrivant en une heure 4
+	Déduire les autres critères de performances
+E[L] = 2,8
+E[Lw] = 2
+4 clients / h
+
+Temps de réponse
+	**E[R] = E[L] / Λ**
+		 = 2,8 / 4
+		 = 0,7h
+		 = 42 minutes
+Temps d'attente
+	**E[W] = E[Lw] / Λ**
+		 = 2 / 4
+		 = 0,5h
+		 = 30 minutes
+Taux d'occupation du dentiste
+	= 2,8 - 2 = 0,8
+	**U = E[Ls] = E[L] - E[Lw]**
+	  = 2,8 - 2
+	  = 0,8
+
+
+COURS - CHAINES DE MARKOV
+=========================
+
+#2
+Le changement de la variable va être sur un temps continu.
+On peut imaginer des variables discrètes avec un changement d'état discret (nombre entier).
+Niveau d'eau dans un barrage
+	var aléatoire continue
+Le temps peut être discret ou continu
+	Chaines de markov associées
+
+#3
+Chaine où on observe des états du système
+On va observer ce système dans le temps
+	Temps paramètre n
+
+Pour un état donné à l'instant n+1, on veut observer l'état de la variable en tenant compte des précédents états de cette variable.
+
+Chaine de markov à temps discret est une chaine où la transition d'un état à un autre ne dépend que du **présent**. 
+
+#4
+Si la probabilité de transition de l'état i et j entre les états n et n+1 ne dépend pas du temps, la chaine de Markov est homogène.
+
+#5
+Matrice de probabilité de transition entre les états
+Chaque matrice pij représente la probabilité de transition entre i et j
+πj(n) probabilité de l'état j à l'instant n
+Le vecteur de probabilité π
+	Distribution stationnaire
+
+#6
+Chaine avec deux états
+Matrice de transition qui représente les probabilités de transition des états
+Probabilité d'avoir un temps de séjour égal à 1 (on change d'état tout le temps)
+	0, 1 depuis 0
+Rester n fois dans l'état 0
+	0,9^n . 0,1
+
+Probabilité de se trouver dans l'état 0
+	

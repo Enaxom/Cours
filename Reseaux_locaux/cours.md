@@ -302,7 +302,11 @@ Si une station émet un 0 et l'autre un 1 : Celle qui émet le ° ne détecte pa
 Canal retour / Canal echo avec ce qui a été reçu qui a été envoyé. S'il a reçu quelque chose différent de ce qui a été envoyé, il y a collision.
 
 #54
+1 j'envoie rien
+0 différence de tension
 
+#55
+ref synthese1.png
 
 #56 - QUESTIONS RAPPEL
 
@@ -312,20 +316,104 @@ a) Pourquoi l'utilisation d'un canal dont l'accès par plusieurs sources est gé
 	L'utilisation est limitée car il va finir par y avoir des collisions. Limitation de **18%**. Le moyen d'augmenter l'utilisation à **36%** est d'utiliser **Slotted Aloha**.
 
 b) Quelle différence y a-t-il entre les méthodes Aloha et CSMA ? Y a t-il une limite d'utilisation pour une gestion en CSMA ?
-	
+	Différence dans synthèse. Oui puisqu'il y a des collisions (entre 30% et 70% de l'utilisation globale).
 
 Q2
 ---
 Une application réalisée par un poste client et un poste serveur consomme en communication presque 100% de la bande passante d'un support partagé à 10Mbps. L'administrateur installe le poste serveur et le poste client sur un réseau Ethernet, qu'en pensez-vous ?
-	
+	C'est une mauvaise idée car l'utilisation sera limitée et il y aura donc inévitablement des collisions.
 
 Q3
 ---
 Soit deux stations qui émettent en même temps une trame de longueur L sur un canal de diffusion de débit C et tp le temps de propagation entre les deux stations, y aura-t-il une collision détectable matériellement si tp < L/C ?
-	
+	Détection collision
+	temps max 2tp < L/C
+	On sait que tp < L/C
+	On peut pas savoir si 2tp < L/C
 
 Q4
 ---
 Quelle est la probabilité qu'une station Ethernet choisisse une valeur = K après la 5ème collision ?
+	Voir slide 43
+	2^5 - 1 = 31
+	k = 1/31
+
+#57
+Les méthodes sans collisions
+Synchronisation centrale
+	Il y a un point central qui est chargé de distribuer des intervalles de temps, mais pas du polling qui donne la parole, c'est les machines qui disent ce qu'elles veulent.
+	Chaque machine demande et le point central distribue.
+
+#59
+Envoi de requête sans collision
+	Méthode de multiplexage statique avec canal spécifique
+	Méthode par polling
+Avec collision
+	CSMA/CA
+
+#60
+Dans le sens descendant, il n'y a pas de collision car il est tout seul à émettre
+Fréquences séparées avec le sens montant, pas de collision
+
+#61
+Méthode jeton
+	Problème de complexité, complexe de l'implanter
+
+#62
+Timer associé pour pas que quelqu'un garde le jeton trop longtemps
+
+#63
+Si le temps d'émission est très grand devant le temps de propagation et le temps de latence
+	La méthode qui a été normalisée est celle de #62
+	On commence à récupérer avant d'émettre
+
+#65
+Contraintes physique
+	Si trop longue distance, pas d'écoute
+Contraintes de qualité de service liées au trafic
+	Types d'application différente
+
+#66
+Deux classes de trafic
+Trafic avec garantie (délai, débit, perte)
+	
+Trafic sans garantie
 
 
+NORMALISATION ET MODÉLISATION DES MÉTHODES D'ACCÈS
+--------------------------------------------------
+
+#4
+Modélisation
+	On veut standardiser en définissant un modèle et ses composants vont être standardisés
+	Modèle fonctionnel, on va définir toutes les fonctions qu'il y a dans le réseau local
+	Modélisation hiérarchique
+
+#5
+3 niveaux
+	Echange de trames
+		Trame par trame, on vérifie si le support est libre
+	Accès au support
+		Méthode MAC : Medium Access Control
+	Transmission sur le support
+		Transmission sous forme de 0 et de 1 sur le support
+
+#6
+Toutes les versions d'éthernet n'utilisent pas le protocole
+Versions d'ethernet sans méthode d'accès quand ils ne partagent plus le support. 
+
+#9
+On part d'un paquet IP
+Paquet géré par le SE
+Transmis à la carte de communication
+	Carte a les trois niveaux
+Le premier niveau ajoute le SAP -> 06 parce qu'il s'agit d'IP
+Ajout des adresses MAC src et dest
+	adresses réseau local
+On ajoute des infos à la fin (ex CRC SFD)
+Une fois fini, transmission physiquement sur le support
+
+L'architecture fonctionne par encapsulation. Fait que chaque niveau ajoute des informations au niveau d'avant.
+
+#10 
+Echanges en réseau local se font de station paire en station paire (parité, sont pareil)
