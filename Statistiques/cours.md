@@ -213,4 +213,47 @@ Notion de modes maximum (local) de la distribution
 	-> distributions
 		monomodale : une bosse sur la courbe
 		binodales
- 
+
+**S5 - Estimation "Plus lisse" d'une densité de probabilité**
+-------------------------------------------------------------
+
+Une var Y et ses réalisations y ∈ R
+On choisit 8 intervalles, des "bins" de largeur b = 1/2
+
+Type de question
+	L'allure d'un n-échantillon, on peut faire une représentation où on concentre les valeurs pour montrer qu'elles sont plutot petites ou grandes
+
+La somme des fréquences relatives est la sommes des ni/n donc 1
+Unité de représentation de l'histogramme qui est la fréquence relative
+
+On veut que l'aire sous la courbe s'intègre à 1
+On estime la densité de probabilité ^f avec une méthode à base d'histogramme.
+Le tracé de l'histogramme est l'estimation de la densité de la probabilité
+Sous la courbe on a 16 carreaux x 1/16 et c'est bien 1 donc ça marche. 
+
+Le calcule de l'ordonnée
+1/8 car puisqu'il faut que l'intégralle sous la courbe soit 1 et que sous de 0 à 0,5 ça doit être 1/16 il faut que quand on multiplie la base 0,5 x la hauteur ça doit faire 1/16 donc 1/8 x 1/2 = 1/16.
+
+f chapeau
+	Sur la courbe verte de l'histogramme on peut lire la vraissemblance de la valeur. Vraissemblance =/= probabilité. La vraissemblance que y0 se réalise est égale à la vraissemblance que 1,75 se réalise.
+	Ca permet de savoir si une valeur pourrait se réaliser.
+
+Distribution bimodale
+	Un maximum locale
+	Maximum de densité
+	Permet de faire des suppositions pour l'avenir
+
+Une formulation plus mathématique du calcul de l'histogramme
+f^hist (y) = densité en y / vraissemblance de y
+
+∫f^(y) dy = 1/2 x 1/8 + 1/2 x 2/8 ... = 1
+
+Une formule qui traduit le tracé de l'histogramme
+Sélectionner les réalisations appartenant au bin, les compter, diviser par la taille de l'échantillon N, diviser par la largeur b du bin.
+
+Fonction indicatrice d'une intervalle
+Pour tout y qui appartient à l'intervalle -> 1, sinon 0.
+K(y) = 1 (avec deux barres) (y)
+
+Exprimer le noyau, la fenêtre qu'on doit utiliser avec K(yi-y / b)
+vidéo kernel 

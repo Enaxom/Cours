@@ -170,4 +170,89 @@ Cohérence mémoire
 	Charge des valeurs dans son cache. Invalidation de y est arrivé mais pas x -> incohérence.
 
 #8
+Exclusion mutuelle : éviter que plusieurs processus exécutent le même code quand c'est une section critique.
+Avant d'entrer en section critique, on va avoir un protocole qui permet de s'assurer qu'il n'y a qu'un processus qui rentre -> protocole d'entrée.
+Protocole de sortie utilisé par un processus qui termine sa SC pour indiquer aux autres qu'il a terminé. 
+Permet de modéliser plusieurs demandes d'un même processus.
+
+Etat des processus
+	en attente de la section critique
+	en section critique
+	hors section critique
+
+∀i, j ∈ 1..N
+	en_SCi => ∀j ≠ i ¬en_SCj
+
+□∀i, j ¬(en_SCi ^ en_SCj ^ i ≠ j)
+	□ = ça doit être toujours vrai
+
+#9
+Propriété de vivacité -> quelque chose de bien finit par se produire.
+	Tout processus, quand il est rentré en section critique, finit par en sortir
+
+∀i attend_SCi => ◊ in_SCi
+	◊ = eventually
+	≡ ∀i attend_SCi eventually leads to in_SCi
+
+#11
+Solutions pour garantir l'exclusion mutuelle
+
+2 processus qui accèdent à une section critique, on veut pas qu'ils les exécutent les sc en même temps
+
+P1
+	while(in_sc != false) {}
+	in_sc = true
+	sc
+	in_sc = false
+P2
+	while(in_sc != false) {}
+	in_sc = true
+	sc
+	in_sc = false
+
+#12
+Solution du protocole ci-dessus
+
+#13
+P1 peut rester bloquer si P0 ne va jamais à sa section critique
+
+#14
+Risque d'attente infinie si i et j mettent demande à vrai
+
+#15
+Algorithme de Peterson fonctionnel pour l'exclusion mutuelle
+Le tour départage deux processus qui seraient bloqués en même temps
+
+sûreté
+pi et pj jamais simultanément en sc
+
+pi en SC
+tour ≠ j -> Pj à la ligne tour <- i ou après, reste bloqué dans son while
+et
+!demande[i] -> Impossible pour Pj de passer en section critique
+
+Donc impossible que Pi / Pj soit bloqué à l'entrée de la section critique
+
+#16
+L'ordre des deux premières instructions du protocole d'entrée
+
+#17
+Sureté
+	Arguments de tickets uniques donc il n'y a pas deux processus qui ont le même indice. File d'attente et ils passent un par un.
+Autorise des lectures et écriture non atomiques
+
+#18
+Opération qui fait en même temps un test et va écrire cette valeur et renvoie l'ancienne valeur du booléen.
+
+#19
+Un seul processus à la fois qui peut faire TestAndSet car atomique
+On a la sûreté
+Mais il n'est pas vivace
+
+#20
+Tour afficheur
+Ticket distributeur de numéro
+Vivace
+
+#21
 
