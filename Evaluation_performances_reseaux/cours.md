@@ -243,4 +243,67 @@ Rester n fois dans l'état 0
 	0,9^n . 0,1
 
 Probabilité de se trouver dans l'état 0
-	
+	Plus tard - De retour après #11
+	π = π.P
+	(π(0), π(1)) = (π(0), π(1)) . (0,9  0,1)
+								  (0,2  0,8)
+	π(0) = π(0) x 0,9 + π(1) x 0,2
+	π(1) = π(1) x 0,1 + π(1) x 0,8
+
+2ème méthode de descoupes
+*ref 1.png*
+π(0) x 0,1 = π(1) x 0,2
+π(0) + π(1) = 1
+π(0) x 0,1 = (1 - π(0)) x 0,2
+π(0) x 0,8 = 0,2 => **π(0) = 2/3 ; π(1) = 1/3**
+
+Temps moyen de retour à l'état 0
+	M(0) = 1/π(0) = 3/2
+
+
+#7
+π(n) = π(0)Pn
+Chaîne de Markov **irréductible** : tout état peut être atteint de n'importe quel état. -> fortement connexe
+
+#8
+Calculer le temps de retour d'un état. Si on part d'un état, on veut calculer la probabilité de retour à l'état
+Graphe de #6
+	Probabilité de retour de 0 = 0,02
+
+Probabilité de retour à l'état j en n transitions.
+Si la probabilité est égale à 1, c'est un état **récurrent**.
+Sinon, l'état est **transitoire**.
+
+Si le nombre de transition est infini
+	**Récurrent nul**
+Sinon
+	**Récurrent non nul**
+
+#9
+Périodicité des états de #6
+	Si on enlève les boucles, les états sont périodiques
+
+Valide pour un processus avec un ordre d'état fini
+
+#10
+**Ergodicité**
+	Etat ergodique s'il est récurrent non nul, si sa probabilité d'état est non nulle.
+
+#11
+π = πP
+	Le vecteur de probabilité d'état π à l'instant n + 1 = π(n) x P
+
+Probabilité de chaque état = 1 - probabilité de retour à chaque état
+
+
+Exercices - ref exo2.pdf
+------------------------
+
+## Chaînes de Markov à temps discret
+
+#2.1
+
+1 -> 2 : 1 - p
+1 -> 3 : p
+2 -> 1 : 1
+

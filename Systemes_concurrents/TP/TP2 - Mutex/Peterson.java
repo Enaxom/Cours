@@ -14,8 +14,8 @@ public class Peterson {
 class Proc implements Runnable {
 	int id, di;
 	public void run() {
-	id =  Integer.parseInt(Thread.currentThread().getName());
-	di = (id+1) % 2;
+		id =  Integer.parseInt(Thread.currentThread().getName());
+		di = (id+1) % 2;
 		for ( ; ; ) {
 			System.out.println("Thread " + id + " attend SC " + di);
 			entrer();

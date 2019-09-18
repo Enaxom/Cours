@@ -108,5 +108,105 @@ Les outils de RO - AD
 DÉBUT COURS
 -----------
 
-#4
+Modéliser c'est mettre le problème sous une forme particulière
+
+##Exercice
+
+L
+	100 en 6h -> 360min
+S
+	100 en 5h -> 300min
+
+600h / semaine - 3600min
+Voitures garées chaque semaine 
+
+Mieux si on prend QteL = 1000L
+
+**Variables**
+	QteL -> Nombre de voitures L à produire en 1 semaine
+	QteS -> Nombre de voitures S à produire en 1 semaine
+
+**Fonction-objectif**
+	Maximiser 10000.QteL + 9000.QteS
+
+**Contraintes**
+	QteL/100.6 + QteS/100.5 <= 60
+	10.QteL + 20.QteS <= 15000
+	QteL <= 800
+
+**Domaine de définition**
+	QteL ∈ N
+	QteS ∈ N
+
+
+#9
+Les solveurs demandent deux types de formes
+	Forme Standard
+	Forme Canonique
+
+Si le problème n'a pas la bonne forme, exemple avec x dans R, il faut faire une transformation.
+
+Passer de
+	Min -> Max : * -1
+	Max -> Min : * -1
+	<= -> = : Rajouter une variable d'écart
+		6.QteL / 100 + 5.QteS / 100 <= 60
+		6.QteL / 100 + 5.QteS / 100 + x1 = 60
+			x1 >= 0
+	>= -> = : Soustraire une variable d'écart
+		5x + 8y >= 15
+		5x + 8y - z = 15
+			z >= 0
+	A = B <=> A <= B et B <= A
+	<= -> >= : * -1
+	x1 ∈ R -> x >= 0
+		Max x1+x2 >= -1
+		3x1 + 2x2 <= 5
+		x1 ∈ R
+			x1 -> x3 - x4
+			Max(x3 - x4) + x2
+			2(x3 - x4) + x2 >= -1
+			3(x3 - x4) + 2x2 <= 5
+
+Max 50x + 70y
+	40x + 12y <= 360
+	20x + 30y <= 480
+	x, y ∈ ℝ+
+
+#11
+ref feuille - refaire feuille graph
+Points sur la droite représentent les points qui respectent l'égalité stricte.
+Les points qui satisfient la contrainte <= sont les points sous la courbe
+
+On parle de **Polyèdre** -> Convexe
+	Intersection de demi plan dimmension 2
+	ax <= b
+
+Un ensemble E est convexe si
+	∀i, j ∈ E
+	∀λ >= 0, λ <= 1
+	λi + (1 - λ)j ∈ E
+
+Convexe -> si on trace une droite entre 2 points, les points de la droite font parti de l'ensmeble
+Solution optimale = point extremum (sur la courbe)
+
+#13
+Fonction objectif
+
+#14
+S'il exite une solution optimale, la solution est forcément un point extremum.
+Si le polyèdre est vide, pas de solution.
+
+
+#15
+Fonction optimale forcément aux limites
+
+#16
+Optimal local = optimal global, pas vrai tout le temps
+
+Limites
+Additive
+	Il faut que la conséquence soit la somme des conséquences, pas d'effet multiplicateur
+	Proportionnalité au niveau des conséquences des décisions
+
 
