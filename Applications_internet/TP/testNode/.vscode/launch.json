@@ -4,6 +4,31 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "app",
+			"program": "${workspaceFolder}/rest/app.js"
+		},
+
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "userREST",
+			"program": "${workspaceFolder}/userREST.js"
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "auth",
+			"program": "${workspaceFolder}/auth.js"
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "testMW",
+			"program": "${workspaceFolder}/testMW.js"
+		},
         {
             "type": "node",
             "request": "launch",

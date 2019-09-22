@@ -257,3 +257,9 @@ K(y) = 1 (avec deux barres) (y)
 
 Exprimer le noyau, la fenêtre qu'on doit utiliser avec K(yi-y / b)
 vidéo kernel 
+
+
+**S6 - Statistiques descriptives à deux dimensions**
+----------------------------------------------------
+
+X est petit Y = 1

@@ -306,4 +306,33 @@ Exercices - ref exo2.pdf
 1 -> 2 : 1 - p
 1 -> 3 : p
 2 -> 1 : 1
+Voir feuille
 
+Exercices - ref exo1.pdf
+------------------------
+
+## Temps d'attente d'un train
+Voir feuille
+
+
+#12
+On observe l'état à chaque instant en se plaçant à des instants en particulier, chaque fois qu'il y a une arrivée ou un départ
+Probabilité de transition entre in et j va être indépendante du passée. Dépendante du passé que par l'état in
+
+#13
+Chaîne de markov à temps continu homogène si les probabilités de transition sont les mêmes quelque soit le temps
+Probabilité de transition entre état indépendante du temps
+
+Calcul du temps de séjour dans un état
+	Représenté par une loi sans mémoire -> loi exponnentielle
+
+#14
+Calcul des probabilités de transition entre états
+Temps continu
+Prendre un intervalle de temps des t utile de façon à ce qu'il y ait plus d'un changement d'état dans l'intervalle
+	Intervalle infinitésimal
+
+Quantité représente un taux, un débit
+Dans un cas temps continu, on mesure un intervalle petit, les arrivées durant cet intervalle et on obtient un débit
+
+Débit permet de représenter le taux de transition entre états

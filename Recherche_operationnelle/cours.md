@@ -174,7 +174,7 @@ Max 50x + 70y
 	x, y ∈ ℝ+
 
 #11
-ref feuille - refaire feuille graph
+*voir feuille 1-2*
 Points sur la droite représentent les points qui respectent l'égalité stricte.
 Les points qui satisfient la contrainte <= sont les points sous la courbe
 

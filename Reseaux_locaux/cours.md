@@ -417,3 +417,53 @@ L'architecture fonctionne par encapsulation. Fait que chaque niveau ajoute des i
 
 #10 
 Echanges en réseau local se font de station paire en station paire (parité, sont pareil)
+
+#12
+RAN réseau régional
+
+#13
+Virtualisation VLAN
+
+**802.3 -> CSMA/CD**
+
+#17
+Mécanisme de surveillance
+Trame active qui s'envoie toutes les x secondes
+
+#19
+SD		Starting Delimiter (1 octet)
+AC		Access Control (1 octet)
+	PPP	3 bits de priorité
+	T	(tocken), 1 si c'est une trame car jeton utilisé
+	M	contrôle de coût
+	RRR	3 bits pour modifier la priorité
+ED		End Delimiter (1 octet)
+
+Un tocken se transforme en trame, une trame peut se transformer en abort
+
+#20
+
+Mécanismes de surveillance et de réparation de panne
+	Méthode centralisée
+
+Monitaire actif a la position binaire M qui est dans le jeton et dans la trame de donnée
+Automate opérationnel s'occupe d'avoir accès à un jeton
+Automate moniteur passif qui observe
+
+Détection de panne de moniteur avec le bit M = 0
+S'il détecte une panne, il récupère ce qu'il y a dans la boucle et regénère un jeton
+
+#21
+Principe de recevoir des informations des voisins et si leur information est bonne, elle est transmise. Sinon, on ne dit rien.
+On va chercher l'id le plus petit de moniteur.
+
+#22
+Intérêt topologie de boucle : fiabilité de fonctionnement
+Utilisation de deux boucles et redondance pour que s'il y a une panne, le réseau continue à fonctionner
+Si ça tombe en panne, on ferme l'anneau à l'endroit où il y a une panne et ça fait un C
+
+#23
+Méthode d'association pour que les stations connaissent le point d'accès
+
+#25
+

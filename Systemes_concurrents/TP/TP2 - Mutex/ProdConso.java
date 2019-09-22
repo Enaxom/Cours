@@ -1,7 +1,7 @@
 // v0, 16/10/15 (PM)
 
-class TamponBorné	
-/* TamponBorné<Item> serait clairement mieux, mais, pour simplifier la mise en œuvre 
+class TamponBorne	
+/* TamponBorne<Item> serait clairement mieux, mais, pour simplifier la mise en œuvre 
  * du test, on se limite ici à un tampon d'entiers. 
  * Les modifications à apporter pour avoir une classe générique (qui ne comprendrait pas 
  * le code de test) sont indiquées en commentaire
@@ -18,17 +18,20 @@ class TamponBorné
 
 	private int[] tampon; // private Item[] tampon;
 
-	public TamponBorné(int t) {
+	public TamponBorne(int t) {
 		taille = t;
 		tampon = new int [taille]; // tampon = (Item[]) new Object[taille];
 	}
 
-//*** A compléter		
-	public void déposer() {	// deposer(Item i)
+// La méthode deposer() doit utiliser le mot clé synchronized pour éviter que deux threads déposent en même temps
+// Un thread ne doit pas déposer si un autre est en train de retirer
+	public synchronized void deposer() {	// deposer(Item i)
 							// pour le test, les valeurs déposées sont prédéfinies
-							
-//*** A compléter		
-//***
+		
+		// Attente tant que le tampon est plein
+		while (nbOccupé == taille) {
+			try { this.wait(); } catch (Exception e) {}
+		}
 		
 		// dépôt 
 		tampon[queue] = trace++; 			// tampon[queue] = i;
@@ -39,18 +42,20 @@ class TamponBorné
 		String msg="P : "+(trace-1);	
 		if (nbOccupé == taille) msg=msg+ " (PLEIN)";
 		System.out.println(msg);
-		
-//*** A compléter		
-//***
 
+		// notify() pour réveiller un consommateur endormi
+		this.notify();
 	}
 	
-//*** A compléter		
-	public int retirer() {	// Item remove()
+// La méthode retirer() doit utiliser le mot clé synchronized pour éviter que deux threads retirent en même temps
+// Un thread ne doit pas retirer si un autre est en train de déposer
+	public synchronized int retirer() {	// Item remove()
 		int i;							// Item i
 		
-//*** A compléter		
-//***
+		// Attente tant que le tampon est vide
+		while(nbOccupé == 0) {
+			try { this.wait(); } catch (Exception e) {}
+		}
 
 		// retrait
 		i = tampon[tête];
@@ -61,9 +66,9 @@ class TamponBorné
 		String msg="C : "+i;	
 		if (nbOccupé == 0) msg=msg+ " (VIDE)";
 		System.out.println(msg);
-		
-//*** A compléter		
-//***
+
+		// notify() pour réveiller un producteur endormi
+		this.notify();
 		return i;
 	}
 
@@ -72,59 +77,59 @@ class TamponBorné
 //--------------------------------------inutile de modifier ce qui suit ------------------
 
 class Producteur implements Runnable {
-    private TamponBorné tampon;
-    public Producteur(TamponBorné t) { 
-    	tampon = t; 
-    }
+	private TamponBorne tampon;
+	public Producteur(TamponBorne t) { 
+		tampon = t; 
+	}
 	public void run() {
-	 try {
-		Thread.sleep(10) ; // pour le test : initialement, les consommateurs trouveront tous un tampon vide
-		for (int i = 0; i < 25; i++) { 
-		// possible de trouver des producteurs bloqués à la fin, selon le nb de consommateurs
-		       tampon.déposer();
-		       Thread.sleep(2*i); //producteurs ralentissent un peu
-       }
-     } catch (InterruptedException e) { System.out.println("interrompu"); }
-    }
+		try {
+			Thread.sleep(10) ; // pour le test : initialement, les consommateurs trouveront tous un tampon vide
+			for (int i = 0; i < 25; i++) { 
+			// possible de trouver des producteurs bloqués à la fin, selon le nb de consommateurs
+				tampon.deposer();
+				Thread.sleep(2*i); //producteurs ralentissent un peu
+			}
+		} catch (InterruptedException e) { System.out.println("interrompu"); }
+	}
 }
 
 class Consommateur implements Runnable {
-    private TamponBorné tampon;
-    private int identité;
-	public Consommateur(TamponBorné t) { 
-    	tampon = t; 
-    }
-    public void run() {
-        int res;
-        for (int i = 0; i < 25; i++) {
+	private TamponBorne tampon;
+	private int identité;
+	public Consommateur(TamponBorne t) { 
+		tampon = t; 
+	}
+	public void run() {
+		int res;
+		for (int i = 0; i < 25; i++) {
 		// possible de trouver des consommateurs bloqués à la fin, selon le nb de producteurs
-            res = tampon.retirer();
-            try {
-            	Thread.sleep(10*i); //consommateurs ralentissent davantage
-            } catch (InterruptedException e) { System.out.println("interrompu"); }
-        }
-    }
+			res = tampon.retirer();
+			try {
+				Thread.sleep(10*i); //consommateurs ralentissent davantage
+			} catch (InterruptedException e) { System.out.println("interrompu"); }
+		}
+	}
 }
 
 public class ProdConso {
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 		int nbProd = 5;
 		int nbConso = 10;
 		int tailleTampon = 10;
-    	//aucun blindage : on suppose que les valeurs de paramètres fournies sont raisonnables
-        if (args.length != 3) {
-            System.out.println("java ProdConso <nbProd> <nbConso> <nbCases>");
-            System.out.println("-> choix par défaut : "+nbProd+"/"+nbConso+"/"+tailleTampon);
-        } else {
-            nbProd = Integer.parseInt (args[0]);
-            nbConso = Integer.parseInt (args[1]);
-            tailleTampon = Integer.parseInt (args[2]);
-        }
+		//aucun blindage : on suppose que les valeurs de paramètres fournies sont raisonnables
+		if (args.length != 3) {
+			System.out.println("java ProdConso <nbProd> <nbConso> <nbCases>");
+			System.out.println("-> choix par défaut : "+nbProd+"/"+nbConso+"/"+tailleTampon);
+		} else {
+			nbProd = Integer.parseInt (args[0]);
+			nbConso = Integer.parseInt (args[1]);
+			tailleTampon = Integer.parseInt (args[2]);
+		}
 		System.out.println("nbProd (arg1) : " + nbProd + " /nbConso (arg2) : " + nbConso 
 							+ " /nbCases) (arg3) : "+ tailleTampon);
-        TamponBorné t = new TamponBorné(tailleTampon);
-        for (int i = 0; i < nbProd; i++) { new Thread(new Producteur(t)).start() ;}
-        for (int i = 0; i < nbConso; i++) { new Thread(new Consommateur(t)).start() ;}
-        //ajouter éventuellement un thread pour gérer l'arrêt et une prise de cliché finale
-    }
+		TamponBorne t = new TamponBorne(tailleTampon);
+		for (int i = 0; i < nbProd; i++) { new Thread(new Producteur(t)).start() ;}
+		for (int i = 0; i < nbConso; i++) { new Thread(new Consommateur(t)).start() ;}
+		//ajouter éventuellement un thread pour gérer l'arrêt et une prise de cliché finale
+	}
 }
