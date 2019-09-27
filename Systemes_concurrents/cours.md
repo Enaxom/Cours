@@ -2,7 +2,7 @@
 ================================ SYSTEMES CONCURRENTS ================================
 ======================================================================================
 
-INTRODUCTION
+**INTRODUCTION**
 --------------------------------------------------
 
 Besoin d'outils pour écrire des programmes parallèles
@@ -148,7 +148,7 @@ Pour être sûrs que les processeurs travaillent sur la même valeur, on envoie 
 Possible de ne pas utiliser le cache à cause de problèmes de cohérence. 
 
 
-PROTOCOLES D'EXCLUSION MUTUELLE
+**PROTOCOLES D'EXCLUSION MUTUELLE**
 --------------------------------------------------
 
 #5
@@ -275,7 +275,7 @@ Problème
 	Les codes du haut et du bas sont des sections critiques et on aurait du les protéger
 	On a besoin aux << >> de parenthéser par un accès à un protocole d'entrée et de sortie d'exclusion mutuelle
 
-SÉMAPHORES
+**SÉMAPHORES**
 --------------------------------------------------
 
 #5
@@ -406,5 +406,284 @@ Temps réel dur
 	S'assurer que l'ordonnancement permette que chaque tâche rencontre ses échéances
 	Un processus peu prioritaire qui a obtenu le passé du sémaphore peut bloquer des processus plus prioritaires
 Temps réel mou
+
+
+**INTERBLOCAGE**
+--------------------------------------------------
+
+Problèmes qui se posent quand plusieurs processus sont en compétition pour plusieurs ressources et non une seule
+
+#5
+Processus vont prendre dans un tas de ressource
+Opération demander où un processus peut demander un certain nombre de ressources
+Peut libérer tout ou une partie des ressources attribuées
+
+#6
+Propriété de sûreté
+	Garanti qu'il n'y a pas d'interblocage
+
+Deux types de vivacité
+	Vivacité faible
+		Si on a un groupe de processus en attente d'une ressource, c'est bien si un des processus est servi
+	Vivacité forte
+		Processus servi au bout d'un moment (progression individuelle)
+
+**Famine**
+	Processus en famine quand sa requête n'est jamais satisfaite
+	Famine = ¬ vivacité forte
+
+#8
+Non réquisitionnables
+	On ne peut pas reprendre une ressource allouée à un processus avant qu'il ne la libère
+Non partageables
+	Allouer une ressource pour un processus et un seul
+Pas de dépendance entre une demande et une autre demande
+
+Problème
+	Instant 4 P1 bloqué car demande B et B alloué à P2
+	Attent que P2 libère B
+	Mais vu que P2 demande A P2 ne libère pas B
+
+#9
+Interblocage si ensemble de processus où chaque processus est en attente d'une ressource qui a été allouée à un autre processus de l'ensemble
+
+Famine = ¬ vivacité forte
+Interblocage ≡ ¬ vivacité faible
+Vivacité forte => vivacité faible
+Absence de famine => Absence d'interblocage
+Interblocage => Famine
+
+#10
+Situation d'interblocage lorsqu'un ensemble de processus est pris dans un cycle
+
+Prévention
+	Eviter que des cycles se forment dans le graphe
+Guérison
+	Tuer le processus pour récupérer les ressources et casser le cycle
+
+#12
+P -> A
+	P demande A
+P <- A
+	P possède A
+
+Empêcher qu'il y ait des arcs sortant du processus (demande de ressource)
+Quand un processus demande une ressource, il l'obtient tout de suite
+Opération qui renvoie faux en cas de bloquage
+S'il y a un cycle, tout processus a au moins un arc entrant et un arc sortant
+
+#13
+Empêcher qu'un processus ait des arcs entrant et sortant
+	Processus soit en attente des ressources soit les a obtenues toutes
+	Processus demande l'ensemble de ses ressources et tant qu'on ne peut pas le servir on lui en donne aucune
+	Donc jamais arcs sortants et entrant simultanément
+
+Pas de cycle donc pas d'interblocage
+	**Allocation globale**
+
+Toute ressource allouée finit toujours par être libérée
+
+## Inconvénients
+
+1. Statique et suppose qu'un processus à l'avance connait l'ensemble des ressources dont il a besoin
+	Donc processus demandent plus que ce qu'ils ont réellement besoin -> surréservation
+2. Risque de famine
+
+Infinité de processus P1 P2 P3 P4 .. P∞
+3 ressources A B C
+Scénario avec famine pour P1
+P2 <- A  | P2 obtient A
+P1 -> A,B,C
+P3 <- B
+P2 libère A
+P4 <- A
+P3 libère B
+P5 <- B
+P4 libère A
+P6 <- A
+
+#14
+Empêcher la formation de cycle
+Empêcher qu'il y ait à la fois des arcs entrant et sortant
+
+Si P1 est bloqué sur la ressource C, il doit libérer A et B et redemander A B C
+Garanti qu'il ne peut pas y avoir d'interblocage
+
+N'impose pas de savoir en avance les ressources à utiliser
+Risque de famine dès le moment où on est en attente d'une ressource si une ressource est toujours prise
+
+#15
+Ordre sur les ressources
+Un processus doit demander les ressources en respectant l'ordre établi
+Pas de cycle possible
+	S'il y a des arcs entrant dans le processus, c'est des arcs qui impliquent de plus petits numéros que les ressources qu'on attent
+	Pour cycle il faudrait qu'un processus soit en attente d'une ressource plus petite que celle déjà obtenue -> ne respecte pas l'ordre de prise de ressource
+
+#16 - TD : Philosophes et spaghetti
+Situation où il peut y avoir interblocage
+
+Contrainte: pour manger un philosophe doit utiliser
+	fourchette de gauche
+	fourchette de droite
+1 assiette par philosophe
+Assurer l'accès exclusif aux fourchettes
+
+Philosophe i, i ∈ [0..N-1]
+Semaphore fourchettes[N] = new Semaphore(1)[]
+Boolean libre[N]
+Semaphore mutex = new Semaphore(1)
+
+while true
+	Boolean continue = true
+	penser(i)
+	while continue
+		mutex.P
+		fourchettes[i].P
+		libre[i] = false
+		if (libre[(i+1)%N]]) {
+			fourchettes[(i+1)%N].P
+			libre[(i+1)%N]] = false
+			continue = false
+		} else {
+			fourchettes[i].V
+			libre[i] = true
+		}
+		mutex.V
+	manger(i)
+	mutex.P
+	fourchettes[i].V
+	fourchettes[(i+1)%N].V
+	mutex.V
+
+repeter
+	penser(i)
+	F[i].P()
+	F[i-1].P()
+	manger(i)
+	F[i].V()
+	F[i-1].V()
+Interblocage si ils prennent une fourchette chacun
+
+1. Assymétrie entre philosophes
+2. Prise de fourchettes en bloc
+3. Prise de fourchettes non bloquante
+4. Limiter le nombre d'accès (table)
+
+table = new Semaphore(N-1)
+repeter
+	penser(i)
+	table.P()
+	F[i].P()
+	F[i-1].P()
+	manger(i)
+	F[i].V()
+	F[i-1].V()
+	table.V()
+
+repeter
+	penser(i)
+	if i != 0
+		F[i].P()
+		F[i-1].P()
+	else
+		F[i-1].P()
+		F[i].P()
+	manger(i)
+	F[i].V()
+	F[i-1].V()
+
+table = new Semaphore(N-1)
+repeter
+	penser(i)
+	table.P()
+	F[i].P()
+	F[i-1].P()
+	table.V()
+	manger(i)
+	F[i].V()
+	F[i-1].V()
+
+les2[i] = false
+tant qie les2[i] faire
+	F[i].P()
+	si non F[i-1].tryP()
+		F[i].V()
+	sinon
+		les2[i] = vrai
+	fsi
+ftq
+
+## Inconvénient
+Possibilité de situations où un philosophe mange et N-1 attendent
+Classes ordonnées philosophe trop rapide autres arrivent en même temps
+
+Proposer une solution "optimale" dans le sens où un philosophe qui a faim et dont les voisins ne mangent pas peut manger sans attendre
+
+etat.tableau[0..N-1] de (pense, faim, mange) = (pense, ...pense)
+semPhi tableau[0..N-1] de new Semaphore(0)
+
+peut_manger(i:0..N-1)
+	
+
+repeter
+	penser()
+	si !peut_manger(i) alors
+		// Attendre que le philosophe i puisse manger
+		semPhi[i].P()
+	fsi
+	manger()
+	si peut_manger(i+1) alors
+		semPhi[i+1].V()
+	fsi
+	si peut_manger(i-1) alors
+		semPhi[i-1].V()
+	fsi
+sans fin
+
+#18
+Regarder si la demande courante introduit un risque d'interblocage
+Dans le pire des cas, il faut être capable de servir tous les processus qui ont demandé des ressources
+
+#19
+P1 demande 1 ressource en plus
+On regarde si ça passe dans le pire scénario avec 6 **4** 2
+Après situation ou P1 a terminé et on peut servir le maximum de P0
+Une fois que P0 est servi et a rendu ses ressources, il reste assez pour servir le max de P2
+
+Si P2 demande une ressource au début pas possible car max P0 trop grand, max P2 trop grand
+Après vu que P2 est incrémenté pas de combinaison possible pour donner le max à tout le monde
+
+Développer un arbre avec tous les scénarios possibles et changer de branche en cas d'échec
+
+#23
+Algorithme de détection
+	Pas de contrainte à l'exécution et regarder s'il y a interblocage détecter les cycles
+	Algo coûteux
+
+Guérison
+	Défaire la victime puis mort des processus interbloqués
+	Perte du travail du processus
+	Pas toujours possible
+
+S'il y a beaucoup d'interblocage
+	Perte de beaucoup de processus et de travail
+
+#25
+L'interblocage -> situation peu fréquente
+	Laissé à l'utilisateur
+	Coût de la prise en charge > coût de l'inconvénient
+
+Système ouvert contraints par le temps
+	Exigence sur temps de réponse
+	Détection guérison pas adapté
+	Méthodes pessimistes basées sur la prévention
+
+Techniques qui permettent de gérer des exécutions sans blocage
+
+
+
+
+**MONITEURS**
+--------------------------------------------------
 
 

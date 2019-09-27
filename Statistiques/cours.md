@@ -263,3 +263,30 @@ vidéo kernel
 ----------------------------------------------------
 
 X est petit Y = 1
+
+Page 6/6
+Nuage bidimensionnel
+
+(X, Y) -> (x, y) ∈ Ɛ(x, y) ≤ ℝ²
+	(X, Y) couple de v.A.R
+	Produit des données qu'on peut regarder
+
+Loi jointe dit la vraisemblance d'un couple X Y
+
+Dépendance non linéaire (plus complexe que linéaire)
+	6.png
+	avec fX(x) = px(x) = p(x)
+	Loi (une densité) marginale de X (var continue)
+	fY(y) = gY(y) = g(y)
+	Réagir aux points séparés, très peu vraisemblable
+	Tracer la loi conditionnelle de P(X|Y) = 0
+	Vraisemblance d'un couple X,Y : P(x,y)(x, y) = P(Y|x) Px(x)
+
+
+Dépendance linéaire (corrélation)
+	7.png
+
+Indépendance
+	8.png
+
+

@@ -336,3 +336,149 @@ Quantité représente un taux, un débit
 Dans un cas temps continu, on mesure un intervalle petit, les arrivées durant cet intervalle et on obtient un débit
 
 Débit permet de représenter le taux de transition entre états
+
+Dans cet intervalle de temps, au plus un événement et un seul
+Si il y a plusieurs événements on prendrait un intervalle plus petit
+
+qij
+	Taux de transition qui revient à calculer la probabilité de l'état i et j divisé par la période
+
+#15
+Le vecteur π est la limite si le système se stabilise
+Norme du vecteur π = 1 = |π|
+π.Q = 0
+
+#16
+Diagonale de la matrice -> moins la somme des taux de transition
+Pas de boucle sur les états
+
+Probabilité de transition entre l'état 0 et l'état 1
+	taux λ * ∆t
+
+#17
+Probabilité de retour à l'état j dans un intervalle
+
+#18
+Si on a un nombre d'états finis et que la chaîne est irréductable les états sont récurrents non nuls
+
+#19
+Ergodique si état est récurrent non nul
+
+#20
+1. On essaie de montrer qu'on peut traver la chaîne de markov à temps continu
+Dans une loi continue, le temps de séjour suit une loi exponnentielle
+
+#21
+PNM processus où les seules probabilités de transition non nulles sont les probabilités d'états où la distance est de 1
+
+#22
+PNM processus de comptage
+
+Probabilité d'arrivée λt puissance k divisée par k
+λt < 1
+
+e(x) ≈ 1 + x + o(x)
+Probabilité de n'avoir aucune arrivée dans le système pendant la période t + dt
+On remplace k par 0 et on se retrouve avec 1 - λdt + o(dt)
+	o(dt) : d'autres termes négligeables
+
+Probabilité d'aller de l'état k à l'état k+1
+	Pr[Nt+dt = k+1/Nt = k] = λdt.e(-λdt)
+	= λdt(1 - λdt + o(dt))
+	= λdt - λ²dt² + o(dt)
+	= λdt + o(dt)
+
+Cas où il a plus d'une arrivée
+P[Nt+dt = k+j/Nt = k], j > 1
+	= (λdt)^j / j! . e(-λdt) = o(dt)
+
+Processus de naissance pur
+Si la distance est supérieure à 1 la probabilité est nulle
+
+#23
+Processus se stabilise, probabilités d'état non nulles si le taux d'arrivée est inférieur au taux de départ
+
+#24
+Premier cas probabilité de transition
+Deuxième cas taux de transition
+
+*2.2 exo2.pdf feuille 3*
+
+
+COURS - FILES D'ATTENTE
+=======================
+
+#2
+Durée de service dépendante du service rendu à chaque client
+Chaque client va être servi par un seul serveur et chaque serveur ne sert qu'un seul client
+
+#3
+F
+	discipline de service
+	Processor Sharing quota du service à chaque client
+
+K
+	capacité de la file
+		Capacité qui prend en compte les places en service
+
+N
+	taille de la population
+
+#6
+Population finie N
+Système avec capacité >= N sinon on aurait un rejet
+
+Temps de réponse du système
+R = N/Λ - Z avec Z temps d'attente
+
+#7
+File avec capacité infinie
+Un seul service, des arrivées selon un processus de poisson
+Loi sans mémoire
+
+L'espérance de Y doit être égale à l'espérance de X
+Le nombre d'arrivées suit un processus de poisson de paramètre Λ
+
+1/Λ représente le tmeps moyen entre deux arrivées
+
+M | M | 1
+M -> Loi d'arrivée, Memoryless (sans mémoire)
+M -> Loi de service
+1 serveur
+
+Pour un processus de ce type là, la probabilité de voir plus d'une arrivée est quasi nulle
+
+Processus de naissance et de mort avec Λ qui représite le débit d'arrivée et µ qui représente le débit de départ
+1/µ temps moyen de service
+
+#10
+Si on voit en moyenne un client, le serveur est chargé à 50% du temps
+
+#11
+N capacité de la file
+Même loi d'arrivée et de service 
+Trouver la probabilité de rejet (quand la file est saturée)
+Chaîne de Markov représentée par N+1 états de 0 à N
+
+Si la chaîne de Markov est non réductible et nombre d'états fini alors la chaîne est ergotique
+Si Λ = µ (taux d'arrivé = taux de service)
+	Tous les états sont équiprobables avec une probabilité de 1/N+1
+
+#14
+Probabilité de rejet dépend de l'état de la file et de la taille de la population
+Probabilité de rejet qui dépend de M et de N
+
+#15
+File avec plusieurs serveurs (N)
+Taux d'arrivé indépendant de l'état de la file
+Taux de départ dépend de l'état de la file
+Débit de sortie de la file dépend du nombre de serveurs
+
+Probabilité de rejet avec N serveurs et N places
+
+Si on a une infinité de serveur, qu'elle est le temps de réponse d'une file ?
+	E[R] = 1/µ
+Nombre moyen de client
+	E[L] = Λ/µ = ρ
+
+#18

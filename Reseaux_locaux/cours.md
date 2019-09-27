@@ -464,6 +464,160 @@ Si ça tombe en panne, on ferme l'anneau à l'endroit où il y a une panne et ç
 
 #23
 Méthode d'association pour que les stations connaissent le point d'accès
+Fonctionne sur différentes topologies
+Sans (adhoc) ou avec infrastructure
 
 #25
+Fonctionnement avec infrastructure
+Lorsqu'on veut transmettre, il faut découvrir puis s'associer à un point d'accès
+Lorsqu'on cherche un point d'accès, on fait un probe request et on aura une réponse
+
+#27
+Phase d'authentification
+Règles d'authentification, on essaye de les sécuriser
+	Certains matériels ne supportent pas les mécanismes de sécurité ou n'ont pas été mis à jour
+
+#29
+Partie du temps sans collision
+
+#31
+Les machines doivent avoir la même bande de fréquence pour communiquer
+
+
+ÉLÉMENTS DE NORME D'ARCHITECTURE LAN
+--------------------------------------------------
+
+#4
+1 octet 2 caractères hexa
+6 octets dans l'adresse MAC
+
+#5
+**Représentation adresse MAC**
+Octet 0 à gauche
+	Premier octet transmis
+	Dans trame ethernet, adresse destination en premier
+
+#6
+Deuxième bit transmis U/L
+	Dit si l'adresse est universelle ou locale
+Adresses locales
+	Utilisées pour connexion wifi
+3 octets qui identifient un constructeur
+
+#7
+Première position qui est transmise
+Si adresse individuelle, identifie qu'un seul élément
+Si on utilise du multicast, I/G=1 et il va y avoir plusieurs éléments car c'est une adresse de groupe
+
+***Un réseau local est un domaine de diffusion MAC qui contient tous les éléments capables de recevoir une trame MAC de diffusion***
+
+Le point d'accès récupère la trame de diffusion et la retransmet.
+
+#10
+Il est possible de représenter une adresse en hexadecimal ou en binaire inverse
+Représentation hexadecimal : on commence par transmettre le bit de point faible de l'octet
+
+#14
+**Schema important**
+Encapsulation de LAN dans IP
+
+On va chercher l'adresse MAC de la passerelle dans la table ARP
+
+#15
+
+## Q1 - Comment un PC sait qu'il est destinataire d'une trame ?
+Il va regarder l'adresse destination MAC
+
+## Q2 - Une machine connaît l'adresse IP du destinataire à qui elle émet. S'il est sur le même réseau local qu'elle, comment connaît-elle son adresse réseau local ?
+En faisant une requête ARP
+
+## Q3 - Si le destinataire n'est pas sur le même réseau local, qui reçoit la trame ?
+La carte du routeur qui est sur le même réseau local que la station
+
+## Q4 - Comment le routeur sait qu'il doit relayer une trame MAC reçue sur un port 1 vers un port 2 ?
+Examine l'adresse IP destination, va dans la table de routage et en fonction de ça il va savoir que le réseau de l'adresse de destination est sur le port 2
+
+#16
+Il faut rester compatible
+Mécanique transparente aux utilisateurs
+
+#18
+Configurer les points d'accès en mode bridge
+
+#20
+Segmentation niveau 2/3
+
+TCP / UDP
+	Numérote par trame
+	Numérote par octet
+
+#30
+
+## Q1 - Une station peut-elle avoir plusieurs adresses Ethernet ?
+Oui si la station a plusieurs cartes Ethernet. 
+Elle a une adresse ethernet, une adresse broadcast et 0 à * multicast. 
+
+## Q2 - Que représente le OUI dans une adresse MAC ?
+L'identifiant du constructeur.
+
+## Q3 - Les adresses réseau local ont-elles une signification locale ou universelle ?
+Position U/L
+Une adresse peut être U ou L, les deux sont possibles. Elles ont une signification locale ou universelle, c'est précisé selon la valeur d'une position.
+
+## Q4 - Quelle est la valeur d'une adresse MAC de broadcast ?
+
+
+## Q5 - Soient deux adresses MAC en notation canonique AC DE 48 00 00 80 et AD DE 48 00 00 80 ces adresses ont-elles été allouées par le même constructeur ?
+
+
+## Q6 - A quel type d'adresse correspond 01-00-5E-AB-CD-EF. Cette adresse peut elle re présente dans le champ source ?
+
+
+## Q7 - Le protocole d'échange de trame entre deux stations de réseau local effectue le contrôle d'erreur et le contrôle de flux (VRAI / FAUX / ÇA DÉPEND)
+
+
+**SEGMENTATION ET VIRTUALISATION**
+----------------------------------
+
+#3
+Data Center Bridge
+
+#4
+On choisit de se synchroniser par le codage
+Starting Frame Delimiter octet 10101011
+
+#5
+CRC
+	Reste de la division polynomiale des données
+Polynome de degré 32, reste de degré 31 donc 32 position de reste
+	-> 4 octets de CRC
+
+Si le CRC est juste, c'est qu'on est bien synchronisé. S'il est faux, la trame est détruite
+On envoie l'adresse destination en premier
+
+2 octets qui sont soit une longueur, soit un champ
+
+#6
+Longueur maximale pour pouvoir faire du partage
+Valeurs définies pour Ethernet partagé
+Data minimum 46 octets, sinon on complète et on rajoute des données
+
+64 octets pour les collisions
+
+#7
+Champ L/T : longueur ou type
+
+#8
+Champ L/T qui va avoir comme rôle d'être une longueur
+LLC source destination & contrôle
+On sait si c'est de l'IP ou pas en fonction des zones LLC
+
+Si c'est plus petit que 1536 -> longueur
+Sinon -> type
+
+#9
+Les équipements parlent entre eux en LLC
+On identifie en utilisant 2 octets du champ type qui avait été prévu initialement au champ value
+	Deux octets de champ type et 3 octets à 0
+On sait les données transportées grace au champ type
 
