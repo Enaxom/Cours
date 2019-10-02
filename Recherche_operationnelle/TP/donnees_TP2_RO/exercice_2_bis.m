@@ -1,4 +1,4 @@
-function exercice_2(nom_fichier)
+function exercice_2_bis(nom_fichier)
 
 % Traitements preliminaires :
 nom_complet = strcat(nom_fichier,'.txt');
@@ -86,7 +86,7 @@ fprintf('La valeur maximale de l''objectif vaut %f\n\n',-zmin);
 for i = 1:N
 	for j = 1:N
 		indice = (i-1)*N*N+(j-1)*N + 1;
-		fprintf('%f',X(indice));
+		fprintf('%f\n',X(indice));
 	end
 end
 

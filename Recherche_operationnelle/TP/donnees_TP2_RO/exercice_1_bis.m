@@ -9,3 +9,9 @@ Bsup = [Inf;Inf];
 
 fprintf('\nLa solution vaut (%d,%d)\n',floor(X));
 fprintf('La valeur maximale de l''objectif vaut %f\n\n',-zmin);
+
+% (642.857,428.571)
+% 10285714.285714 pour exercice_1 TP1
+
+% (645,425)
+% 10284000 pour exercice_1_bis

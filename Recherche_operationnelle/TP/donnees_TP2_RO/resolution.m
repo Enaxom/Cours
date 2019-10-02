@@ -17,13 +17,13 @@ function [X,zmin] = resolution(C,A,B,Binf,Bsup,X,zmin)
 				[X,zmin] = resolution(C,A,B,[Binf(1);Binf(2)],[floor(x_1);Bsup(2)],X,zmin);
 
 				% PL fils de droite :
-				[X,zmin] = resolution(C,A,B,[Binf(1);Binf(2)],[Bsup(1);floor(x_1)],X,zmin);
+				[X,zmin] = resolution(C,A,B,[ceil(x_1);Binf(2)],[Bsup(1);Bsup(2)],X,zmin);
 			else					% Si x_2 n'est pas entier
 				% PL fils de gauche :
-				[X,zmin] = resolution(C,A,B,[Binf(1);Binf(2)],[floor(x_2);Bsup(2)],X,zmin);
+				[X,zmin] = resolution(C,A,B,[Binf(1);Binf(2)],[Bsup(1);floor(x_2)],X,zmin);
 
 				% PL fils de droite :
-				[X,zmin] = resolution(C,A,B,[Binf(1);Binf(2)],[Bsup(1);floor(x_2)],X,zmin);
+				[X,zmin] = resolution(C,A,B,[Binf(1);ceil(x_2)],[Bsup(1);Bsup(2)],X,zmin);
 			end
 		end
 	end

@@ -9,3 +9,6 @@ Bsup = [Inf;Inf];
 
 fprintf('\nLa solution vaut (%d,%d)\n',floor(X));
 fprintf('La valeur maximale de l''objectif vaut %f\n\n',-zmin);
+
+% Solution vaut (5,0)
+% Valeur max objectif 40

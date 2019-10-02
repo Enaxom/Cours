@@ -1,4 +1,4 @@
-function exercice_2(nom_fichier)
+function exercice_3(nom_fichier)
 
 % Traitements preliminaires :
 nom_complet = strcat(nom_fichier,'.txt');
@@ -78,22 +78,16 @@ for i = 1:N
     end
 end
 
-% Remplissage matrice des contraintes d entier
-I = zeros(n*n*n,1);
-for i = 1:N*N*N
-	I(i) = i;
-end
-
 % Resolution du PL :
 % [X,zmin] = linprog(C,[],[],Aeq,Beq,Binf,Bsup);
-[X,zmin] = intlinprog(C,I,[],[],Aeq,Beq,Binf,Bsup);
+[X,zmin] = intlinprog(C,1:n,[],[],Aeq,Beq,Binf,Bsup);
 fprintf('La valeur maximale de l''objectif vaut %f\n\n',-zmin);
 
 % Affichagage des cases xij1
 for i = 1:N
 	for j = 1:N
 		indice = (i-1)*N*N+(j-1)*N + 1;
-		fprintf('%f',X(indice));
+		fprintf('%f\n',X(indice));
 	end
 end
 
