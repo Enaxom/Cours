@@ -300,7 +300,7 @@ On a pas eu à appliquer la stratégie d'exploration parce qu'on avait qu'un noe
 **PROGRAMMATION DYNAMIQUE**
 ===========================
 
-Problème du nageur
-------------------
+*Voir feuille 8*
+	- Plus court chemin dans un graphe
 
 

@@ -183,3 +183,233 @@ ANF
 	R32	[_C_, E]
 
 
+**INTEGRATION DE SQL DANS UN LANGAGE DE PROGRAMMATION**
+=======================================================
+
+#44
+FW BD: hybernate, gpa
+
+Processus métiers: web service 
+
+PSN
+	Module de persistance
+
+#45
+SQL pas un langage complet
+	Pas de conditionnelles, d'itérations
+
+Impédance mismatch
+	Type table (dans SQL et pas dans langage de prog)
+
+#46
+Besoin de représenter les BD dans les langages de prog
+Il faut trouver une interface de prog entre un langage de prog et un métamodèle qui permet d'accéder à la BD
+Bouts de la base de données en mémoire et on intéragit avec la base de données
+
+Récupération d'informations sur le métamodèle
+	GET / SET
+
+Quand on fait le métamodèle, on l'exploite pour ensuite fabriquer des éléments dans une BD
+
+#47
+Deux axes
+	Statiquement ou dynamiquement
+		Statique: PL/SQL
+		Dynamique: Hybernate
+	Intégré ou appelé
+		Intégré: PL/SQL
+		Appelé: Hybernate
+
+#49
+Langage hôte où on écrit les requêtes SQL C
+Utilisation de ecpg
+On fait le C embarqué de postgres
+Connexion à la base de donnée avec EXEC SQL CONNECT, password non présent ici
+BD conçue, connue.
+
+#51
+Section de déclaration où on déclare la variable int prix
+	Besoin de connecter la variable prix avec le résultat de la requête SELECT
+	INTO :prix -> déverse le résultat de la requête dans prix
+		prix est une liste
+
+#52
+Curseur
+	Itérateur
+	Donne un curseur sur l'ensemble des éléments, met un curseur sur la liste donnée
+
+Fetch (récupérer)
+	prochaine valeur du curseur et on met les valeurs dans nom et prix
+
+Problème
+	Buffer, taille du nombre d'élements récupérés
+	Dès qu'il y a un fetch, si ce qu'il y a en mémoire a été consommé on va faire une autre requête SQL
+
+Statique, en dur
+Il faut connaître la structure de la BD, les attribits
+Les variables nom et prix sont des variables C
+
+#54
+Application qui va intéroger l'interface client via l'API de l'interface client et le serveur va sérialiser les requêtes qui arrivent (les rendre séquentielles).
+Conditions qui permettent la sérialisation d'un ensemble de requêtes. Si pas sérialisable, jetée.
+
+Interfaces particulières (API) qui ont été standardisées
+
+#55
+Couche d'abstraction universelle pour les BD -> ODBC
+API pour des langages de programmation
+	-> Java avec ODBC
+	-> Code
+
+#56
+Application
+Paquage défini pour java
+Application qui pourra intéroger une requête Oracle et une requête MySql
+
+#57
+Type 1
+	Windows
+	Passer forcément par ODBC
+	Application Java qui va appeler les procédures dans l'API JDBC
+	Driver va faire un pont entre l'API JDBC et ODBC
+
+Type 2
+	Fournisseur de BD qui a écrit une API et qui la donne
+	GET nom/...
+
+Type 3
+	Cas avec l'API JDBC
+	Architecture de type 3 tiers (couches)
+	Peut connecter de façon flexible plusieurs bases de données
+	Côté de sécurité avec le serveur intermédiaire (ex: firewall)
+	- négociation
+
+Type 4
+	Modèle complètement standardisé
+	Le droit de tout faire
+	Possibilité d'intéroger la métatable
+	Architecture de type 2 tiers (couches)
+	+ rapidité
+
+#59
+JDBC
+	Ensemble de méthodes offertes par le langage
+
+Chargement du driver postgresql
+
+url
+	Serveur sur lequel on se connecte
+
+connection
+	Sans mot de passe. On créé un objet connection et on utiliset la méthode getConnection du DriverManager
+
+#60
+On fabrique une requête
+	Déclaration objet Statement
+		dans l'objet connection, on fait un statement vide
+	Plein de primitives dans la classe Statement -> executeQuery
+	executeQuery execute dans l'objet statement la requête String en paramètre
+	Met ça dans l'objet res qui est un ResultSet -> Liste avec itérateur dessus
+
+Requête montre qu'on connaît la structure de la base de données
+L'api permet de récupérer des informations
+	Dans la classe ResultSet -> getMetaData()
+		renvoie MetaData de ResultSet: structure de la table (nom, type, attributs)
+		On peut faire de l'introspection
+
+Boucle sur le nombre de colonnes de Ordinateur (grâce au ResultSet)
+	getColumnCount(): Select qui compte tous les attributs qui sont dans la table Ordinateur
+	On affiche le nom de la colonne: getColumnName(i)
+	Affichage du type de la colonne
+
+Statique
+	Si la base de données évolue, pas de répercution sur le programme
+
+#61
+Tant qu'il reste des éléments dans le ResultSet, on affiche le résultat de la colonne "type"
+Pareil pour le prix, on sait que c'est getFloat() qu'il faut appeler car dans la métabase c'est float et on sait récupérer le type
+	Besoin de tester si le getColumnType correspond
+
+Close le tout.
+Moyen d'être robuste est de limiter le nombre de connexions.
+Premier objet créé Connection
+	Mieux de faire un tableau et d'ajouter les Connection
+
+Très proche de la structure de la base de données
+API figée et définie sur la MetaBase
+
+Framework:
+	On a une application & un modèle de données et ce modèle va être mappé avec une table (c'est nous qui le font) -> fichier de configuration en XML
+	Quand on veut modifier les applications, il n'y a plus qu'à changer ça
+	Flexible parce qu'on peut ajouter des applications & des tables et c'est géré par l'API
+	API générée automatiquement et on peut l'appeler (*Hybernate*)
+
+#62
+Le JDBC passe après l'API (depuis java on fait GET/SET)
+
+#64
+Approches fondées sur des framework
+POJO
+	Objets java de base
+	Sont applatis et les valeurs sont données dans une chaîne de caractère
+
+
+
+**GESTION DES TRANSACTIONS**
+============================
+
+#4
+Quand on a un ensemble de transactions, problème de sériabilité
+	On veut que ça ait le même effet que si elles arrivent dans le désordre
+	Filtrer les transactions avant
+
+2 update forment une transaction
+	Attention à la panne entr eles deux requêtes (débiter sans créditer)
+
+Transaction
+	Soit les transactions osnt réalisées les 2, soit pas du tout
+	Garantir un retour en arrière
+		journal, fichier log
+		En cas de panne, on défait le journal et on défait 
+
+#8
+Volonté de faire de la reprise après panne
+S'assurer que les changements effectués sont écrits sur le disque
+	Une fois que les transactions sont ok on les met sur la BD
+
+Plus on a des CP prets, plus la transaction va utiliser beaucoup de chose mais plus elle ira sur le disque
+
+#10
+Disques répartis en secteur de 512 octets
+
+#11
+Temps d'accès, on accède plus vite à la mémoire Cache
+
+#12
+Pb de la durabilité
+	Lié à la reprise après panne
+	Si on reprend après panne juste après la panne -> programme durable
+	Si programme long et panne à la fin et pas de CP on reprend au début
+
+#13
+Mémoire centrale trafique avec le disque avec des blocs
+
+#14
+On lit le compte C1 avec une valeur de 1000 dans t
+	Le compte C1 en mémoire centrale vaut 1000
+On enlève 100 de t mais on a toujours 1000 sur le disque
+On écrit t en mémoire C1 et on a 900 dans mem mais toujours 1000 dans disque
+Seulement aux OUTPUT que la BD est cohérente
+
+#15
+Journal pour pouvoir modéliser une BD
+4 types d'entrées
+T, X, v
+	Changement valeur de X
+	Changement mémoire centrale, pas disque
+START T
+COMMIT T
+ABORT T
+
+#16
+

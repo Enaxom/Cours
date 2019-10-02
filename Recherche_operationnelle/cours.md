@@ -209,4 +209,5 @@ Additive
 	Il faut que la conséquence soit la somme des conséquences, pas d'effet multiplicateur
 	Proportionnalité au niveau des conséquences des décisions
 
+Optimum local = optimum global
 
