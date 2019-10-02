@@ -52,7 +52,7 @@ function confirmRegistrationMiddleware(request, response, next) {
 async function activateAccountMiddleware(request, response, next) {
 	let token = request.body.token
 	try {
-		let decoded = jwt.veryfy(token, 'secret')
+		let decoded = jwt.verify(token, 'secret')
 		let userId = jwt.decode(token).user_id
 		let password = request.body.password
 		let cryptedPassword = await bcrypt.hashSync(password, 10)

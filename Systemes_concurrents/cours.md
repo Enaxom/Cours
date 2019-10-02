@@ -681,9 +681,138 @@ Système ouvert contraints par le temps
 Techniques qui permettent de gérer des exécutions sans blocage
 
 
-
-
 **MONITEURS**
 --------------------------------------------------
 
+#5
+Sémaphores permettent de développer tous les schémas de synchronisation qu'on souhaite mais c'est sensible (exemple barbier), on entrelace le code de synchronisation (appels au P et V) mélangé au code de l'application (barbier avant de raser attend qu'un client soit assi).
+Si on modifie le code d'un des participants, ça peut avoir un impact (barbier besoin de modifier le code des clients).
+On tisse deux aspects, conception qui manque de modularité
+Difficile de voir ce qu'il se passe car quand on regarde on est ammenés à dérouler des scénarios
+	Voir s'il y a une famine
+
+#7
+Moniteur une classe (un objet) avec de la synchronisation
+Problème de synchronisation à cause des processus qui travailllent en même temps sur un objet partagé
+Moniteur: concentration sur l'objet partagé et on définit quel est le bon protocole d'accès à cet objet partagé
+On définit un objet partagé et on choisit le moyen de l'utiliser correctement lorsqu'il est accédé de manière concurrente
+
+Un moniteur: objet/classe
+
+Besoin de faire de la synchronisation à cause d'objets partagés donc on défini un objet partagé.
+Dans le code de la classe qui est gérée par le moniteur, on a des opérations de synchronisation qui ressemblent à des sémaphore mais sans mémoire -> condition qui représentent des événements.
+
+#8
+Partie synchronisation définie à l'intérieur du moniteur
+	Besoin d'objet interne au moniteur permettant de gérer la synchronisation à l'intérieur du moniteur
+Objets qui permettent de réaliser la synchronisation au sein des moniteurs
+	Variables de type condition (événement != boolean)
+
+Attendre un événement ou signaler un événement
+Quand on attend un événement on se bloque jusqu'à ce qu'il y ait un signalement
+
+condition vs sémaphore
+	Condition pas d'état et pas de mémoire
+	Sémaphore compte le nombre de fois où on appelle V
+	condition si on appelle signaler et que la file est vide ça fait rien 
+
+#9
+Le moniteur: objet qui va gérer l'intéraction entre client serveur et propose 4 opération déposer/prendre travail lire/rendre résultat.
+
+après passage de signaler/signaleur
+1 client
+deposer_t
+
+2. signaler
+lire_res
+-----------
+2 ouvriers
+prendre_t
+
+5. O2 prend
+rendre_res
+4. 2 ouvriers
+6. req = null
+
+Le client n'a pas déposé de travail
+1. Ouvrier 1 attend
+3. ouvrier peut poursuivre
+
+
+#10
+déposer_travail(t)
+	si req != null alors
+		prise.attendre()
+	fsi
+	//req = null
+		On est certains que req = null une fois qu'on a pris le travail
+	req <- t
+
+prendre_travail(out t)
+	si req = null
+		depot.attendre()
+	fsi
+	//req != null
+	t <- req
+	req <- null
+
+lire_resultat(out r)
+
+#11
+Variante des moniteurs plus faccile à utiliser
+Lorsqu'on fait un appel à signaler, on note qu'il va falloir faire appel à un processus.
+	Le processus signalé va être sorti de la file d'attente et rangé dans une FA de processus qu'il faut reprendre le plus vite possible
+
+Priorité au signalé ou priorité au signaleur
+	Priorité au signaleur meilleur
+	Plus efficace en terme de commutation de ressource
+	Economie d'une commutation de contexte
+
+
+
+#20
+Idée qu'on va centrer toute la synchro dan sun objet
+On gagne de la modularité
+Définir l'ensemble des états autorisés/légaux pour le moniteur
+Si en faisant l'action j'obtiens un état valide je passe sinon jattends
+L'état légal est qu'il faut pas extraire une requête nulle
+Une fois l'action faite, réveil des processus
+
+#21
+1. On détermine l'ensemble des actions proposées par le moniteur (moniteur = objet)
+2. Pour être bien clair sur quelle est la condition où on attend pour pouvoir passer, il faut écrire en français les prédicats d'acceptation -> les conditions qui permettent de faire l'action sans bloquage
+3. Trouver les variables d'état qui permettent de décrire l'état du moniteur
+4. Décrire les contraintes, quel est l'ensemble d'états permis (invariant du moniteur)
+5. On associe à chaque opération une variable condition
+
+#22
+Vérifier que chaque fois qu'on signale une condition ça implique bien un prédicat d'acceptation qui était attendu
+
+#23
+Moniteur qui gère un tampon de taille bornée
+Voir next slide
+
+#24
+Tampon borné de taille N
+_A quelle condition peut-on déposer sans devoir attendre ?_
+	Si le tampon n'est pas vide
+Invariant
+	Valeurs possibles pour les variables d'état (entre 0 et N)
+Variables conditions
+
+deposer(in v)
+	si non (nbOccupées < N)
+		depot_possible.attendre()
+	fsi
+	{nbOccupées < N}
+	nbOccupées ++ // + deposer effectivement
+
+#25
+
+Nombre de moniteurs >= 0
+Si on l'incrémente on est sur que > 0
+Condition attendue PasVide donc on la signale
+
+#26
+Pour être sûr qu'une condition attendue est vraie, on met un while au lieu d'un if.
 

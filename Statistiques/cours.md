@@ -289,4 +289,29 @@ Dépendance linéaire (corrélation)
 Indépendance
 	8.png
 
+Si les données font une droite verticale sur la représentation graphique (v = constante)
+on inverse x et y
+
+**S8 - Estimation de paramètres: estimateurs et qualités attendues des estimateurs**
+------------------------------------------------------------------------------------
+
+Inférer: déduire une propriété générale sur le modèle du phénomène à partir d'un échantillon particulier
+	Statistiques inférentielles
+
+C v.a.r
+Loi de X dépend de θ
+θ: paramètre inconnue
+
+Composants de l'échantillon -> variables aléatoires réelles
+θ^: variable aléatoire réelle comme fonction de variable aléatoire réelle
+
+µ^ = fonction(x1, x2)
+= x2 + x2 / 2 = moyenne(x1, x2)
+	µ estimateur
+	x1, x2 échantillon
+Une réalisation de l'estimateur µ^
+Il existe une valeur µ on va s'en rapprocher (probablemen ton est pas loin de 2).
+On sait que la moyenne est exactement égale à 2.
+En pratique, on sait que µ existe, on va s'en rapprocher.
+On peut dire que la fonction qui permet de calucler la moyenne n'est pas mauvaise parce que statistiquemeent on se rapproche de 2.
 

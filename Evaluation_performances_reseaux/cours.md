@@ -481,4 +481,10 @@ Si on a une infinité de serveur, qu'elle est le temps de réponse d'une file ?
 Nombre moyen de client
 	E[L] = Λ/µ = ρ
 
-#18
+
+Chapitre 4 - Files d'attentes simples
+-------------------------------------
+
+Voir feuille 5
+
+

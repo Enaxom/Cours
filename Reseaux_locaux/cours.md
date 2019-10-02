@@ -576,8 +576,8 @@ Une adresse peut être U ou L, les deux sont possibles. Elles ont une significat
 ## Q7 - Le protocole d'échange de trame entre deux stations de réseau local effectue le contrôle d'erreur et le contrôle de flux (VRAI / FAUX / ÇA DÉPEND)
 
 
-**SEGMENTATION ET VIRTUALISATION**
-----------------------------------
+**ETHERNET - SEGMENTATION ET VIRTUALISATION**
+---------------------------------------------
 
 #3
 Data Center Bridge
@@ -620,4 +620,193 @@ Les équipements parlent entre eux en LLC
 On identifie en utilisant 2 octets du champ type qui avait été prévu initialement au champ value
 	Deux octets de champ type et 3 octets à 0
 On sait les données transportées grace au champ type
+
+COURS
+=====
+
+## Chap 1 - Protocoles d'accés -> TD
+## Chap 2 - Standards -> IEEE 802.3 802.11
+## Chap 3 - Normes architecture -> TD2 
+-LLC: type clé de service
+-MAC: format adresse
+-Modèle IEE en couches
+## Chap 4 - Ethernet -> TD3
+-Architecture Ethernet -> instanciation modèle IEE
+	2, 3, 4 couches
+
+
+#11
+Segmentation
+	Vue logique
+	Les équipements partagent le support
+Objectif robustesse, performance et sécurité
+	Sécurité: quand on est d'un côté du segment, on entend pas les messages de l'autre côté
+
+Equipement pont
+
+#12
+Transmettre des données
+Le routeur fait du relayage sur adresse IP
+Le bridge fait du relayage sur adresse MAC
+
+#13
+Nécessite d'apprendre les localisations des stations
+**Routage niveau 2**
+	En référence aux adresses MAC qu'il utilise (2ème couche)
+
+Routage statique ou dynamique
+	Statique: demande à l'administrateur d'entrer des règles
+	Dynamique: configuration va se faire tout seul
+
+#14
+Dans la réalité besoin de mettre les adresses MAC des stations
+
+Pont 107 besoin d'avoir dans sa table les adresses pour relayer
+	Si il voit F il fait passer
+
+Avantages
+	Vision centralisée sur le réseau
+Inconvénients
+	En cas de panne de pont
+	Besoin de faire tous les calculs de chemin
+	En cas d'ajout d'équipement, de station, besoin de tout recalculer
+	=> fastidieux
+Routage statique bien pour un petit réseau statique
+
+#15
+Ressemble à routage IP
+Pas @IP mais @MAC
+
+#17
+Commutateur Ethernet conforme 802.1D
+Dynamique: besoin de mécanisme qui permet de remplire les tables
+
+#18
+Apprentissage transparent pour remplir les tables
+
+Pas de collision
+
+#19
+Table de relayage avec adresse MAC et ports de sortie
+pas touche à la trame et aux adresses
+
+#20
+Apprentissage transparent, rien besoin de faire
+A chaque fois qu'il y a une arrivée de trame, il lit l'adresse source et l'associe à un port
+Soit écrire nouvelle ligne dans la table soit rajouter une durée de vie à une entrée existante
+
+#21
+Mécanisme d'apprentissage (learning process)
+Localisation de la trame en lisant l'adresse et le port
+
+#22
+On innonde tous les ports sauf le port d'entrée
+	**Selecting flooding**
+
+#23
+A,B,C,D,E,F,G ports des deux routeurs
+Domaine de collision
+	Le port, chaque port est un domaine de collision (full-duplex, half-duplex? On sait pas)
+Domaine de diffusion
+	Même domaine de diffusion, même réseau local
+Réseau local domaine de diffusion de trames
+Switch fonctionnement de pont transparent
+
+#24
+Lorsque D veut envoyer une trame à G, G est inconnu et pas dans la table donc on envoie la trame en sélection sélective sur tous les ports.
+Sur les switch ethernet, on a des trames de type BUN (uknown) qui sont envoyées en selecting flooding.
+
+#25
+LAN classique
+	Tout est une zone de diffusion complète
+**Notion de VLAN**
+On peut définir par applications différents réseaux locaux (téléphone sur port 2 par exemple)
+Définir quelle politique de définition de VLAN
+
+Politique de configuration
+	Seul moment où l'administrateur a quelque chose à faire
+
+#26 - 27
+LAN
+	- zone de diffusion tous les ports
+	- relayage
+VLAN
+	- zone diffusion
+	- création VLAN avec 1 identifiant et une liste de ports
+Table de configuration des VLAN avec la liste des ports de chaque VLAN
+Autant de table que de VLAN
+
+#28
+1ère chose: On lit l'adresse source de la trame reçue
+Pour faire l'apprentissage, il faut faire de la reconnaissance de VLAN
+
+#29 - 30
+VLAN2 on sait que la station d'adresse MAC A est sur p1 et B sur p2
+Arrive une trame émise par A à destination de C
+	Arrive sur le port p1
+	On sait que p1 est dans VLAN 2 donc on cherche dans la table
+	On trouve pas C donc on l'envoie à tous les ports du VLAN excepté le port d'entrée (p2, p3)
+On rajoute ensuite C dans la table
+
+#31
+Adresse de diffusion on envoie sur tous les ports sauf celui d'entrée
+	Tous les ports du VLAN où se sitient la machine source
+
+#32
+VLAN à mettre sur plusieurs switch
+Deux VLAN qui vont passer par le même lien
+Multiplexage des VLAN 
+
+#33
+Champ L/T souvent type
+Notion de lien multi vlan s'appelle un port Trunk ici
+Il faut définir si c'est des ports de type access ou trunk
+	Trunk: faut rajouter l'étiquette
+	Access: enlever l'étiquette
+
+#36
+On entend que C est sur le port n°8
+
+#37
+1. Créer les VLAN
+	Identifiant à donner
+	Automatiquement le switch va créer une zone mémoire à partir de cet id
+Le switch server va émettre de façon cycliste en multicast des avertissements numérotés
+Envoie ça en diffusion à tous les switch 
+
+#38
+VPP utilisé pour faire de l'administration
+	Permet d'éliminer des VLAN
+
+#39
+Configurer les interfaces de chaque port
+VMPS (S server)
+Une machine (pas un switch) avec une table qui a le VLAN
+Définir les adresses MAC car au niveau des switch c'est très rapide et ils les ont tous
+Politique par application
+	Aller chercher le numéro de port TCP ou UDP et dire quelle application c'est
+
+#40
+Protocole d'interrogation
+	Aller chercher dans la base d'information et récupérer le numéro de VLAN
+
+#41
+Autoriser VTP à être sur chaque switch
+Définir le domaine
+Définir le switch server
+Les switch client vont hériter des informations VLAN du switch server
+
+#43
+Système d'annonce inter switch qui permet de regrouper les groupes multicast
+
+#44
+Communication entre VLAN
+	2 réseaux différents
+	Besoin de rajouter un routeur
+
+Illustration p.14-15
+
+#48
+Relayage basique
+	Une fois qu'il y a les actions, vont être traduites en instructions basiques
 
