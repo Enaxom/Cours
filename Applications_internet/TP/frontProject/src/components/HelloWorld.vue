@@ -5,8 +5,12 @@
     <div>This message has a length of {{ msg.length }} characters</div>
 
 	<div v-if="foods.length > 0">
-      <ul v-for="food in foods" v-bind:key="food">
-         <li>{{ food.name }} {{ food.qty }} <input type="number" v-model="food.qty"/></li>
+      <ul>
+         <li v-for="food in foods" v-bind:key="food">
+			 {{ food.name }} {{ food.qty }} 
+			 <input type="number" v-model="food.qty"/>
+			 <input type="number" :value="food.qty" @change="food.qty=$event.target.value"/>
+			</li>
       </ul>
 	  <p>Total weight: {{ totalWeight }}</p>
    </div>
@@ -28,7 +32,7 @@ export default {
     };
   },
   computed: {
-	  totalWeight: function() {
+	  totalWeight: function() { // Ne doit pas avoir d'arguments
 		  return this.foods.reduce(function(accu, food) {
 			  // Concaténation sans le parseInt
 			  return accu + parseFloat(food.qty)
