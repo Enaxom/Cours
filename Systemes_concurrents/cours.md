@@ -640,6 +640,35 @@ repeter
 	fsi
 sans fin
 
+mutex = new Semaphore(1)
+
+repeter
+	mutex.P()
+	etat[i] = pense
+	mutex.V()
+	penser(i)
+	mutex.P()
+	etat[i] = faim
+	si !peut_manger(i) {
+		mutex.V()
+		semPhi[i].P()
+	} sinon {
+		etat[i] = mange
+		mutex.V()
+	}
+	manger(i)
+	mutex.P()
+	si 
+	fin si
+	mutex.V()
+	si alors
+		etat[i+1] = mange
+	
+
+
+peut_manger(i: O..N-1)
+	etat[i] = faim && etat[i+1] != mange && etat[i-1] != mange
+
 #18
 Regarder si la demande courante introduit un risque d'interblocage
 Dans le pire des cas, il faut être capable de servir tous les processus qui ont demandé des ressources
@@ -758,6 +787,8 @@ prendre_travail(out t)
 
 lire_resultat(out r)
 
+La synchronisation se fait à l'intérieur du moniteur avec des méthodes du moniteur.
+
 #11
 Variante des moniteurs plus faccile à utiliser
 Lorsqu'on fait un appel à signaler, on note qu'il va falloir faire appel à un processus.
@@ -768,7 +799,19 @@ Priorité au signalé ou priorité au signaleur
 	Plus efficace en terme de commutation de ressource
 	Economie d'une commutation de contexte
 
+Il y a différentes manières d'implanter les moniteurs.
 
+#12
+
+Un processus qui est en train d'utiliser le sémaphore. Pour qu'il soit simple de programmation, le moniteur offre des exclusions mutuelles sur les opérations du moniteur.
+Un processus élu dans un moniteur (celui qui utilise le moniteur).
+Pour chaque processeur, on a une file d'attente fifo qui va être associée à chaque condition où les processus vont se ranger.
+
+Nuances pour la manière dont on réalise signal
+	Signal: chaque fois qu'un evt se produit, on signal la condition
+
+#13
+Option priorité au signaleur avec une file exprès pour les signalés
 
 #20
 Idée qu'on va centrer toute la synchro dan sun objet
@@ -813,6 +856,17 @@ Nombre de moniteurs >= 0
 Si on l'incrémente on est sur que > 0
 Condition attendue PasVide donc on la signale
 
+On peut faire mieux
+On ne peut pas simplifier retirer
+
+Mieux si retirer()
+	attendre(nbOccupes > 0)
+	nbOccupes --
+
+On fait pas ça car à chaque fois qu'on fait une modif sur nbOccupes, il faut réévaluer les prédicats. Là on signale pas n'importe quoi n'importe quand. On signale que les conditions dont on sait qu'elles peuvent évoluer
+
 #26
 Pour être sûr qu'une condition attendue est vraie, on met un while au lieu d'un if.
+
+#28
 

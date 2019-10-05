@@ -30,7 +30,7 @@ Code fourni
 - `EtatFourchette.java` : définition des constantes pour fourchette placée
   sur la table, l'assiette gauche, l'assiette droite.
 - `EtatPhilosophe.java` : définition des constantes pour philosophe penseur,
-  demandeur ou mangeur.
+  demandeur ou mangeur. 
 - `IHM*.java` : interface utilisateur.
 - `Synchro/Simulateur.java` : le simulateur de temps.
 

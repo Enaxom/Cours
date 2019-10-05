@@ -810,3 +810,23 @@ Illustration p.14-15
 Relayage basique
 	Une fois qu'il y a les actions, vont être traduites en instructions basiques
 
+TD Ethernet
+
+#49
+3 positions pour définir une priorité
+	8 niveaux de priorité différents
+
+#50
+Définir des files d'attente par ordre de priorité croissante.
+Problème car politique de retransmission exhaustive.
+S'il y a trop de priorité élevée, la bande passante est monopolisée. Définir un contrat d'émission -> mécanique de qualité de service
+
+#52
+Best Effort priorité 0
+Network Control plus prioritaire
+
+#54
+Priorités de 1 à 3 regroupées dans une seul file
+
+#56
+

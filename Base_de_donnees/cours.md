@@ -411,5 +411,182 @@ START T
 COMMIT T
 ABORT T
 
-#16
+#17
+Commit écrit les informations sur le disque en base de données.
 
+#18
+Problème avec UNDO/REDO
+	Beaucoup de variables à modifier avant de trouver un commit
+
+On va intégrer des commit de second ordre
+	**Checkpoint**
+
+#19
+On a regroupé un paquet de transactions
+
+#23
+Deux listes de transactions
+	Undo
+	Redo
+Si c'est un begin
+	Undo (on peut éventuellement la défaire)
+
+#27
+Besoin de séquentialiser les deux 
+	Perte de mise à jour
+
+#28
+Perte de dépendance
+Mise à jour de A et T1 lit et modifie A et T2 annule avec un rollback donc T1 fait un calcul erroné
+
+#29
+T1 fait la somme des comptes
+T2 fait un virement
+	Vire 10 dans le compte C3
+	Débite 10 dans C1
+Valeur erronée
+Anomalies de mises à jour, problèmes d'entrelacement de base de données
+
+#30
+Proposer un modèle d'entrelacement des relations pour résoudre ces problème
+On essaye de reconstruire le bon entrelacement et on enlève la transaction qui pose problème
+
+#31
+Les transactions individuellement prises sont bien écrites
+
+Ordonnancement
+	Lecture retreive
+	Ecriture update
+	Séquences d'actions élémentaires
+
+#32
+On ne veut pas qu'il y ait de traces d'ordonnancement qui ne soient pas bons.
+
+#34
+Sérialisable si il y a le même résultat que si c'était séquentiel.
+
+#35
+Condition suffisante
+	Permet la chose mais est peut-être trop forte
+	Condition forte
+
+On ne va pas accepter de séquence avec ça. Exclure ces cas là
+
+#37
+Avec cette relation d'ordre, on va obtenir un graphe de précédence.
+Chaque noeud du graphe est une transaction.
+
+#38
+Si le graphe de précédence des transactions est acyclique alors on peut exécuter les transactions.
+
+#39
+Verrous en écriture/lecture
+
+#40
+Algorithme de verrouillage en 2 phases
+
+1. La transaction informe les autres processus qu'il va utiliser la ressource
+2. Attend les ACK et exécute
+Quand la transaction prend un verrou, elle ne peut plus prendre de verrous
+
+# 41
+Définir des modes pour les verrous
+Verrou X
+	Exclusif
+Verrou S
+	Partagé
+
+Pas le droit d'écrire sur un verrou qui est déjà en écriture
+Un verrou en lecture on peut pas le demander en écriture
+Verrou lecture peut être demandé en lecture
+
+# 43
+Shared lock sur A
+exclusif lock sur A refusé, se met en attente
+Une transaction va être jetée
+
+# 45
+Virer avant ou virer après c'est la même chose
+
+# 46
+On va avoir des transactions qui vont attendre d'être exécutées
+
+# 51
+Commit à deux phases
+Verrouillage à deux phases
+
+Serialisation
+	On est sûr d'avoir une sérialisation par conflit quand l'automate ne fait pas de cycle
+	Sérialisation: il existe toujours un moyen de faire un chemin dans l'automate
+	Condition plus faible et avec de meilleures performances que la séquentialité
+
+# 62
+En rapport avec les framework
+BD NF 2
+	Not first normal form
+	-> On casse la forme normale (attribut de type simple)
+
+Approche qui marche
+	Relationnel-objet: sql3 sql99
+
+# 68
+Le schéma conceptuel sera l'UML (ce qui remplace le schéma entité association)
+
+# 69
+On prend un modèle orienté objet et on fabrique par dessus des mécanismes de persistance
+
+# 70
+On veut que l'enregistrement des objets se fasse de façon transparente
+Différents types de persistances
+	Manuelle: save à la main
+	Héritage: si une classe est persistante tout ce qui est en dessous l'est aussi
+	Référence: si un objet qui est persistant fait référence à un autre objet alors l'autre est persistant
+
+# 73
+Deux premières marchent bien dans le cas des framework
+Les domaines sont définis par des types
+Applatir tous les types de données complètes dans des tables
+Jointures qui vont être faites automatiquement
+
+# 74-76
+Plus de notion de table -> type comme un autre
+Type employé avec nom et date de naissance
+
+# 77
+Création d'une table d'un autre type
+On peu tappeler les méthodes associées à ces types
+
+# 78
+Attribut de référence généré par le système ou attribut qui fait référence à un type dans cette relation
+Définir les références et les déréférencer
+
+# 81
+On est parti des langages orientés objets pour déifnir des mécanismes de persistance
+
+#82
+Méta modèle ensemble de classe avec des classes à gauches et des litéraux
+
+# 83
+Deuxième ligne
+	L'instance de cette classe se trouve dans nomExtent et a pour clé un nomCle
+
+Langage se compile en des instances du métamodèle qu'il y a et on définit des api
+Une relation peut avoir un inverse
+Méthodes qui peuvent lever des exceptions
+
+
+# 84
+: héritage
+
+# 85
+On peut faire select e.nom from employe where e.affectation.nom = 'peugeot'
+Comme on a plus le première forme normale, on peut faire des .. pas utilisés en relationnel
+affectation doit être une référence
+	relationship est une régérence
+	pas une clé étrangère
+
+
+3 concepts importants
+	Framework
+	Transactions
+		Sensibilisation aux problèmes que posent les transactions
