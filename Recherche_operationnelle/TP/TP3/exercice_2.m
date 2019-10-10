@@ -21,8 +21,26 @@ vitesse = double(rgb2gray(Im));
 [J,I] = meshgrid(1:nb_colonnes,1:nb_lignes);
 
 % Matrice d'adjacence M et matrice des poids P :
-% A completer
-% ...
+N = nb_lignes*nb_colonnes;
+M = zeros(N);
+P = zeros(N);
+for m = 1:N
+	i = I(m);
+	j = J(m);
+    
+    for n = 1:N
+        x = I(n);
+        y = J(n);
+        
+        distance = sqrt((x-i)*(x-i) + (y-j)*(y-j));
+        if distance <= sqrt(2)
+            M(m,n) = 1;
+            valVitesse = (vitesse(i,j) + vitesse(x,y)) / 2;
+
+            P(m,n) = distance / valVitesse;
+        end
+    end
+end
 
 % Positionnement du maitre-nageur :
 disp('Positionnez le maitre-nageur en cliquant sur l''image !');
