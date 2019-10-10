@@ -868,5 +868,123 @@ On fait pas ça car à chaque fois qu'on fait une modif sur nbOccupes, il faut r
 #26
 Pour être sûr qu'une condition attendue est vraie, on met un while au lieu d'un if.
 
-#28
+
+PROGRAMMATION MULTI-ACTIVITÉS
+=============================
+
+# 5
+Dans certaines applications, le programmeur a la possibilité de définir des activités parallèles à l'intérieur des applications
+
+# 6
+Pour unix, un processus est une entité à laquelle on va allouer des ressources.
+Chaque processus réalise une tache
+	-> unité d'exécution
+
+Les ressources (mémoire, fichier) sont ouverts mais ouverts au niveau de l'application.
+Threads gérés par un ordonnanceur applicatif
+	Moniteur (superviseur de thread) gère le partage du temps de processeur entrre les différents threads
+
+# 7
+Processus gérés par le moniteur
+L'espace mémoire de l'application est partagée entre les différents threads
+
+Les descripteurs de processus sont partagés, besoin de faire de la synchronisation et verrouiller l'accès aux variables
+
+thread 1
+	-> read(0, &t, 18)
+Le système voit qu'il y a une application qui demande à lire au clavier
+	L'appel système est bloquant donc le processus est suspendu
+	S'il y a un appel bloquant, tous les threads sont bloqués
+Rendre read non bloquant pour les threads
+	1. Placer les entrées sorties à non-bloquant
+-> while(read(0, &t, 18) == -1)
+	Tant que ça me donne rien, je recommance
+	attente actuve pour th2 mais les autres vont continuer à progresser
+
+# 8
+Suivant le matériel, ça arrive souvent que le système propose lui même une bibliothèque de threads
+
+# 9
+Classe qui permet de créer des processus lourds
+	Process
+Processus léger
+	Thread
+
+Evite de gérer à la main le lancement et la terminaison des différents threads
+
+# 11
+Dans le constructeur de thread, on met en paramètre une instance d'une classe Runnable
+
+Inconvénient
+	Mélange aspect gestion de processus et applicatif
+
+# 14
+interrupt
+	Positionne un booléen sur une activité
+	Permet de savoir si un thread a reçu un appel à interrupt
+interrupted
+	Renvoie la valeur de interrupt et met à 0
+
+# 15
+Si on a besoin d'avoir des données spécifiques à un thread, on définit un threadLocal et on le manipule
+
+# 18
+Tant que la condition n'est pa svérifiée, on attend
+Pas de FIFO, priorité au signaleur
+Pas possible de tester si la file est vide
+encadrer les appels par lock et unlock
+
+# 19
+Schéma producteur/consommateur fourni -> BlockingQueue
+
+# 20
+La taille de la barrière peut varier 
+
+# 21
+Tous les threads qui s'étaient bloqués sont libérés
+
+# 22
+Service là pour faire en sorte que la charge soit bien équilibrée
+Prend en charge les traitements à exécuter et choisi les moments d'exécution
+
+# 23
+Exécuteurs
+	contiennent classes qui permettent de paramétrer (nb de taches à lancer)
+
+# 24
+execute() appelé par les applications qui souhaitent exécuter
+execute -> nouvelle tache rangée parmi la liste des taches en attente
+Exécuteur va utiliser un certain nombre d'ouvrier
+	Ouvrier prend un job à exécuter et exécute son run
+	Si y'a rien dans la queue les ouvriers se bloquent sur tail
+
+# 26
+Single thread executor
+Thread avec un ouvrier
+
+# 27
+Méthode submit()
+Fournit un résultat dès qu'on soumet
+ex.submit(fonc)
+	fonc job à exécuter
+	submit renvoie appel qui est un future
+call renvoie un objet de type résultat qui sera fourni par get
+Quand on a besoin d'un résultat, c'est submit, et on place des callable qui implantent la méthode call
+
+# 28
+Découper le problème en sous-problèmes indépendants et traiter chacun des sous-problèmes
+Créer des sous-tâches pour résoudre chacun des sous-problèmes et attendre que les tâches soient terminées
+fork/join
+map/reduce
+
+# 29
+ForkJoinPool
+Ensemble d'ouvriers fixe
+	Nombre de processeurs disponibles
+Créé autant d'ouvrier que de processeur disponible
+
+Chaque ouvrier a sa file de job
+
+# 31
+Lorsqu'un ouvrier a terminé son arbre, il va piquer une tache dans la file
 

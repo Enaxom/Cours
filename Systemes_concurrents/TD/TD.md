@@ -235,6 +235,159 @@ DE() :	pas de lecture en cours,
 			LP.vide() (lecture possible)
 		nl = 0 ^ ¬red ^ LP.Vide()
 
+-> variables d'état : étape 3
 red: boolean (un rédacteur occupe le fichier)
 nl: entier (nb lecteur)
-nla (nb lecteur en attente) ou LP.vide()
+nla entier (nb lecteur en attente)
+
+¬(red ^ nl > 0)
+
+Interfaces (étape 1)
+**DE**
+	¬(red ^ nl > 0)
+	pas de lecteur en attente
+variable condition EP pour écriture possible -> pas d'écriture, de lecture en cours et de lecteurs en attente : étape 2
+	¬red ^ nl = 0 ^ nla = 0
+---------
+si ¬(¬red ^ nl = 0 ^ LP.Vide()) alors
+	EP.attendre()
+fsi {¬red ^ nl = 0 ^ nla = 0}
+red = vrai
+{red ^ nl = 0}
+-------
+
+**DL**
+Variable condition LP pour lecture possible -> pas d'écriture en cours (¬(¬red) <- étape 4)
+---------
+si ¬(¬red) alors // On attend la condition pour démarrer la lecture
+	LP.attendre()
+fsi {¬red ^ nl > 0}
+nl++
+{nl > 0 ^ ¬red}
+LP.signaler() // réveil en chaine ses lecteurs
+-------
+
+**TL**
+	Pas de condition pour terminer lecture
+---------
+nl--
+{¬red ^ nl >= 0}
+si (nl = 0) alors {¬red ^ nl = 0 ^ nla = 0}
+	EP.signaler()
+fsi
+-------
+
+**TE**
+	Pas de condition pour terminer écriture
+---------
+red = faux
+{¬red ^ nl = 0}
+si nla = 0 alors
+	EP.signaler()
+sinon
+	LP.signaler()
+fsi
+-------
+
+Etape 5
+Variables conditions
+LP
+	Lecture possible
+EP
+	Ecriture possible
+
+
+Lecteurs rédacteurs FIFO
+	-> accès par ordre chronologique lecteur ou rédacteur
+==========================================================
+
+-> Une seule file d'attente
+Variable condition **Accès** où les lecteurs et les rédacteurs vont se ranger
+
+**DL**
+	pas de rédacteur en cours, personne n'attend -> LP
+------
+si ¬(¬red ^ Acces.Vide()) alors
+	Accès.attendre()
+fsi {¬red ^ personne devant}
+nl++
+{¬red ^ nl > 0} -> vrai si le suivant est un lecteur, faux si c'est un rédacteur
+---
+
+**DE**
+	pas de rédacteur en cours
+	pas de lecteur en cours, personne n'attend -> EP
+		-> *LP.Vide() ^ EP.Vide()* devient Accès.Vide()
+------
+si ¬(¬red ^ nl = 0 ^ Acces.Vide()) alors
+	Acces.attendre()
+fsi {¬red ^ nl = 0 ^ personne devant}
+red = vrai
+---
+
+**TL**
+	pas de condition d'acceptiation
+------
+nl--
+{¬red ^ nl >= 0}
+si nl = 0 alors
+	Acces.signaler
+fsi
+---
+
+**TE**
+	pas de condition d'acceptiation
+------
+red = faux
+Acces.signaler()
+---
+
+Au dessus, réponse à FIFO
+En dessous, optimisation:
+	Permettre à une série de lecteurs en attente d'accéder aux fichiers en parallèle
+
+**DL**
+	pas de rédacteur en cours, personne n'attend -> LP
+------
+si ¬(¬red ^ Acces.Vide() ^ sas.vide()) alors
+	Accès.attendre()
+fsi {¬red ^ personne devant}
+nl++
+{¬red ^ nl > 0} -> vrai si le suivant est un lecteur, faux si c'est un rédacteur
+Acces.signaler()
+---
+
+**DE**
+	pas de rédacteur en cours
+	pas de lecteur en cours, personne n'attend -> EP
+		-> *LP.Vide() ^ EP.Vide()* devient Accès.Vide()
+------
+si ¬(¬red ^ nl = 0 ^ Acces.Vide() ^ sas.vide()) alors
+	Acces.attendre()
+fsi {¬red ^ nl = 0 ^ personne devant}
+si nl > 0 alors // réveil en chaine donc se rendormir
+	Sas.attendre() // Création variable condition pour ranger l'écrivain qui se fait réveiller 						par erreur (réveil en chaine)
+fsi // personne devant et acces ok
+red = vrai
+---
+
+**TL**
+	pas de condition d'acceptiation
+------
+nl--
+{¬red ^ nl >= 0}
+si nl = 0 alors
+	si sas.Vide() alors
+		Acces.signaler()
+	sinon
+		sas.signaler()
+	fsi
+fsi
+---
+
+**TE**
+	pas de condition d'acceptiation
+------
+red = faux
+Acces.signaler()
+---
