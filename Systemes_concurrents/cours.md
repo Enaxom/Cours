@@ -988,3 +988,81 @@ Chaque ouvrier a sa file de job
 # 31
 Lorsqu'un ouvrier a terminé son arbre, il va piquer une tache dans la file
 
+PROCESSUS COMMUNICANTS
+======================
+
+# 5
+Modèle de la mémoire partagée
+Processus (ronds) qui sont en concurrence pour l'accès à des données partagées (carré)
+Quand un processus veut passer une information à un autre processus, il fait une lecture ou une écriture dans une variable, pas à se préoccuper de l'existence d'autres processus.
+
+Partie confortable mais aussi inconfortable car on ne sait pas qu'on est en train de partager la variable
+
+# 6
+A chaque donnée, on associe un processus. But du processus de produire ou calculer la donnée.
+Calculer les termes les plus internes puis les termes externes
+
+X + U -> donnée qui va être calculée par un processus spécial
+Processus rouge qui peuvent démarrer en premier
+Une fois qu'ils se sont exécutés, ils autont calculé leur résultat et c'est le vert qui va se lancer
+Dès qu'il y a des termes disponibles, on les calcule
+
+**Inconvénient**
+un peu coûteux (on met les processus dans les données)
+
+Mais modèle avec potentiel important, retrouvé dans des langages modernes
+
+# 7
+Chaque processus encapsule des données qu'il est le seul à pouvoir update.
+Quand un processus veut accéder à une donnée d'un autre processus, il envoie une requête et attent une réponse.
+
+Inconfort
+	Programmation super lourdre
+
+Tâches ADA utilisent ce modèle pour la communication entre thread
+
+# 8
+Un processus par corps qui va simuler
+
+Calculer chaque case dès que les données sont disponibles
+
+# 9
+Première solution
+Consiste à  considérer qu'on a des données partagées
+Ensemble d'ouvrier (pool d'ouvrier) qui est controlé par un maitre.
+Une fois qu'une colonne est calculée intégralement, il va affecter à un ouvrier un élément de la colonne et attend le résultat
+
+# 12
+On se sert des primitives de communication pour synchroniser les messages
+
+# 13
+Service de communication qui propose deux services de communication
+
+# 15
+Les processus discutent via des canaux
+Lec contenu du message émis est récupéré dans une variable du processus récepteur
+
+Partie difficile: rendez-vous -> quand j'émets, je me bloque
+
+# 16
+2 rendez vous potentiels
+On en choisit un arbitrairement
+
+Taillé pour faire du client / serveur
+
+# 17
+Moyen facile de contrôler les intéractions d'un processus au travers d'un objet partagé
+
+# 18
+Arbitre va exécuter une boucle avec une alternative et chaque iterration de la boucle consiste à savoir si une requête est arrivée sur le canal
+
+# 19
+Consommateur récupère l'item
+
+# 27
+En Ada, on va pouvoir résoudre les problèmes comme ça.
+
+# 29
+Thread en ada -> taches
+Tache ada : serveur d'un ensemble de fonctionnalitées déclarées dans une interface
+
