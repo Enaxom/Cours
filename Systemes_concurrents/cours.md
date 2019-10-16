@@ -1058,6 +1058,11 @@ Arbitre va exécuter une boucle avec une alternative et chaque iterration de la 
 
 # 19
 Consommateur récupère l'item
+Intéraction client/serveur donc passe par le canal
+
+# 21
+Pour chaque opération du moniteur, on a une condition d'acceptation. La condition pour accepter un message
+Choix entre deux réceptions donc le serveur doit choisir une de ces deux réceptions
 
 # 27
 En Ada, on va pouvoir résoudre les problèmes comme ça.
@@ -1065,4 +1070,71 @@ En Ada, on va pouvoir résoudre les problèmes comme ça.
 # 29
 Thread en ada -> taches
 Tache ada : serveur d'un ensemble de fonctionnalitées déclarées dans une interface
+
+# 30
+Déclarer l'ensemble des requêtes que la tâche (le serveur) est susceptible de traiter*
+
+# 31
+Doit donner le corps de la tache qui correspond à l'interface
+
+# 32
+Taches déclarées soit activées / lancées au début du programme
+	Soit définir pointeur sur tache et on lance une nouvelle tache en faisant un new sur ce pointeur
+
+# 33 - 34
+Quand le client appelle l'entrée d'une tache (Deposer), il est bloqué jusqu'à ce que le serveur soit présent au rendez-vous et exécute son code
+Le serveur qui fait un accept est bloqué jusqu'à ce qu'il y ait le client qui appelle déposer
+Le serveur et le client reprennent leur exécution en parallèle -> se synchronisent
+
+Consommateur bloqué car serveur en attente sur déposer. Sera débloqué quan dle serveur accept retirer et qu'il l'aura traité
+
+# 36
+Si on a accept sans do, c'est un point de synchronisation
+	Le client et le serveur se synchronisent et puis l'exécution continue
+Pour chaque entrée, on a une file d'attente où on range les requêtes des clients qui ont appelé
+Clients débloqués dans l'ordre des appels
+
+Associé aux entrées, on a un attribut
+Déposer COUNT -> donne le nombre de gens qui attendent dans déposer
+
+Différence par rapport aux moniteurs
+	Tâches ada plus bas niveau, moniteur : passif - accepte de nouvelles opérations et les exécute
+	Serveur: actif -  n'accepte pas n'importe quand, lui qui décide les requêtes qu'il accepte de traiter
+
+# 38
+Facilité de bas niveau de pouvoir choisir quand on prend les requêtes
+
+Pas faire de choix permis par ADA avec select
+	branches séparées par des or
+	ensemble de requêtes que le serveur est susceptible de traiter, traitement associé à chaque requête et condition d'acceptation pour la requête
+
+Choix peut être mis dans une boucle sans fin -> ref # 44
+
+# 39
+Il se peut qu'on évalue toutes les tâches à faux
+On peut mettre un else qui sera exécuter ou tout sera trouvé à faux
+
+# 44 - Exemple
+On peut demander un certain nombre de ressources et il va rendre les adresses des ressources qu'il nous aura allouées
+
+- demander(n)
+	Demander n ressources, n <= nb ressources disponible
+- rendre(p)
+	Rendre p ressources
+
+# 45
+nbDispo: integer (respecter ci-dessus)
+
+when nbDemandé <= nbDispo
+	=> accept Demander(nbDemandé: in natural) do
+		nbDispo -= nbDemandé
+	end Demander;
+
+Problème -> Condition à évaluer qui tient compte d'un paramètre d'une requête que je n'ai pas encore
+
+Voir TD.md -> exercice 5 Voie unique
+
+# 46
+On construit un automate qui décrit les différents états et dans chaque états on regarde les rendez-vous qu'on va acepter
+Quand on accepte un rendez-vous, on change d'état.
 

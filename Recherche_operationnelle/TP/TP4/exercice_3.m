@@ -52,11 +52,11 @@ while true
 	mot_test = parametrage(nom_fichier);
 	distances = zeros(1,nb_mots);
 	for indice_reference = 1:nb_mots
-		[g,score] = ...
-		distances(indice_reference) = ...
+		[g,score] = alignement(mot_test,mots_M01{indice_reference},'distance_MFCC');
+		distances(indice_reference) = score;
 	end
-	[valeur_min,argument_min] = min(...);
-	switch ...
+	[valeur_min,argument_min] = min(distances);
+	switch argument_min
 		case 1
 			fprintf(1,'Droite !\n');
 			close;

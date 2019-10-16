@@ -338,7 +338,7 @@ fsi
 **TE**
 	pas de condition d'acceptiation
 ------
-red = faux
+red = faux<
 Acces.signaler()
 ---
 
@@ -391,3 +391,80 @@ fsi
 red = faux
 Acces.signaler()
 ---
+
+
+EXERCICE 5 - VOIE UNIQUE
+========================
+
+processus train
+	direction: direction; (OE, NS)
+	demarrer(direction);
+	repeter
+		arriver_au_tronçon();
+		Entrer(direction);
+		passer le tronçon;
+		Sortir();
+		arriver_à_destination();
+		direction := successeur(direction);
+	sans fin
+fin train
+
+ // Chaque train envoie un message sur le canal quand il dépose une requête !_
+boucle
+	arrêt gare E
+	* entrer_E() !_
+	rouler sur la voie unique
+	* sortir !_
+	arrêt gare W
+	* entrer_W() !_
+	rouler sur la voie unique
+	* sortir() !-
+fboucle
+
+Algorithmes des actions Entrer et Sortir
+
+## Un train seulement peut se trouver sur le tronçon à voie unique
+
+
+## Un nombre illimité de trains peuvent circuler en même temps sur le tronçon à voie unique (à condition qu'ils aillent dans le même sens)
+Pour chaque requête, j'ai un canal
+3 branches dans le select qui correspondent aux 3 requêtes
+
+canaux: entrer_E, entree_W, sortir
+variables: 
+
+boucle
+	-> entrer_E ?_
+☐
+	-> entrer_W ?_
+☐
+	-> sortir ?_
+fin boucle
+
+entrer_E:
+	pas de train sur la voie unique ou la direction courante est l'ouest
+entrer_W:
+	pas de train sur la voie unique ou la direction courante est l'est
+sortir:
+	/ - On suppose que tous les trains qui sortent sont rentrés
+
+variables d'état
+	nbtrains: entier := 0
+	dc (E,W) := E
+
+boucle
+	nbTrains = 0 V dc = W -> entrer_E ?_ ;
+	nbTrains++;
+	dc = W;
+☐
+	nbTrains = 0 V dc = E -> entrer_W ?_ ;
+	nbTrains++;
+	dc = E;
+☐
+	-> sortir ?_ ;
+	nbTrains--;
+fin boucle
+
+## Au plus N train speuvent circuler en même temps sur le tronçon à voie unique. Considérer les risques de privation dans ce cas, et donner les moyens de les éviter.
+
+

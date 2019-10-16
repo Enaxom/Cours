@@ -828,5 +828,54 @@ Network Control plus prioritaire
 #54
 Priorités de 1 à 3 regroupées dans une seul file
 
-#56
+ARCHITECTURE PONTÉE - LES ALGORITHMES D'ARBRE RECOUVRANTS
+=========================================================
+
+# 3
+Passe par le commutateur d'accès si les machines veulent communiquer
+Topologie hiérarchique à deux niveau
+	Accès
+	Backbone
+
+# 7
+Cycle pas bon, besoin de désactiver un pont
+Besoin des identifiants et calcul et organisation en fonction du coût
+**Coût de relayage. Combien de temps il faut pour émettre, émission et non réception**
+Pont3 il lui faut une émission pour rejoindre la racine
+
+# 8
+Priorité et numéro
+Pareil pour les ports
+Quand on a défini les coûts, on peut ensuite désactiver automatiquement les ports.
+Rien à désactiver sur la racine.
+	Tous les ports sont actifs.
+
+Pont on garde actif le port qui mène à la racine
+Port qu'on gagne actif: désigné pour relayer
+
+# 14
+On apprend de ses voisins.
+Bridge vont faire des échanges
+Bridge peuvent savoir coût et racine
+
+# 12
+Va s'adresser à l'adresse multicast de tous les ponts
+
+# 15
+Identifiants du pont
+Pont a plusieurs adresses MAC
+Va se reposer sur le plus petit identifiant de ses adresses
+Ajouter numéro de VLAN a la plus petite adresse
+
+# 17
+On vise 50ms -> SDH
+3s -> xtree, MPCS
+30s -> IP
+45s -> spanning tree
+
+# 22
+Protocole identifieur
+	42 - numéro du spanning tree
+
+# 23
 
