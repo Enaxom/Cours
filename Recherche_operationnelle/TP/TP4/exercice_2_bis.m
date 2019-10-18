@@ -6,7 +6,7 @@ mots_M01{4} = parametrage('WAV/M01_plushaut.wav');
 mots_M01{5} = parametrage('WAV/M01_tournedroite.wav');
 mots_M01{6} = parametrage('WAV/M01_tournegauche.wav');
 
-for locuteur = 2:12
+for locuteur = 2:13
 	% Mots testes :
 	mots_M02{1} = parametrage(strcat('WAV/M', num2str(locuteur, "%02d"), '_droite.wav'));
 	mots_M02{2} = parametrage(strcat('WAV/M', num2str(locuteur, "%02d"), '_gauche.wav'));
