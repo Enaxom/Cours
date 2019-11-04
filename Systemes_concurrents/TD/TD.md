@@ -467,4 +467,18 @@ fin boucle
 
 ## Au plus N train speuvent circuler en même temps sur le tronçon à voie unique. Considérer les risques de privation dans ce cas, et donner les moyens de les éviter.
 
+TRANSACTIONS
+============
+
+# 12
+Mémoire stable: disque dur
+
+Capable de défaire le travail de n'importe quelle transaction
+	On a l'atomicité
+
+Si une transaction abandonne, on peut la défaire pour retourner à l'état initial
+
+# 13
+Quand on annule une transaction, il faut annuler son travail mais également toutes les transactions qui ont utilisé des valeurs écrites dans la première transaction.
+
 

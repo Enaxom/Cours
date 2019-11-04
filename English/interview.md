@@ -17,9 +17,6 @@ great capacity to adapt
 	set himself fast in a team
 	prendre du recul, think about problem that can happen
 
-## What are your greatest weaknesses?
-
-
 ## Can you tell me about a difficult work situation and how you overcame it?
 Didn't have too much of them but
 difficulty to do something, lack of competences
@@ -38,15 +35,6 @@ speek calmy, always his word to say, grateful to see that his voice count like t
 great managers
 open minded and open to the sugestions
 
-## What do you like most about your current position?
-
-
-## What do you like least about your current position?
-
-
-## What are your hobbies?
-
-
 ## How do you keep yourself organized?
 takes a lot of note and use an agenda
 not organized in his personal life, just at work
@@ -57,7 +45,6 @@ postman
 adviser
 nurse -> really learned to be arganized
 waiter
-
 
 ## How do you work under pressure?
 not often under pressure

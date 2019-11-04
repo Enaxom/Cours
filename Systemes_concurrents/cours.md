@@ -1138,3 +1138,4 @@ Voir TD.md -> exercice 5 Voie unique
 On construit un automate qui décrit les différents états et dans chaque états on regarde les rendez-vous qu'on va acepter
 Quand on accepte un rendez-vous, on change d'état.
 
+
