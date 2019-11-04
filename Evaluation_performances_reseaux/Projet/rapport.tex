@@ -12,7 +12,7 @@
 \usepackage[thinlines]{easytable}
 
 \title{Rapport \'Evaluation de performances de r\'eseaux}
-\author{Morgane Cadeau, Morgan Canas, Lucas Lafage, William Mateille}
+\author{Morgane Cadeau, Morgan Canas, Lucas Lafage, William Mateille, Raphael Sombstay}
 \date{Novembre 2019}
 
 \makeatletter         
@@ -230,6 +230,108 @@ E[R]=\frac{1}{2\left(\mu-\frac{1}{2}\lambda\right)}+\frac{1}{2\left(\mu-\frac{1}
 \item Syst\`eme 4
 \end{enumerate}
 
-\subsection*{Montrer que $N(t)$ est markovien et construire la cha\^ine de Markov pour des files inf\'erieures ou \'egales \`a 3}
+\newpage
+
+\subsection*{Montrer que $N(t)=(N1(t),N2(t))$ est markovien et construire la cha\^ine de Markov pour des files inf\'erieures ou \'egales \`a 3}
+
+\begin{center}
+\begin{tikzpicture}[
+            > = stealth, % arrow head style
+            shorten > = 1pt, % don't touch arrow head to node
+            auto,
+            node distance = 3.95cm, % distance between nodes
+            semithick % line style
+        ]
+
+	\node[state] (A) {$0,0$};
+	\node[state] (B) [right of=A] {$1,0$};
+	\node[state] (C) [right of=B] {$2,0$};
+	\node[state] (D) [right of=C] {$3,0$};
+	\node[state] (E) [below of=A] {$0,1$};
+	\node[state] (F) [right of=E] {$1,1$};
+	\node[state] (G) [right of=F] {$2,1$};
+	\node[state] (H) [right of=G] {$3,1$};
+	\node[state] (I) [below of=E] {$0,2$};
+	\node[state] (J) [right of=I] {$1,2$};
+	\node[state] (K) [right of=J] {$2,2$};
+	\node[state] (L) [right of=K] {$3,2$};
+	\node[state] (M) [below of=I] {$0,3$};
+	\node[state] (N) [right of=M] {$1,3$};
+	\node[state] (O) [right of=N] {$2,3$};
+	\node[state] (P) [right of=O] {$3,3$};
+	
+ 	\draw[-latex,bend left] (A) edge node {$\frac{1}{2}\lambda$} (B);
+	\draw[-latex,bend left] (B) edge node {$\mu$} (A);
+	\draw[-latex,bend left] (B) edge node {$\frac{1}{2}\lambda$} (C);
+	\draw[-latex,bend left] (C) edge node {$\mu$} (B);
+	\draw[-latex,bend left] (C) edge node {$\frac{1}{2}\lambda$} (D);
+	\draw[-latex,bend left] (D) edge node {$\mu$} (C);
+	
+	\draw[-latex,bend left] (A) edge node {$\frac{1}{2}\lambda$} (E);
+	\draw[-latex,bend left] (E) edge node {$\mu$} (A);
+	\draw[-latex,bend left] (B) edge node {$\frac{1}{2}\lambda$} (F);
+	\draw[-latex,bend left] (F) edge node {$2\mu$} (B);
+	\draw[-latex,bend left] (C) edge node {$\frac{1}{2}\lambda$} (G);
+	\draw[-latex,bend left] (G) edge node {$2\mu$} (C);
+	\draw[-latex,bend left] (D) edge node {$\frac{1}{2}\lambda$} (H);
+	\draw[-latex,bend left] (H) edge node {$2\mu$} (D);
+	
+	\draw[-latex,bend left] (E) edge node {$\frac{1}{2}\lambda$} (F);
+	\draw[-latex,bend left] (F) edge node {$2\mu$} (E);
+	\draw[-latex,bend left] (F) edge node {$\frac{1}{2}\lambda$} (G);
+	\draw[-latex,bend left] (G) edge node {$2\mu$} (F);
+	\draw[-latex,bend left] (G) edge node {$\frac{1}{2}\lambda$} (H);
+	\draw[-latex,bend left] (H) edge node {$2\mu$} (G);
+	
+	\draw[-latex,bend left] (E) edge node {$\frac{1}{2}\lambda$} (I);
+	\draw[-latex,bend left] (I) edge node {$\mu$} (E);
+	\draw[-latex,bend left] (F) edge node {$\frac{1}{2}\lambda$} (J);
+	\draw[-latex,bend left] (J) edge node {$2\mu$} (F);
+	\draw[-latex,bend left] (G) edge node {$\frac{1}{2}\lambda$} (K);
+	\draw[-latex,bend left] (K) edge node {$2\mu$} (G);
+	\draw[-latex,bend left] (H) edge node {$\frac{1}{2}\lambda$} (L);
+	\draw[-latex,bend left] (L) edge node {$2\mu$} (H);
+	
+	\draw[-latex,bend left] (I) edge node {$\frac{1}{2}\lambda$} (J);
+	\draw[-latex,bend left] (J) edge node {$2\mu$} (I);
+	\draw[-latex,bend left] (J) edge node {$\frac{1}{2}\lambda$} (K);
+	\draw[-latex,bend left] (K) edge node {$2\mu$} (J);
+	\draw[-latex,bend left] (K) edge node {$\frac{1}{2}\lambda$} (L);
+	\draw[-latex,bend left] (L) edge node {$2\mu$} (K);
+	
+	\draw[-latex,bend left] (I) edge node {$\frac{1}{2}\lambda$} (M);
+	\draw[-latex,bend left] (M) edge node {$\mu$} (I);
+	\draw[-latex,bend left] (J) edge node {$\frac{1}{2}\lambda$} (N);
+	\draw[-latex,bend left] (N) edge node {$2\mu$} (J);
+	\draw[-latex,bend left] (K) edge node {$\frac{1}{2}\lambda$} (O);
+	\draw[-latex,bend left] (O) edge node {$2\mu$} (K);
+	\draw[-latex,bend left] (L) edge node {$\frac{1}{2}\lambda$} (P);
+	\draw[-latex,bend left] (P) edge node {$2\mu$} (L);
+	
+	\draw[-latex,bend left] (M) edge node {$\frac{1}{2}\lambda$} (N);
+	\draw[-latex,bend left] (N) edge node {$2\mu$} (M);
+	\draw[-latex,bend left] (N) edge node {$\frac{1}{2}\lambda$} (O);
+	\draw[-latex,bend left] (O) edge node {$2\mu$} (N);
+	\draw[-latex,bend left] (O) edge node {$\frac{1}{2}\lambda$} (P);
+	\draw[-latex,bend left] (P) edge node {$2\mu$} (O);
+\end{tikzpicture}
+\captionof{figure}{Cha\^ine de Markov pour des files de longueur inf\'erieures \`a 3}
+\end{center}
+
+C'est un processus Markovien car on n'a pas besoin de conna\^itre $N$ pour trouver $N+1$. 
+On peut calculer les probabilit\'es suivantes :
+
+\begin{align*}
+\text{Probabilit\'e d'une arriv\'ee dans la file : } P(N_{1}(t+dt)=j+1 / N_{1}(t)=j)=\frac{1}{2}\lambda dt + o(dt) \\
+\text{Probabilit\'e d'un d\'epart de file : } P(N_{1}(t+dt)=j-1 / N_{1}(t)=j)=\mu dt + o(dt)
+\end{align*}
+
+\newpage
+
+\section*{File avec arriv\'ees d\'ecourag\'ees}
+
+\newpage
+
+\section*{Unit\'e de transmission de paquets}
 
 \end{document}
