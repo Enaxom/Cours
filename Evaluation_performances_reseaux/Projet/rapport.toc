@@ -1,0 +1,32 @@
+\contentsline {section}{\numberline {1}Comparaison de files d'attente}{2}
+\contentsline {subsection}{\numberline {1.1}Temps moyen de r\'eponse du syst\`eme 1}{2}
+\contentsline {subsection}{\numberline {1.2}Temps moyen de r\'eponse du syst\`eme 2}{3}
+\contentsline {subsection}{\numberline {1.3}Nombre moyen de passages d'un client et temps de r\'eponse moyen dans chacune des 2 files du syst\`eme 3}{6}
+\contentsline {subsection}{\numberline {1.4}Classement des 3 syst\`emes en fonction de leurs performances respectives}{7}
+\contentsline {subsection}{\numberline {1.5}Performances si on a un syst\`eme 3 bis o\`u les clients se dirigent vers la file la moins remplie}{8}
+\contentsline {subsection}{\numberline {1.6}Montrer que $N(t)=(N1(t),N2(t))$ est markovien et construire la cha\^ine de Markov pour des files inf\'erieures ou \'egales \`a 3}{9}
+\contentsline {section}{\numberline {2}File avec arriv\'ees d\'ecourag\'ees}{10}
+\contentsline {subsection}{\numberline {2.1}Cha\^ine de Markov associ\'ee au nombre de clients dans la file}{10}
+\contentsline {subsection}{\numberline {2.2}Probabilit\'e $P_{k}$ d'avoir $k$ clients dans la file. D\'etermination de la condition de stabilit\'e}{10}
+\contentsline {subsection}{\numberline {2.3}Taux d'utilisation du serveur}{11}
+\contentsline {subsection}{\numberline {2.4}Nombre moyen $L$ de clients dans le syst\`eme}{12}
+\contentsline {subsection}{\numberline {2.5}D\'ebit moyen $\Lambda $ en sortie du syst\`eme}{12}
+\contentsline {subsection}{\numberline {2.6}D\'emonstration que le temps moyen de r\'eponse de cette file est $R=\frac {\rho }{\mu (1-\pi _{0})}$}{12}
+\contentsline {section}{\numberline {3}Unit\'e de transmission de paquets}{13}
+\contentsline {subsection}{\numberline {3.1}Notation de Kendall de la file}{13}
+\contentsline {subsection}{\numberline {3.2}Nombre moyen de paquets dans la file et temps moyen de r\'eponse}{13}
+\contentsline {subsubsection}{\numberline {3.2.1}Charge de trafic \`a $0.6$}{13}
+\contentsline {subsubsection}{\numberline {3.2.2}Charge de trafic \`a $0.9$}{14}
+\contentsline {subsection}{\numberline {3.3}Cas de paquets de longueur constante}{14}
+\contentsline {subsubsection}{\numberline {3.3.1}Charge de trafic \`a $0.6$}{14}
+\contentsline {subsubsection}{\numberline {3.3.2}Charge de trafic \`a $0.9$}{14}
+\contentsline {section}{\numberline {4}R\'eseaux de commutateurs}{15}
+\contentsline {subsection}{\numberline {4.1}Temps moyen de r\'eponse}{15}
+\contentsline {subsubsection}{\numberline {4.1.1}Paquets de longueur exponentiellement distribu\'ee}{15}
+\contentsline {subsubsection}{\numberline {4.1.2}Paquets de taille constante}{16}
+\contentsline {subsection}{\numberline {4.2}Temps moyen de r\'eponse du sch\'ema simplifi\'e}{17}
+\contentsline {subsubsection}{\numberline {4.2.1}Paquets de longueur exponentiellement distribu\'ee}{17}
+\contentsline {subsubsection}{\numberline {4.2.2}Paquets de taille constante}{17}
+\contentsline {subsection}{\numberline {4.3}Mod\'elisation du nouveau syst\`eme et temps moyen de r\'eponse}{18}
+\contentsline {section}{\numberline {5}\'Economie d'\'energie d'un serveur vid\'eo}{19}
+\contentsline {subsection}{\numberline {5.1}V\'erification que ${Dt, t \ge 0}$ constitue une cha\^ine de Markov}{19}
