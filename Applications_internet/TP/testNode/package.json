@@ -13,7 +13,7 @@
     "feathers-knex": "^6.1.0",
     "inquirer": "^7.0.0",
     "jsonwebtoken": "^8.5.1",
-    "knex": "^0.19.4",
+    "knex": "^0.19.5",
     "path": "^0.12.7",
     "sqlite3": "^4.1.0",
     "url": "^0.11.0"
