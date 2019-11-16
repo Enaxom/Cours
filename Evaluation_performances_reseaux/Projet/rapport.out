@@ -1,0 +1,41 @@
+\BOOKMARK [1][-]{section.1}{Comparaison de files d'attente}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Temps moyen de r\351ponse du syst\350me 1}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Temps moyen de r\351ponse du syst\350me 2}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Nombre moyen de passages d'un client et temps de r\351ponse moyen dans chacune des 2 files du syst\350me 3}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.4}{Classement des 3 syst\350mes en fonction de leurs performances respectives}{section.1}% 5
+\BOOKMARK [2][-]{subsection.1.5}{Performances si on a un syst\350me 3 bis o\371 les clients se dirigent vers la file la moins remplie}{section.1}% 6
+\BOOKMARK [2][-]{subsection.1.6}{Montrer que N\(t\)=\(N1\(t\),N2\(t\)\) est markovien et construire la cha\356ne de Markov pour des files inf\351rieures ou \351gales \340 3}{section.1}% 7
+\BOOKMARK [1][-]{section.2}{File avec arriv\351es d\351courag\351es}{}% 8
+\BOOKMARK [2][-]{subsection.2.1}{Cha\356ne de Markov associ\351e au nombre de clients dans la file}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.2}{Probabilit\351 Pk d'avoir k clients dans la file. D\351termination de la condition de stabilit\351}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.3}{Taux d'utilisation du serveur}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.4}{Nombre moyen L de clients dans le syst\350me}{section.2}% 12
+\BOOKMARK [2][-]{subsection.2.5}{D\351bit moyen \040en sortie du syst\350me}{section.2}% 13
+\BOOKMARK [2][-]{subsection.2.6}{D\351monstration que le temps moyen de r\351ponse de cette file est R=\(1-0\)}{section.2}% 14
+\BOOKMARK [1][-]{section.3}{Unit\351 de transmission de paquets}{}% 15
+\BOOKMARK [2][-]{subsection.3.1}{Notation de Kendall de la file}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.2}{Nombre moyen de paquets dans la file et temps moyen de r\351ponse}{section.3}% 17
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Charge de trafic \340 0.6}{subsection.3.2}% 18
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Charge de trafic \340 0.9}{subsection.3.2}% 19
+\BOOKMARK [2][-]{subsection.3.3}{Cas de paquets de longueur constante}{section.3}% 20
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Charge de trafic \340 0.6}{subsection.3.3}% 21
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Charge de trafic \340 0.9}{subsection.3.3}% 22
+\BOOKMARK [1][-]{section.4}{R\351seaux de commutateurs}{}% 23
+\BOOKMARK [2][-]{subsection.4.1}{Temps moyen de r\351ponse}{section.4}% 24
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Paquets de longueur exponentiellement distribu\351e}{subsection.4.1}% 25
+\BOOKMARK [3][-]{subsubsection.4.1.2}{Paquets de taille constante}{subsection.4.1}% 26
+\BOOKMARK [2][-]{subsection.4.2}{Temps moyen de r\351ponse du sch\351ma simplifi\351}{section.4}% 27
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Paquets de longueur exponentiellement distribu\351e}{subsection.4.2}% 28
+\BOOKMARK [3][-]{subsubsection.4.2.2}{Paquets de taille constante}{subsection.4.2}% 29
+\BOOKMARK [2][-]{subsection.4.3}{Mod\351lisation du nouveau syst\350me et temps moyen de r\351ponse}{section.4}% 30
+\BOOKMARK [1][-]{section.5}{\311conomie d'\351nergie d'un serveur vid\351o}{}% 31
+\BOOKMARK [2][-]{subsection.5.1}{V\351rification que \173Dt, t 0\175 constitue une cha\356ne de Markov}{section.5}% 32
+\BOOKMARK [2][-]{subsection.5.2}{La cha\356ne n'est jamais ergodique}{section.5}% 33
+\BOOKMARK [2][-]{subsection.5.3}{Valeurs de Dt avec une capacit\351 limit\351e C}{section.5}% 34
+\BOOKMARK [2][-]{subsection.5.4}{V\351rification que \173Dt, t 0\175 constitue une cha\356ne de Markov avec une capacit\351 limit\351e C}{section.5}% 35
+\BOOKMARK [2][-]{subsection.5.5}{Probabilit\351s stationnaires des \351tats en fonction de \040et C}{section.5}% 36
+\BOOKMARK [1][-]{section.6}{Syst\350me cyclique-multiserveur}{}% 37
+\BOOKMARK [2][-]{subsection.6.1}{\311tablissement de la cha\356ne de Markov des taux de transition}{section.6}% 38
+\BOOKMARK [2][-]{subsection.6.2}{V\351rifions si la propriété PASTA s'applique dans ce syst\350me}{section.6}% 39
+\BOOKMARK [2][-]{subsection.6.3}{D\351termination des Pk et de la condition d'ergodicit\351 du syst\350me}{section.6}% 40
+\BOOKMARK [2][-]{subsection.6.4}{Temps de r\351ponse moyen}{section.6}% 41

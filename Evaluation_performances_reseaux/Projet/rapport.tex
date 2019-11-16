@@ -10,6 +10,14 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows,automata}
 \usepackage[thinlines]{easytable}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
 
 \title{Rapport \'Evaluation de performances de r\'eseaux}
 \author{Morgane Cadeau, Morgan Canas, Lucas Lafage, William Mateille, Raphael Sombstay}
@@ -34,7 +42,6 @@
 \thispagestyle{empty}
 \newpage
 \tableofcontents
-\setcounter{page}{1}
 
 \newpage
 
@@ -615,7 +622,7 @@ On constate que le sch\'ema simplifi\'e est \'equivalent au sch\'ema complet pou
 
 \newpage
 \section{\'Economie d'\'energie d'un serveur vid\'eo}
-\subsection{V\'erification que ${Dt, t \ge 0}$ constitue une cha\^ine de Markov}
+\subsection{V\'erification que $\{Dt, t \ge 0\}$ constitue une cha\^ine de Markov}
 
 \begin{gather*}
 P(Dt(t+dt)=j+1 / Dt(t)=j)=\lambda dt + o(dt) \\
@@ -623,8 +630,9 @@ P(Dt(t+dt)=j-1 / Dt(t)=j)=\mu dt + o(dt) \\
 \end{gather*}
 
 On a donc un processus Markovien car le passage d'un \'etat \`a un autre ne d\'epend pas des \'etats pr\'ec\'edents.
-\medskip
+\bigskip
 
+\begin{center}
 ...
 \begin{tikzpicture}[
             > = stealth, % arrow head style
@@ -646,13 +654,194 @@ On a donc un processus Markovien car le passage d'un \'etat \`a un autre ne d\'e
 	\draw[-latex,bend left] (0) edge node {$\mu$} (-1);
 	\draw[-latex,bend left] (0) edge node {$\lambda$} (1);
 	\draw[-latex,bend left] (1) edge node {$\mu$} (0);
-	\draw[-latex,bend left] (0) edge node {$\lambda$} (1);
-	\draw[-latex,bend left] (1) edge node {$\mu$} (0);
 	\draw[-latex,bend left] (1) edge node {$\lambda$} (2);
 	\draw[-latex,bend left] (2) edge node {$\mu$} (1);
    
 \end{tikzpicture}
 ...
+\end{center}
 \captionof{figure}{Cha\^ine de Markov du syst\`eme}
+
+\subsection{La cha\^ine n'est jamais ergodique}
+La cha\^ine n'est jamais ergodique car elle a un nombre infini d'\'etat.
+\begin{gather*}
+\text{Si } \lambda > \mu \text{, } Dt \text{ va tendre vers } +\infty \\
+\text{Si } \mu > \lambda \text{, } Dt \text{ va tendre vers } -\infty \\
+\text{Si } \lambda = \mu \text{, } Dt \text{ va tendre vers } 0 \\
+\end{gather*}
+On ne pourra donc pas explorer toute la cha\^ine.
+
+\subsection{Valeurs de $Dt$ avec une capacit\'e limit\'ee C}
+
+\begin{gather*}
+0<Rt<C \text{ et } 0<Vt<C \\
+\end{gather*}
+Donc la diff\'erence $Dt$ est comprise entre $-C$ et $C$.
+\bigskip
+\begin{gather*}
+\bm{Dt \in [-C; C]}
+\end{gather*}
+
+\newpage
+\subsection{V\'erification que $\{Dt, t \ge 0\}$ constitue une cha\^ine de Markov avec une capacit\'e limit\'ee C}
+On ne change rien aux param\`etres de d\'epart. Les paquets arrivent toujours de mani\`ere poissonienne, on a donc un processus Markovien.
+
+\begin{center}
+\begin{tikzpicture}[
+            > = stealth, % arrow head style
+            shorten > = 1pt, % don't touch arrow head to node
+            auto,
+            node distance = 2.5cm, % distance between nodes
+            semithick % line style
+        ]
+
+	\node[state] (C) {$-C$};
+	\node[state] (C2) [right of=C] {$-C+1$};
+	
+	\draw[-latex,bend left] (C) edge node {$\lambda$} (C2);
+	\draw[-latex,bend left] (C2) edge node {$\mu$} (C);
+   
+\end{tikzpicture}
+...
+\begin{tikzpicture}[
+            > = stealth, % arrow head style
+            shorten > = 1pt, % don't touch arrow head to node
+            auto,
+            node distance = 2cm, % distance between nodes
+            semithick % line style
+        ]
+
+	\node[state] (-1) {$-1$};
+	\node[state] (0) [right of=-1] {$0$};
+	\node[state] (1) [right of=0] {$1$};
+	
+	\draw[-latex,bend left] (-1) edge node {$\lambda$} (0);
+	\draw[-latex,bend left] (0) edge node {$\mu$} (-1);
+	\draw[-latex,bend left] (0) edge node {$\lambda$} (1);
+	\draw[-latex,bend left] (1) edge node {$\mu$} (0);
+   
+\end{tikzpicture}
+...
+\begin{tikzpicture}[
+            > = stealth, % arrow head style
+            shorten > = 1pt, % don't touch arrow head to node
+            auto,
+            node distance = 2.5cm, % distance between nodes
+            semithick % line style
+        ]
+
+	\node[state] (C) {$C-1$};
+	\node[state] (C2) [right of=C] {$C$};
+	
+	\draw[-latex,bend left] (C) edge node {$\lambda$} (C2);
+	\draw[-latex,bend left] (C2) edge node {$\mu$} (C);
+   
+\end{tikzpicture}
+\end{center}
+\captionof{figure}{Cha\^ine de Markov du syst\`eme \`a temps continu}
+
+\subsection{Probabilit\'es stationnaires des \'etats en fonction de $\rho$ et $C$}
+
+\begin{gather*}
+\rho = \frac{\lambda}{\mu} \\
+\pi_{0}\lambda=\mu\pi_{1} \Rightarrow\pi_{1}=\frac{\lambda}{\mu}\pi_{0} \\
+\pi_{1} = \rho\pi_{0} \\
+\pi_{0}\mu = \pi_{-1}\lambda \Rightarrow \pi_{-1} = \frac{\mu}{\lambda}\pi_{0} \\
+\pi_{-1} = \rho^{-1}\pi_{0} \\
+\pi_{2} = \rho\pi_{1} \Rightarrow \pi_{2}=\rho^{2}\pi_{0} \\
+\pi_{-2} = \rho^{-1}\pi_{-1} \Rightarrow \pi_{-2}=\rho^{-2}\pi_{0} \\
+\text{On a donc } \bm{\pi_{k}=\rho^{k}\pi_{0}} \text{ pour } \rho\neq1
+\end{gather*}
+
+\begin{gather*}
+\text{Pour une file } M/M/1/N \text{, on sait que } \pi_{0}=\frac{1-\rho}{1-\rho^{C+1}} \\
+\text{On a donc } \bm{\pi_{k}=\rho^{k} \times \frac{1-\rho}{1-\rho^{C+1}}} \\
+\text{Et si } \rho = 1 \text{, on a } \pi_{k} = \frac{1}{C+1}
+\end{gather*}
+
+\newpage
+\section{Syst\`eme cyclique-multiserveur}
+\subsection{\'Etablissement de la cha\^ine de Markov des taux de transition}
+On d\'efinit nos \'etats de cette fa\c{c}on : (nb client file 1, nb client file 2)
+\begin{center}
+\begin{tikzpicture}[
+            > = stealth, % arrow head style
+            shorten > = 1pt, % don't touch arrow head to node
+            auto,
+            node distance = 3cm, % distance between nodes
+            semithick % line style
+        ]
+
+	\node[state] (1) {$M, 0$};
+	\node[state] (2) [right of=1] {$M-1, 1$};
+	\node[state] (3) [right of=2] {$M-2, 2$};
+	\node[state] (p) [right of=3] {$...$};
+	
+	\draw[-latex,bend left] (1) edge node {$M\mu_{1}$} (2);
+	\draw[-latex,bend left] (2) edge node {$\mu_{2}$} (1);
+	\draw[-latex,bend left] (2) edge node {$(M-1)\mu_{1}$} (3);
+	\draw[-latex,bend left] (3) edge node {$2\mu_{2}$} (2);
+	\draw[-latex,bend left] (3) edge node {} (p);
+	\draw[-latex,bend left] (p) edge node {} (3);
+	
+   
+\end{tikzpicture}
+
+\begin{tikzpicture}[
+            > = stealth, % arrow head style
+            shorten > = 1pt, % don't touch arrow head to node
+            auto,
+            node distance = 3cm, % distance between nodes
+            semithick % line style
+        ]
+        
+    \node[state] (p) {$...$};
+	\node[state] (4) [right of=p] {$2, M-2$};
+	\node[state] (5) [right of=4] {$1, M-1$};
+	\node[state] (6) [right of=5] {$0, M$};
+	
+	\draw[-latex,bend left] (p) edge node {} (4);
+	\draw[-latex,bend left] (4) edge node {} (p);
+	\draw[-latex,bend left] (4) edge node {$2\mu_{1}$} (5);
+	\draw[-latex,bend left] (5) edge node {$(M-1)\mu_{2}$} (4);
+	\draw[-latex,bend left] (5) edge node {$\mu_{1}$} (6);
+	\draw[-latex,bend left] (6) edge node {$M\mu_{2}$} (5);
+   
+\end{tikzpicture}
+\captionof{figure}{Cha\^ine de Markov du syst\`eme}
+\end{center}
+\bigskip
+
+\subsection{V\'erifions si la propriété PASTA s'applique dans ce syst\`eme}
+Pour que la propri\'et\'e PASTA s'applique, il faut que la propabilit\'e d'\'etat vue d'un client se pr\'esentant dans le syst\`eme doit être \'egale \`a la propabilit\'e d'\'etat stationnaire.
+
+\medskip
+Elle ne s'applique pas dans ce syst\`eme car la probabilit\'e d'\'etat vue d'un client n'est pas \'egale \`a la probabilit\'e d'\'etat stationnaire car la probabilit\'e d'arriv\'ee varie selon l'\'etat courant.
+
+\subsection{D\'etermination des Pk et de la condition d'ergodicit\'e du syst\`eme}
+On utilise la technique des coupes :
+\begin{gather*}
+\bm{\pi_{(1,M-1)} = \frac{M\mu_{2}}{\mu_{1}}\pi_{(0,M)}} \\\\
+\pi_{(2,M-2)} = \frac{(M-1)\mu_{2}}{2\mu_{1}}\pi_{(1,M-1)} \\
+\bm{\pi_{(2,M-2)} = \frac{(M-1)M\mu_{2}^{2}}{2\mu_{1}^{2}}\pi_{(0,M)}} \\\\
+\pi_{(3,M-3)} = \frac{(M-2)\mu_{2}}{3\mu_{1}}\pi_{(2,M-2)} \\
+\bm{\pi_{(3,M-3)} = \frac{(M-2)(M-1)M\mu_{2}^{3}}{6\mu_{1}^{3}}\pi_{(0,M)}}
+\end{gather*}
+
+On en déduit donc :
+\begin{gather*}
+\pi_{(k,M-k)} = \frac{\mu_{2}^{k}\times \frac{M!}{(M-k)!}}{k!\mu_{1}^{k}}\pi_{(0,M)} \\
+\bm{\pi_{(k,M-k)} = \left(\frac{\mu_{2}}{\mu_{1}}\right)^{k}\times \frac{M!}{k!(M-k)!}\pi_{(0,M)}}
+\end{gather*}
+
+Pour que la cha\^ine soit ergodique, il faut que la cha\^ine de markov ait un nombre fini d'\'etats, qu'elle soit irr\'eductible et ap\'eriodique. Dans notre cas, il faut donc que M soit fini pour avoir un nombre d'\'etats fini.
+
+\subsection{Temps de r\'eponse moyen}
+
+\begin{gather*}
+E[R_{1}]=\frac{1}{\mu_{1}} \\
+E[R_{2}] = \frac{1}{\mu_{2}} \\
+\text{Donc } \bm{E[R] = \frac{1}{\mu_{1}} + \frac{1}{\mu_{2}}}
+\end{gather*}
 
 \end{document}
