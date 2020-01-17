@@ -1,0 +1,46 @@
+import java.util.concurrent.atomic.AtomicLong;
+
+public class Peterson {
+
+	static volatile int tour = 0;
+	static volatile boolean [] demande = {false,false};
+	static AtomicLong cpt;
+
+	public static void main(String[] args) {
+		cpt = new AtomicLong(0);
+		Thread t1 = new Thread(new Proc(),"1");
+		Thread t2 = new Thread(new Proc(),"0");
+		t1.start();
+		t2.start();
+	}
+}
+
+class Proc implements Runnable {
+	int id, di;
+	public void run() {
+		id =  Integer.parseInt(Thread.currentThread().getName());
+		di = (id+1) % 2;
+		long cptVal;
+
+		for ( ; ; ) {
+			System.out.println("Thread " + id + " attend SC " + di);
+			entrer();
+			cptVal = Peterson.cpt.incrementAndGet();
+			System.out.println("Thread " + Thread.currentThread().getName() + " en SC \n---> SC faites : " + cptVal);
+			sortir();
+			System.out.println("Thread " + Thread.currentThread().getName() + " hors SC ");
+		}
+	}
+
+	void entrer() {
+		Peterson.demande[id] = true;
+		Peterson.tour = di;
+		while ((Peterson.tour != id) && (Peterson.demande[di])) {
+			;//System.out.println(".."+id+"..");
+		}
+	}
+
+	void sortir() {
+		Peterson.demande[id] =false;
+	}
+}

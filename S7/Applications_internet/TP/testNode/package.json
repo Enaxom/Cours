@@ -1,0 +1,30 @@
+{
+  "name": "testnode",
+  "version": "1.0.1",
+  "description": "Somme des arguments",
+  "main": "somme.js",
+  "dependencies": {
+    "@feathersjs/express": "^4.3.2",
+    "@feathersjs/feathers": "^4.3.2",
+    "axios": "^0.19.0",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "feathers-knex": "^6.1.0",
+    "inquirer": "^7.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.19.4",
+    "path": "^0.12.7",
+    "sqlite3": "^4.1.0",
+    "url": "^0.11.0"
+  },
+  "bin": {
+    "somme": "./somme.js"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Morgane",
+  "license": "ISC"
+}

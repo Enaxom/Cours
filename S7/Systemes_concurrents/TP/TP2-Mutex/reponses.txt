@@ -1,0 +1,46 @@
+TP2 - Mutex
+2App SN - Morgane CADEAU
+
+Exclusion mutuelle
+==================
+
+1 - La classe Peterson fournie dans l'archive propose une implémentation du protocole d'exclusion mutuelle de Peterson vu en cours. Vérifiez et complétez éventuellement cette implémentation.
+--------------------------------------------------------------------------------------------------
+	L'implémentation semblait correcte. Pourtant, à l'exécution, on voit que les deux threads sont bloqué et attendent l'autre. Ceci est du aux variables Peterson.demande et Peterson.tour qui ont une valeur différente pour chaque thread à cause du cache.
+	En ajoutant le mot clé volatile lors de la déclaration de ces variables, le problème est résolu et les threads voient la même valeur pour chaque variable.
+
+
+2 - L'ordre des deux premières affectations de la méthode entrer() (lignes 29 et 30 : Peterson.demande[id] = true; et Peterson.tour = di;) est-il important ? Pourquoi ?
+--------------------------------------------------------------------------------------------------
+	L'ordre des deux premières affectations de la méthode entrer() a de l'importance. Imaginons que nous échangions les lignes 29 et 30. Si on a un processus 0 et 1, le processus 1 peut mettre tour à 0. Avant qu'il mette demande[1] = true, le processus 0 peut mettre tour à 1 puis demande[0] = true et n'attendra pas dans le while vu que le processus 0 n'a pas encore mis demande[1] à true. Les deux processus se retrouveraient donc en section critique, ce qui enfreint des critères d'exclusion mutuelle.
+
+
+3 - La classe java.util.concurrent.atomic.AtomicBoolean propose une implantation logicielle de primitives de type TestAndSet, CompareAndSwap...
+--------------------------------------------------------------------------------------------------
+	a) Utiliser l'une de ces primitives pour réaliser un protocole d'exclusion mutuelle pour N processus.
+		Voir ExclusionMutuelle.java
+		Il n'est pas possible de réaliser un protocole d'exclusion mutuelle avec AtomicBoolean car celui-ci change la valeur de busy à true mais les autres processus voient que busy est à false avant que sa valeur ait changé. Ceci implique que plusieurs processus peuvent se retrouver en section critique.
+
+	b) Réaliser une version vivace du protocole, garantissant que toute demande d'entrée en section critique finira par être servie.
+		Voir ProtocoleVivace.java
+		Le protocole est maintenant vivace, tous les processus vont finir par entrer en section critique. Cependant, comme vu ci-dessus, AtomicBoolean ne fonctionne pas comme voulu donc le protocole ne respecte pas l'exclusion mutuelle.
+
+	c) Comparer les performances des deux versions, entre elles et par rapport à une version utilisant un bloc synchronized pour assurer l'exclusion mutuelle.
+		En exécutant les 3 programmes ExclusionMutuelle, ProtocoleVivace, ProtocoleSynchronized (v1, v2, vSynchro) pendant 10 secondes chacun avec N = 10 et en comptant le nombre de fois où une section critique est exécutée (avec un AtomicLong), les résultats suivant sont trouvés en 3 essais :
+			v1			4832	4729	4557	-> environ 4.7k
+			v2			1944	2236	2043	-> environ 2.1k
+			vSynchro	180269	174706	184396	-> environ 178k
+		Il y a moins de sections critiques exécutées dans la v2 par rapport à la v1, ceci est dû au coût de la vivacité. La versions utilisant un bloc synchronized et bien plus rapide comparé aux deux autres versions.
+
+	d) Comparer, pour 2 processus, ces versions à une version utilisant le protocole de Peterson
+		En exécutant les 3 programmes ExclusionMutuelle, ProtocoleVivace, Peterson (v1, v2, Peterson) pendant 10 secondes chacun avec N = 2 et en comptant le nombre de fois où une section critique est exécutée (avec un AtomicLong), les résultats suivant sont trouvés en 3 essais :
+			v1			504374	503550	511227	-> environ 506k
+			v2			498367	492568	495076	-> environ 495k
+			Peterson	500866	490311	498270	-> environ 496k
+		Les résultats ci-dessus montrent que Peterson est vivace, il a le moins d'exécutions de section critique avec le ProtocoleVivace v2. Le protocole v1, n'étant pas vivace, a plus d'entrées en sections critiques.
+
+Schéma producteurs consommateurs
+================================
+
+	Voir ProdConso.java
+	La clase TamponBorne gère les accès concurrents grâce à la synchronisation des méthodes déposer() et retirer(). Il y a maintenant une attente pour déposer() si le tampon est plein et une attente pour retirer() si le tampon est vide. Lorsqu'un thread a fini de déposer ou de retirer, l'appel à notify() libère un autre thread qui était en attente. 

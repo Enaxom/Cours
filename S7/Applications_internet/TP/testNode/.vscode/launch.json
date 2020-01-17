@@ -1,0 +1,80 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+	{
+		"type": "node",
+		"request": "launch",
+		"name": "auth",
+		"program": "${workspaceFolder}/auth/app.js"
+	},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "app",
+			"program": "${workspaceFolder}/rest/app.js"
+		},
+
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "userREST",
+			"program": "${workspaceFolder}/userREST.js"
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "auth",
+			"program": "${workspaceFolder}/auth.js"
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "testMW",
+			"program": "${workspaceFolder}/testMW.js"
+		},
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "iss 2",
+            "program": "${workspaceFolder}/iss_v2.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Iss",
+            "program": "${workspaceFolder}/iss.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Express",
+            "program": "${workspaceFolder}/test_express.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch prime cor",
+            "program": "${workspaceFolder}/prime_cor.js",
+            "console": "integratedTerminal"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch premier",
+            "program": "${workspaceFolder}/premier.js",
+            "console": "integratedTerminal"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch yesno.js",
+            "program": "${workspaceFolder}/yesno.js",
+            "args" : [
+                
+            ]
+        }
+    ]
+}
