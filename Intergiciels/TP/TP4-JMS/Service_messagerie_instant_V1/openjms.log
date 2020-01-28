@@ -1,0 +1,45 @@
+17:06:06.519 INFO  [main] - Server accepting connections on tcp://192.168.1.70:3035/
+17:06:06.523 INFO  [main] - JNDI service accepting connections on tcp://192.168.1.70:3035/
+17:06:06.526 INFO  [main] - Admin service accepting connections on tcp://192.168.1.70:3035/
+17:07:13.777 INFO  [main] - Server accepting connections on tcp://192.168.1.70:3035/
+17:07:13.783 INFO  [main] - JNDI service accepting connections on tcp://192.168.1.70:3035/
+17:07:13.786 INFO  [main] - Admin service accepting connections on tcp://192.168.1.70:3035/
+17:07:14.011 INFO  [main] - Server accepting connections on rmi://192.168.1.70:1099/
+17:07:14.012 INFO  [main] - JNDI service accepting connections on rmi://192.168.1.70:1099/
+17:07:14.012 INFO  [main] - Admin service accepting connections on rmi://192.168.1.70:1099/
+17:09:22.686 INFO  [main] - Server accepting connections on tcp://192.168.1.70:3035/
+17:09:22.688 INFO  [main] - JNDI service accepting connections on tcp://192.168.1.70:3035/
+17:09:22.690 INFO  [main] - Admin service accepting connections on tcp://192.168.1.70:3035/
+17:09:22.832 INFO  [main] - Server accepting connections on rmi://192.168.1.70:1099/
+17:09:22.832 INFO  [main] - JNDI service accepting connections on rmi://192.168.1.70:1099/
+17:09:22.833 INFO  [main] - Admin service accepting connections on rmi://192.168.1.70:1099/
+15:47:53.717 INFO  [main] - Server accepting connections on tcp://192.168.1.70:3035/
+15:47:53.728 INFO  [main] - JNDI service accepting connections on tcp://192.168.1.70:3035/
+15:47:53.730 INFO  [main] - Admin service accepting connections on tcp://192.168.1.70:3035/
+15:47:53.982 INFO  [main] - Server accepting connections on rmi://192.168.1.70:1099/
+15:47:53.983 INFO  [main] - JNDI service accepting connections on rmi://192.168.1.70:1099/
+15:47:53.984 INFO  [main] - Admin service accepting connections on rmi://192.168.1.70:1099/
+16:03:09.581 INFO  [main] - Server accepting connections on tcp://192.168.1.70:3035/
+16:03:09.592 INFO  [main] - JNDI service accepting connections on tcp://192.168.1.70:3035/
+16:03:09.596 INFO  [main] - Admin service accepting connections on tcp://192.168.1.70:3035/
+16:03:09.733 INFO  [main] - Server accepting connections on rmi://192.168.1.70:1099/
+16:03:09.733 INFO  [main] - JNDI service accepting connections on rmi://192.168.1.70:1099/
+16:03:09.734 INFO  [main] - Admin service accepting connections on rmi://192.168.1.70:1099/
+16:04:07.036 INFO  [main] - Server accepting connections on tcp://192.168.1.70:3035/
+16:04:07.040 INFO  [main] - JNDI service accepting connections on tcp://192.168.1.70:3035/
+16:04:07.042 INFO  [main] - Admin service accepting connections on tcp://192.168.1.70:3035/
+16:04:07.087 INFO  [main] - Server accepting connections on rmi://192.168.1.70:1099/
+16:04:07.169 INFO  [main] - JNDI service accepting connections on rmi://192.168.1.70:1099/
+16:04:07.170 INFO  [main] - Admin service accepting connections on rmi://192.168.1.70:1099/
+16:23:47.893 INFO  [main] - Server accepting connections on tcp://192.168.1.70:3035/
+16:23:47.895 INFO  [main] - JNDI service accepting connections on tcp://192.168.1.70:3035/
+16:23:47.897 INFO  [main] - Admin service accepting connections on tcp://192.168.1.70:3035/
+16:23:48.020 INFO  [main] - Server accepting connections on rmi://192.168.1.70:1099/
+16:23:48.021 INFO  [main] - JNDI service accepting connections on rmi://192.168.1.70:1099/
+16:23:48.021 INFO  [main] - Admin service accepting connections on rmi://192.168.1.70:1099/
+19:39:12.040 INFO  [main] - Server accepting connections on tcp://192.168.1.70:3035/
+19:39:12.044 INFO  [main] - JNDI service accepting connections on tcp://192.168.1.70:3035/
+19:39:12.047 INFO  [main] - Admin service accepting connections on tcp://192.168.1.70:3035/
+19:39:12.170 INFO  [main] - Server accepting connections on rmi://192.168.1.70:1099/
+19:39:12.171 INFO  [main] - JNDI service accepting connections on rmi://192.168.1.70:1099/
+19:39:12.172 INFO  [main] - Admin service accepting connections on rmi://192.168.1.70:1099/
