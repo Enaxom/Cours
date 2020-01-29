@@ -97,3 +97,10 @@ La description des standarts IEEE se fait de manière assez conforme au modèle 
 *#23*
 Modèle du monde télécom. On a plusieurs piles de protocoles en parallèle plutôt qu'une pile de protocole.
 
+---
+
+Tuesday, 28. January 2020 02:00PM 
+
+---
+
+*TD Réseau n°1 - TD1.md*
