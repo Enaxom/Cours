@@ -62,7 +62,7 @@ Avoiding collisions isn't enough.
 
 ---
 
-Thursday, 30. January 2020 02:00PM 
+Thursday, 30. January 2020 02:00PM - TP
 
 ---
 
