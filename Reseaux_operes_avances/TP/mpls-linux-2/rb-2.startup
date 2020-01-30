@@ -1,3 +1,0 @@
-ip route add default via 17.0.42.4
-
-/sbin/sysctl net.ipv4.ip_forward=1

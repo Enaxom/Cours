@@ -1,3 +1,0 @@
-rm -f core.*
-rm -f *.tr
-rm -f *.nam

@@ -1,2 +1,0 @@
-Time, From, To, qsizeB, qsizeP, arrivedP, departedP, droppedP, arrivedB, departedB, droppedB
-where *B is number in Bytes, and *P is numbers in Packets.

@@ -1,4 +1,0 @@
-grep r out.tr > out.seq
-grep + out.tr > in.seq
-
-gnuplot -persist trace.plot
