@@ -1,6 +1,3 @@
-(** @canonical Tp1.Affichage *)
-module Affichage = Tp1__Affichage
-
 (** @canonical Tp1.Fact *)
 module Fact = Tp1__Fact
 

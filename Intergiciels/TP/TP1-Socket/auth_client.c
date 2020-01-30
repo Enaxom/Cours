@@ -37,16 +37,11 @@ void auth_init(int serverport)
 
 	/* XXXX Build server address. */
 	adrserv.sin_family = AF_INET;
-	adrserv.sin_addr.s_addr = INADDR_ANY;
+	adrserv.sin_addr.s_addr = htonl(INADDR_BROADCAST);
 	adrserv.sin_port = htons(serverport);
-
 	
-
 	/* XXXX Open a UDP socket */
-	auth_socket = socket (AF_INET, SOCK_DGRM, 0);
-
-	int r = bind (auth_socket, (struct adrserv *)&adrserv, sizeof(adrserv));
-	if (r == -1) err(1, "bind");
+	auth_socket = socket (AF_INET, SOCK_DGRAM, 0);
 
 	/* XXXX Allow broadcast on this socket. */
 	int val = 1;
@@ -54,8 +49,7 @@ void auth_init(int serverport)
 		err (1, "setsockopt");
 
 	/* XXXX Timeout on receive. */
-	val = AUTH_CLIENT_TIMEOUT;
-	if (setsockopt(auth_socket, SOL_SOCKET, SO_RCVTIMEO, &val, sizeof(val)) == -1)
+	if (setsockopt(auth_socket, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) == -1)
 		err (1, "setsockopt");
 }
 
@@ -64,14 +58,30 @@ int auth_check()
 	if (authorized) /* already authorized. */
 		return 1;
 
+	Auth_Message msg;
+	int n;
+
 	printf ("Auth query\n");
 
 	/* XXXX A compléter */
 	/* send query to the server */
-	
+	msg.kind = AUTH_QUERY;
+	n = sendto (auth_socket, (void*)&msg, sizeof(msg), 0, (struct sockaddr*) &adrserv, sizeof(struct sockaddr_in));
+	if (n == -1)
+		err(1, "sendto");
 	
 	/* wait for answer */
+	n = recvfrom(auth_socket, (void*)&msg, sizeof(msg), 0, NULL, NULL);
+	
+	if (n == -1)
+		msg.kind = AUTH_NACK;
+
 	/* and check if this answer is positive */
+	if (msg.kind == AUTH_ACK)
+		authorized = 1;
+	else
+		authorized = 0;
+
 
 	if (authorized) /* start timer */
 		alarm(AUTH_LIFETIME);

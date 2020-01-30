@@ -13,12 +13,12 @@ Tuesday, 28. January 2020 08:00AM
 Intergiciel pour donner une couche logiciel à la communication entre les deux machines. Permet de faire communiquer des logiciels entre-eux.
 
 *#14*
-Abstraire l'aspect bas niveau.  
-Intergiciel = service (fonctionnalité).  
-Un intergiciel a forcément une API. L'API est standardisée.  
+Abstraire l'aspect bas niveau.
+Intergiciel = service (fonctionnalité).
+Un intergiciel a forcément une API. L'API est standardisée.
 
-Faire communiquer deux machines différentes par le réseau. L'intergiciel doit s'appuyer sur la couche transport du réseau de communication.  
-Tous les intergiciels ont un service de nommage.  
+Faire communiquer deux machines différentes par le réseau. L'intergiciel doit s'appuyer sur la couche transport du réseau de communication.
+Tous les intergiciels ont un service de nommage.
 
 Besoin de traiter l'hétérogénéïté si on a deux machines avec des os différents par exemple. 
 
@@ -62,10 +62,10 @@ P1 est un processus qui a des descripteur de fichiers mais on a aussi des descri
 **Association**: couple d'adresses, deux liaisons. Le numéro de port sur la machine A et le numéro sur la machine B.
 
 *#8* **Schéma**
-On fait des associations entre deux adresses pour communiquer.  
-Processus 1 quand il lit ou écrit sur socket 2, ça permet de communiquer avec processus 3 socket 1.  
-Quand on écrit sur socket 3 (P1), ça arrive forcément sur P4 socket 1.  
-C'est le couple qui définit l'association et le chemin.  
+On fait des associations entre deux adresses pour communiquer.
+Processus 1 quand il lit ou écrit sur socket 2, ça permet de communiquer avec processus 3 socket 1.
+Quand on écrit sur socket 3 (P1), ça arrive forcément sur P4 socket 1.
+C'est le couple qui définit l'association et le chemin.
 
 Flêche violet socket de contrôle, on ne fait pas de communication avec mais on s'en sert pour contrôler le port. 
 
@@ -73,12 +73,12 @@ Flêche violet socket de contrôle, on ne fait pas de communication avec mais on
 Ports utilisateurs et ports standarts.
 
 *#10*
-API socket offre une vision connexion (TCP). Une fois que la connexion est établie, on a des séquences d'octets qui peuvent être envoyées et reçues.  
+API socket offre une vision connexion (TCP). Une fois que la connexion est établie, on a des séquences d'octets qui peuvent être envoyées et reçues.
 
 Côté datagramme sans connexion où on peut envoyer et recevoir des messages.
 
 *#12*
-Architecture symétrique pour faire du client/serveur.  
+Architecture symétrique pour faire du client/serveur.
 Le client demande la connexion. Mécanisme lui permettant de trouver le serveur qui l'intéresse.
 
 *#13*
@@ -91,7 +91,7 @@ Communication client/serveur mode connecté.
 Opérations dans l'API C pour les communications à distance. 
 
 *#17*
-Le serveur doit dire qu'on peut établir des connections sur le port ps.  
+Le serveur doit dire qu'on peut établir des connections sur le port ps.
 Pour cela il faut créer un socket, le nommer et écouter.
 
 ~~~C
@@ -100,7 +100,7 @@ bind(csv,ps);
 listen(csv,5); /* Toujours 5 */
 ~~~
 
-Connect est bloquant. Quand connect réussi c'est qu'on a établi la connexion.  
+Connect est bloquant. Quand connect réussi c'est qu'on a établi la connexion.
 Accept renvoie un nouveau socket connecté.
 
 *#18*
@@ -117,33 +117,33 @@ accept();
 Reste partie applicative. Client qui se connecte à un serveur avec `socket(); connect();`.
 
 *#19*
-**Client**  
-`adrserv` construit avec l'adresse IP et le numéro de port.  
-Socket dans le monde ip: `AF_INET`. Socket connecté: `SOCK_STREAM`.  
+**Client**
+`adrserv` construit avec l'adresse IP et le numéro de port.
+Socket dans le monde ip: `AF_INET`. Socket connecté: `SOCK_STREAM`.
 
-`inet_aton` prend une chaîne de caractères et remplie les 4 octets. `htons` hots to network qui prend un octet dans la machine et construit deux octets dans le format standart network.  
+`inet_aton` prend une chaîne de caractères et remplie les 4 octets. `htons` hots to network qui prend un octet dans la machine et construit deux octets dans le format standart network.
 
 `connect` peut échouer s'il n'y a pas le serveur, besoin de faire du contrôle d'erreur.
 
 Procédure toujours pareil pour la création du socket et la connection.
 
 *#20*
-**Serveur**  
+**Serveur**
 
 *#21*
-Mode non connecté sur un schéma client/serveur.  
-`sendto` permet de donner l'adresse et le port de destination.  
+Mode non connecté sur un schéma client/serveur.
+`sendto` permet de donner l'adresse et le port de destination.
 `recvfrom` permet d'attendre des octets qui arrivent.
 
 *#22*
 sendto(socket pour entrées/sorties, ce qu'on envoie, le nombre d'octets, 0, adresse destination)
 
 *#23*
-`bind` pour lier le socket et l'adresse avec le port.  
+`bind` pour lier le socket et l'adresse avec le port.
 `recvfrom` permet d'identifier qui a envoyé les octets: adresse et port du client.
 
 *#27*
-`gesthostbyname` renvoie toutes les informations de la machine.  
+`gesthostbyname` renvoie toutes les informations de la machine.
 Type de l'adresse IPV4 ou IPV6.
 
 *#28*
@@ -164,3 +164,16 @@ Si il y a déjà un bind et qu'on refait un bind, erreur.
 On peut obtenir l'adresse IP et le port local d'un socket connecté.
 
 *#40*
+**Programmation Java**
+
+---
+
+Thursday, 30. January 2020 10:28AM 
+
+---
+
+## III - Appel de procédure et de méthode à distance
+
+*#3*
+
+

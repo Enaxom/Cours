@@ -1,7 +1,6 @@
 (library
  (name tp1)
  (inline_tests)
- (libraries graphics)
- (modules fact Affichage tp)
+ (modules fact tp)
  (preprocess
   (pps ppx_inline_test)))

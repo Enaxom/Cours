@@ -21,13 +21,24 @@
 static unsigned int myport; /* my port number */
 
 /* Handle one http request. */
-void handle_request (int sock)
+void* handle_request (void* psock)
 {
 	/* XXXX A compléter */
+	int sock = *(int*) psock;
 	char *line, *filename;
 	int method;
 	line = read_request(sock);
 	parse_request(line, &method, &filename);
+
+	int auth = auth_check();
+	if (!auth) {
+		writef(sock, "HTTP/1.1 403 Forbidden\n");
+		writef(sock, "Server: le miens\n");
+		writef(sock, "Content-Type: text/plain\n");
+		writef(sock, "\nForbidden access\n");
+		close(sock);
+		return NULL;
+	}
 
 	if (method == REQUEST_GET) {
 		int file = open(filename, 0); // 0 -> read only
@@ -38,7 +49,7 @@ void handle_request (int sock)
 			writef(sock, "Content-Type: text/plain\n");
 			writef(sock, "\nFile %s not found\n", filename);
 			close(sock);
-			return;
+			return NULL;
 		}
 
 		writef(sock, "HTTP/1.1 200 Ok\n");
@@ -61,6 +72,7 @@ void handle_request (int sock)
 	}
 
 	close(sock);
+	return NULL;
 }
 
 
@@ -112,7 +124,11 @@ int main (int argc, char *argv[])
 		if (socket == -1)
 			continue;
 
-		handle_request(socket);
+		pthread_t t;
+		int* psock = malloc(sizeof(int));
+		*psock = socket;
+		pthread_create(&t, NULL, handle_request, &psock);
+		// handle_request(socket);
 	}
 }
 
