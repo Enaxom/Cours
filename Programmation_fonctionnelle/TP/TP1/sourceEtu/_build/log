@@ -1,10 +1,10 @@
 # dune runtest
 # OCAMLPARAM: unset
 # Workspace root: /home/morgane/Documents/Cours/Programmation_fonctionnelle/TP/TP1/sourceEtu
-$ /usr/bin/nproc > /tmp/dunec28103.output 2> /dev/null
+$ /usr/bin/nproc > /tmp/dunedf2134.output 2> /dev/null
 # Auto-detected concurrency: 8
 # disable binary cache
-$ /home/morgane/.opam/4.07.1/bin/ocamlc.opt -config > /tmp/duneba0bf8.output
+$ /home/morgane/.opam/4.07.1/bin/ocamlc.opt -config > /tmp/duneefc710.output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -31,8 +31,6 @@ $ /home/morgane/.opam/4.07.1/bin/ocamlc.opt -config > /tmp/duneba0bf8.output
 #      ;
 #      "OCAMLPATH" :
 #        "/home/morgane/Documents/Cours/Programmation_fonctionnelle/TP/TP1/sourceEtu/_build/install/default/lib"
-#      ; "OCAML_COLOR" : "always"
-#      ; "OPAMCOLOR" : "always"
 #      }
 #  ; findlib_path = [ External "/home/morgane/.opam/4.07.1/lib" ]
 #  ; arch_sixtyfour = true
@@ -117,11 +115,3 @@ $ /home/morgane/.opam/4.07.1/bin/ocamlc.opt -config > /tmp/duneba0bf8.output
 #        Some External "/home/morgane/.opam/4.07.1/bin/ocamlobjinfo.opt"
 #      }
 #  }
-$ (cd _build/default && .ppx/bfcab61e6a21ecf6d2f80029fc1ef484/ppx.exe --cookie 'library-name="tp1"' -o tp.pp.ml --impl tp.ml -corrected-suffix .ppx-corrected -diff-cmd - -dump-ast)
-$ (cd _build/default && /home/morgane/.opam/4.07.1/bin/ocamldep.opt -modules -impl tp.pp.ml) > _build/default/.tp1.objs/tp.pp.ml.d
-$ (cd _build/default && /home/morgane/.opam/4.07.1/bin/ocamlc.opt -w -40 -g -bin-annot -I .tp1.objs/byte -I /home/morgane/.opam/4.07.1/lib/base -I /home/morgane/.opam/4.07.1/lib/base/base_internalhash_types -I /home/morgane/.opam/4.07.1/lib/base/caml -I /home/morgane/.opam/4.07.1/lib/base/shadow_stdlib -I /home/morgane/.opam/4.07.1/lib/ppx_inline_test/config -I /home/morgane/.opam/4.07.1/lib/ppx_inline_test/runtime-lib -I /home/morgane/.opam/4.07.1/lib/sexplib0 -no-alias-deps -open Tp1 -o .tp1.objs/byte/tp1__Tp.cmo -c -impl tp.pp.ml)
-> File "tp.ml", line 107, characters 20-32:
-> Error: This expression has type int but an expression was expected of type
->          unit
->        because it is in the result of a conditional with no else branch
-[2]
