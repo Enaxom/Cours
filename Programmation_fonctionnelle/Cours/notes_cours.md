@@ -266,7 +266,7 @@ let tail list =
 	| [] -> failwith "Empty list";;
 ~~~
 
-*2. Écrire la ofnction taille qui renvoie la longueur d'une liste*
+*2. Écrire la fonction taille qui renvoie la longueur d'une liste*
 ~~~
 let rec size list =
 	match list with
@@ -290,7 +290,7 @@ Complexité linéaire par rapport à la taille de list1. Constant.
 
 *#7*
 *1. Type de l'itérateur List.map*
-('a -> 'b) -> 'a list -> 'b list
+`('a -> 'b) -> 'a list -> 'b list`
 
 *2. Écrire cet itérateur*
 ~~~

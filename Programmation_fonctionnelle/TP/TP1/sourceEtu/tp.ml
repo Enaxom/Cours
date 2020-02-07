@@ -285,6 +285,8 @@ let premier x =
 	if x < 2 then false
 	else premier_val x (x/2);;
 
+let premier_v2 x = not x < 2 && premier_val x (x/2);;
+
 let%test _ = premier 0 = false;;
 let%test _ = premier 1 = false;;
 let%test _ = premier 2 = true;;

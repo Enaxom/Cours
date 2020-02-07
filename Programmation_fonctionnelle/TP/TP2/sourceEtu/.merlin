@@ -1,0 +1,19 @@
+EXCLUDE_QUERY_DIR
+B /home/morgane/.opam/4.07.1/lib/base
+B /home/morgane/.opam/4.07.1/lib/base/base_internalhash_types
+B /home/morgane/.opam/4.07.1/lib/base/caml
+B /home/morgane/.opam/4.07.1/lib/base/shadow_stdlib
+B /home/morgane/.opam/4.07.1/lib/ppx_inline_test/config
+B /home/morgane/.opam/4.07.1/lib/ppx_inline_test/runtime-lib
+B /home/morgane/.opam/4.07.1/lib/sexplib0
+B _build/default/.tp2.objs/byte
+S /home/morgane/.opam/4.07.1/lib/base
+S /home/morgane/.opam/4.07.1/lib/base/base_internalhash_types
+S /home/morgane/.opam/4.07.1/lib/base/caml
+S /home/morgane/.opam/4.07.1/lib/base/shadow_stdlib
+S /home/morgane/.opam/4.07.1/lib/ppx_inline_test/config
+S /home/morgane/.opam/4.07.1/lib/ppx_inline_test/runtime-lib
+S /home/morgane/.opam/4.07.1/lib/sexplib0
+S .
+FLG -ppx '/home/morgane/Documents/Cours/Programmation_fonctionnelle/TP/TP2/sourceEtu/_build/default/.ppx/bfcab61e6a21ecf6d2f80029fc1ef484/ppx.exe --as-ppx --cookie '\''library-name="tp2"'\'''
+FLG -open Tp2__ -w -40
