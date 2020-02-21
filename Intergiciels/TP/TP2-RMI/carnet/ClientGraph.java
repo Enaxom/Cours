@@ -76,7 +76,7 @@ public class ClientGraph {
 					n = nom.getText();
 					try {
 						a = Integer.parseInt (age.getText());
-						carnet.inserer (new IndividuImpl (n,a));
+						carnet.inserer (new IndividuLocal (n,a));
 						age.setText("");
 						nom.setText("");
 						sayInformation("OK");
@@ -143,11 +143,11 @@ public class ClientGraph {
 		bpeupler.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent ev) {
 					try {
-						carnet.inserer (new IndividuImpl ("aaa", 10));
-						carnet.inserer (new IndividuImpl ("bbb", 18));
-						carnet.inserer (new IndividuImpl ("ccc", 12));
-						carnet.inserer (new IndividuImpl ("ddd", 20));
-						carnet.inserer (new IndividuImpl ("eee", 30));
+						carnet.inserer (new IndividuLocal ("aaa", 10));
+						carnet.inserer (new IndividuLocal ("bbb", 18));
+						carnet.inserer (new IndividuLocal ("ccc", 12));
+						carnet.inserer (new IndividuLocal ("ddd", 20));
+						carnet.inserer (new IndividuLocal ("eee", 30));
 						sayInformation("OK");
 					} catch (RemoteException e) {
 						sayError(e);

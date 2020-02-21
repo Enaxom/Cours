@@ -352,5 +352,117 @@ Meilleure complexité -> `n * log n`
 *#19*
 **Tri par insertion**
 
+---
+
+Monday, 10. February 2020 04:16PM
+TD
+
+---
+
+## Cours 4 - Définition de types, types récursifs généraux et arbres
+
+Friday, 14. February 2020 08:00AM 
+
+---
+
+*#13*
+**Arbre binaire**
+
+*#14*
+Arbre binaire données dans feuilles.
+
+*#15*
+Arbre binaire données dans branches.
+
+*Type avec données de type 'a dans les branches et 'b dans les noeuds*
+
+~~~
+type ('a, 'b) tree =
+| Empty
+| Node of 'b * ('a * ('a, 'b) tree) * ('a * ('a, 'b) tree)
+
+Node("a",
+	(1, Node("b", Empty)),
+	(2, Node("c", Empty))
+~~~
+
+*Profondeur max d'un arbre*
+
+~~~
+let rec profondeur_max tree =
+	match tree with
+	| Empty -> 0
+	| (_, n1, n2) -> 1 + max (profondeur_max n1) (profondeur_max n2);;
+~~~
+
+*#19*
+**`tree_fold`**
+
+*Cardinal*
+`g` est le cardinal du fils gauche, `d` est le cardinal du fils droit.
+~~~
+let cardinal tree = tree_fold (fun n g d -> 1 + g + d) 0 tree;;
+~~~
+
+*Profondeur*
+`g` est la profondeur du fils gauche, `d` est la profondeur du fils droit.
+~~~
+let profondeur tree = tree_fold (fun n g d -> 1 + (max g d)) 0 tree;;
+~~~
+
+*#23*
+**Arbres binaires à gauche**
+
+*#24*
+Si on a deux arbres à gauche R1 et R2 et qu'on veut fiare l'union:
+g1 est plus grand que d1
+
+*#25*
+Union de deux arbres à gauche
+
+*#27*
+Parcours d'arbre
+
+- En largeur: compter chaque niveau
+- En profondeur: on prend un fils, on va tout en bas et on remonte
+
+*#31*
+Parcours profondeur
+
+*Parcours largeur*
+
+Pour faire un parcour en largeur, il faut une file d'appel.
+
+*#48*
+Parcours avec pile
+
+*#64*
+Parcours largeur avec file
+
+Parcours profondeur aucun problème, on se base sur notre pile d'appel. Pour le parcours en largeur il faut une file. 
+
+*#66*
+~~~
+type 'a' arbre_naire = Node of 'a' * 'a' arbre_naire list;;
+
+let cons r lfils = Node(r, lfils);;
+
+let racine (Node(r, _)) = r;;
+
+let fils (Node(_, lf)) lf;;
+
+let rec map f (Node(r, lf)) = Node(f r, List.map (map f) lf);;
+
+let rec fold f (Node(r, lf)) = f r (List.map (fold f) lf) ;;
+
+let cardinal (Node(r, lf)) -> fold (fun r cardinaux_fils -> 1 + (List.fold_right (+) cardinaux_fils 0));;
+~~~
+
+
+
+
+
+
+
 
 

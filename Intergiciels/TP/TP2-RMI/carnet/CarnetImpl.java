@@ -17,12 +17,14 @@ public class CarnetImpl extends UnicastRemoteObject implements Carnet {
 	/**** A COMPLETER ****/
 	/** Insère l'Individu dans le carnet. */
 	public void inserer (Individu x) throws RemoteException {
-		contenu.add(x);
+		Individu nouv = new IndividuRemote(x.nom(), x.age());
+
+		contenu.add(nouv);
 
 		for (CallbackOnCreation cb: callbacks)
-			cb.eventCreated(x);
+			cb.eventCreated(nouv);
 
-		System.out.println("Individu inséré: " + x.nom());
+		System.out.println("Individu inséré: " + nouv.nom());
 	}
 
 	/** Renvoie un Individu dont le nom correspond à <code>nom</code>,

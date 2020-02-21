@@ -287,7 +287,283 @@ Need to reduce the cost of flooding.
 **OLSR - Optimized Link State Routing** 
 Need to reduce the information
 
+Multipoint relays
+
 *#170*
+A is gonna broadcast the packet and everyone is going to forward it.
+Reduce the number of transmissions necessary so that every station receive the link sent by A.
+
+We want that when A transmits in broadcast, only C and E forward and that B,F and D know that it's unnecessary to forward.
+
+C and E are **multipoint relays**.
+Once we find who are the multipoint relays, we're going to ask only to them to forward.
+
+When the machine wakes up, she sends a Hello message so everyone knows their neighbors.
+A's gonna receive the hello message of B,C,D,E,F.
+
+How to identify the multipoint relay?
+We can add information is the hello packet.
+Hello, name, neighbors. Now we can identify the multipoint relays.
+
+When A receive a hello packet containing neighbors that are the same as him, then he knows they're not multipoint relays. If the packet contains a neighbor which is not one of his neighbor then he knows that's a multipoint relays.
+
+*#173*
+Summary OLSR
+
+### IoT
+
+*#174*
+Definitions
+
+*29*
+Basic IoT Architecture
+Wireless communication to a GateWay.
+5G, 4G or ethernet.
+When it's connected to the Internet, it's gonna communicate with the information system.
+
+Issues to store and process data.
+
+*30*
+Sensors can be very different. 
+Scale in number of device. 
+
+LPWAN - Low Power Wireless Area Network (LoRa, Sigfox, small sensor)
+Need to design protocoles that allow those types of device to last a long time while sending data.
+
+WPAN - Wireless Personal Area Network (IEEE, BLE, Wifi)
+
+*32 - #200*
+**Bluetooth**
+Low power, low cost, short range
+
+*33 - #202*
+**WPAN**
+
+*#204*
+Bluetooth defines up to application layer.
+
+*#206*
+Use of ISM (free frequency) so there can be interferences.
+
+*#207*
+Bluetooth designed for cable replacement. Design protocole which is deterministic, master/slave.
+
+*#209*
+
+| Bluetooth protocol stack |
+|---|
+| Application group |
+| Middleware protocol group |
+| Transport protocol group |
+
+*#214*
+**Baseband** - Layer 2
+
+MAC layer, protocol for multiple channel access.
+
+*#220*
+Take a band of 2.4MHz and split in bands of 1MHz.
+-> 79 sub channels
+
+Always jumping to another frequency.
+If all the machine use the same seed and pseudo random generator then the'll all jump to the same frequency.
+
+To communicate we need the same seed but how to decide the seed if we can't communicate.
+
+*#221*
+Change of frequency every 625 µs.
+Every packet is transmitted and received on different frequencies. Need of very good clocks.
+This reduices the exposure to interference.
+
+*#223*
+Time divided
+Masters controls everything.
+
+Jitter difference of delay.
+
+*#224*
+Example transmissions
+
+*#226*
+**Piconet**
+
+*#227*
+Certain frequencies for the purposes.
+
+*#228*
+Inquire sent to send a request.
+
+*#42*
+If all of them respond and transmit a packet, there will be collisions.
+
+Train sequence of seeds.
+
+*#43*
+They can't all respond. Need a kind of backoff.
+We'd like to transmit on all frequencies and still have the chance to receive.
+
+---
+
+Wednesday, 12. February 2020 10:15AM 
+
+---
+
+*#Transmitting Inquiry Messages - 2*
+Two steps process
+
+- neighbor discovery
+- connection establishment
+
+Stations are gonna transmit on one slot and receive on the next slot.
+They stay the duration of one train in the frequency so that every station can communicate.
+No matter which frequency are the other stations, they are going to hear from the master.
+
+Errors are inevitable. Need to deal with failures due to collision and error.
+
+-> Need to do a backoff.
+Cannot do a backoff on a particulary slot. 
+Doind a backoff on the window (the train) is gonna work. Backoff on the number of train.
+
+The station has a X backoff and is gonna wait X train transmissions before transmitting.
+
+How to find the contention window, 0 to which number.
+Bluetooth uses **127**. Random number from [0-127].
+
+Don't adapt the window when broadcast because he can't see if it failed so can't adapt the window.
+
+Can't have a mechanism with exponential backoff because the master is transmitting broadcast messages and the stations that speak to him won't receive an ack.
+
+The inquiry to the master is going to be transmitted 4 times. 
+
+*#What about noise?*
+
+*#Inquiry Scan*
+
+*#Inquiry response*
+The response packet to the inquiry contains the machine id.
+
+*#236*
+10.24 seconds -> Worst case contains 10 seconds for bluetooth devices to discover each other.
+
+*#237*
+**Paging**
+Try now to establish connection.
+The device starting the paging become the master of the piconet.
+
+*#Step 1: Page scanning*
+Same as before except that this time we send a packet to station A first then B so they can response right away.
+
+*#Paging: Step 2 & 3*
+The master sends the synchronisation packet so that every stations are gonna synchronized with the master's clock.
+
+*#Paging: Step 4*
+The station is going to use the seed to generate the frequency hopping.
+
+*#Paging: Step 5*
+The slave has an Active Member Address.
+The master sends a packet to be sure the station is synchronized.
+
+*#Paging: Step 6*
+The new synchronized connection is established.
+
+*#244*
+**Transport Protocol Group Stack: Link Manager**
+Limite interferences.
+
+*#Link Manager*
+Can create two types of connection with different quality of service.
+
+*#Asynchronous Connection*
+
+*#Synchronous Connection Oriented*
+
+*#249*
+Provide some slaves with transmission slots. Every six slots, he transmits, it's perfectly period.
+
+*#250*
+Power Management is very importent in IoT.
+For wifi we didn't care about this. Equipments with big batteries, access point plugged in.
+Power consuption is a major concern for bluetooth.
+
+Only time to optimize when the device does nothing.
+Radio is always trying to detect packet, consumes a lot of energy. Half as when he receives a packet.
+
+Idea to sleep when we don't receive or transmit.
+If we're a receiver, how to know when someone is trying to transmit us a packet.
+
+*#Link Manager Operation*
+*Active* -> machine fully awake, max power
+Others different mode from high power to low.
+
+*#Active Mode*
+
+*#Hold Mode*
+Keep the AMA. Time after which the slave revives and synchronized with the traffic.
+Reduce energy consuption.
+
+*#Sniff Mode*
+Come back to sleep and weke up periodically.
+
+*#Park Mode*
+Still in frequency hoping. Able to reconnect.
+
+*#264*
+Bluetooth slotted system of 625 µs slot.
+
+**L2CAP**
+
+*#L2CAP*
+*#Segmentation/Reassembly*
+*#Quality of service*
+Can implement it on the layer L2CAP.
+
+*#270*
+
+*#SDP*
+*#Summary*
+Works even if the line of sight is not clear.
+
+*#LoRaWAN*
+- WPAN -> short range
+- LPWAN -> long range
+- Cellular -> long range
+
+Designed for application that generates little traffic. Very small data rate.
+
+*#LoRaWAN Architecture*
+Gateway connected to the Internet. Uses power most of the time.
+Application server to collect all the data. With LoRa we can build all the application service we want.
+
+AS -> hw to store, process the data.
+
+*#End devices*
+The gateway can receive from all frequencies in parallel.
+Simplify the protocol.
+The lower the frequencies are the better. Cannot transmit more than 1% of the time on high frequencies (800-900).
+
+*#End device classes*
+*#Class A*
+Wake up when they have a data to transmit and transmits.
+LoRa, when they transmit, open 2 slots to receive. Stake wake up a little.
+Best in term of energy consuption. But GW will have to wait if it has to clean the sensor.
+
+*#Class B*
+Scheduled receive slots.
+Weke up periodically to receive but need to be synchronized, sophisticated protocole, gonna ocnsume energy.
+
+*#Class C*
+Also optional.
+The device is always awake and the only time he doesn't receive is when he transmits.
+Worst in term of power consuption.
+
+*#The ED Classes Tradeoff*
+
+
+
+
+
+
+
 
 
 

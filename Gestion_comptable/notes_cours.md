@@ -151,5 +151,63 @@ Investissement <-> Équipement
 **LOA:**Location avec Obligation d'Achat
 **LLD:** Location Longue Durée
 
+---
+
+## L'approche financière
+
+**Bilan comptable**
+
+| Actif | Brut | Amortissement | Net | Passif | |
+|---|---|---|---|---|---|
+| **Actif immobilisé** | | | | **Capitaux propres** | |
+|---|---|---|---|---|---|
+| **Total 1** | | | | **Total 1** | |
+| **Actif circulant** | | | | **Dettes** | |
+|---|---|---|---|---|---|
+| **Total 2** | | | | **Total 3** | |
+| **Total Actif** | | |X | **Total Passif** | X |
+
+
+**Bilan Fonctionnel**
+
+Passif = Ressources
+*On identifie les sources de financement et à quoi on va les employer*
+Actif = Emplois
+
+Pas deux rubriques (immobilisant et circulant) mais 3.
+
+| Emplois | | Ressources | |
+|---|---|---|---|
+| **Emplois stables** | | **Ressources stables** | |
+|Actif Immobilisé|*En valeur brut*|Capitaux propres, Emprunts (dettes long terme) & Amortissement|---|
+|---|---|---|---|
+| **Total 1** | | **Total 1** | |
+| **Emplois cycliques** | | **Ressources cycliques** | |
+|Actif circulant|*En valeur brut + sans dispo*|Dettes à court ou moyen terme|---|
+|---|---|---|---|
+| **Total 2** | | **Total 2** | |
+| **Trésorerie active** | | **Trésorerie passive** | |
+|Disponibilités| |Si découvert|---|
+|---|---|---|---|
+| **Total 3** | | **Total 3** | |
+| **Total Emplois** | | **Total Ressources** | |
+
+FRNG = Ressources stables - emplois stables
+
+FRNG > 0 : sommes disponibles
+FRNG  inférieur à 0 : besoin de trouver d'autres ressources
+
+---
+
+TD2
+
+---
+
+
+
+
+
+
+
 
 

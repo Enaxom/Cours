@@ -498,6 +498,130 @@ RMI permet de faire des appels de méthodes à distance avec code dynamiquement 
 
 Problème du ramasse miette. Besoin d'éteindre les objets non utilisés.
 
+---
+
+Wednesday, 12. February 2020 04:17PM 
+
+---
+
+## IV - Intergiciels à message, Message Oriented Middleware
+
+*#3*
+But d'être asynchrone comparé au RMI.
+
+*#5*
+L'administrateur pourrait demander à l'équipement de le prévenir dès qu'il y a un changement d'état (callback).
+
+*#6*
+Pour mettre en place le callback, l'administrateur doit connaître la machine donc on a toujours le problème de découverte d'équipement.
+
+*#7*
+Chaque équipement envoie des informations dans le vide.
+Certaines machines vont être intéressées par une partie de ces messages et vont les récupérer.
+
+Difficulté: ne pas envoyer de messages non intéressants pour tout le monde.
+
+*#9*
+On désigne de manière indirecte le destinataire (boite postale). 
+
+*#10*
+Envoi asynchrone, on attend pas que le message soit traité.
+Avec RMI on attendait qu'il soit traité et qu'on ait une réponse.
+
+*#11*
+Le service de courtage achemine les messages aux services intéressés.
+
+*#12*
+**File de message**
+File de communication dans lequel on peut rajouter et prendre des messages. FIFO.
+Quand un prend le message, les autres ne l'ont plus.
+
+**Publication**
+Tous ceux qui sont abonnés vont recevoir le message
+
+*#13*
+Service (Serveur) qui gère les messages.
+Producteur CI_1 peut envoyer des messages sur le sujet QuelSujet.
+Le consommateur CI_2 peut s'abonner.
+
+On ne reçoit pas de messages antérieurs à l'abonnement.
+Une fois que le service a délivré le message à tous les abonnés, il les oublie.
+
+*#14*
+Chaque client a une file de réponse. 
+Quand le client a une requête, il envoie une requête avec l'info d'à qui répondre.
+
+Le serveur peut récupérer plusieurs requêtes d'un coup.
+
+*#15*
+Pas besoin d'attendre une réponse quand on envoie la requête -> découplage temporel
+
+On envoie un message, on ne sait pas qui le reçoit -> découplage spatial
+Un ensemble d'entité peut envoyer à un ensemble.
+
+*#17*
+Possibilité de faire du point à point.
+
+*#18*
+Limite centralisé -> si le serveur crash ou si il y a trop de client
+Snowflake -> Pas à gérer les cycles. Fragile si on déco le serveur du milieu
+Distribué -> besoin de routage
+Bus logiciel -> N'importe qui peut envoyer, n'importe qui peut lire
+
+*#21*
+JMS -> standardisation
+TP -> Joram
+
+*#24*
+Un flux est découpé en un ensemble de partition.
+C'est l'ensemble des partitions qui compose le flux.
+Partition suite croissante d'enregistrement qui est immuable. On ne fait qu'accumuler de l'information.
+
+*#25*
+Chaque consommateur sait où il en est dans la partition où il consomme. 
+Il sait qu'il en est au 9. Il va demander le 10ème.
+Vu que c'est immuable il peut révenir en arrière.
+
+*#26*
+Un serveur primaire qui gère la partition, l'ordre dans la partition et qui informe. Quand le primaire meurt, on choisit un autre de secours.
+
+*#27*
+Groupes de consommateurs et enregistrements partagés entre les consommateurs d'un groupe.
+
+*#28*
+Quand il y a un nouveau visiteur, il y a un enregistrement qui est produit et mis dans le flux.
+
+*#31*
+Fabrique de connexion -> permet de construire le code qui fait la connexion
+Destination file ou sujet
+
+*#32*
+Code de connection vient de ce qu'on a fournit pour l'implantation de JMS.
+
+*#33*
+ConnectionFactory donnée par le serveur.
+Topic -> structure hiérarchique
+
+*#35*
+Obtenir l'accès au service de nommage `InitialContext`.
+`ConnectionFactory` trouvé grâce au service de nommage `jndi`.
+`Destination` trouvée en interrogeant le service de nommage. On associe un nom au topic.
+
+Puis tout ce qu'il faut pour la connexion.
+Création de la `Connection` grâce au `ConnectionFactory`.
+On fait une `Session` puis un producteur de données pour envoyer sur cette destination -> `MessageProducer`.
+
+On peut envoyer un objet `TextMessage` associé à la session crée.
+Puis le `MessageProducer` peut être `send()`.
+
+*#36*
+Ici `MessageConsumer` et listeer mis qui permet de savoir dès qu'il y a un message.
+
+*#38*
+Besoin d'implanter une `ConnectionFactory`
+
+## Conclusion
+
 
 
 

@@ -209,3 +209,16 @@ Le relayage de trame ne s'occupe pas de la gigue.
 
 CIR, EIR, taux de perte délais.
 
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -61,4 +61,4 @@ let lit_chaine = read_line
 (*   résultat     : aucun                                                     *)
 (*                                                                            *)
 (******************************************************************************)
-let affiche_chaine = print_string
+let affiche_chaine s = print_string (s^"\n")

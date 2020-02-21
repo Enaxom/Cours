@@ -28,6 +28,7 @@ Type : ('a->'a->bool)->'a list -> 'a list
 Paramètre : ordre  ('a->'a->bool), un ordre sur les éléments de la liste
 Paramètre : l, la liste à trier
 Résultat : une liste triée avec les éléments de l
+Complexité: n²
 *)
 let tri_insertion ordre l = List.fold_right (insert ordre) l [];;
 
@@ -89,6 +90,7 @@ Type : ('a->'a->bool)->'a list -> 'a list
 Paramètre : ordre  ('a->'a->bool), un ordre sur les éléments de la liste
 Paramètre : l, la liste à trier
 Résultat : une liste triée avec les éléments de l
+Complexité: n * log(n)
 *)
 let rec tri_fusion ordre l =
 	match l with
@@ -96,14 +98,10 @@ let rec tri_fusion ordre l =
 	| [_] -> l
 	| _ -> let (l1, l2) = scinde l in fusionne ordre (tri_fusion ordre l1) (tri_fusion ordre l2);;
 
-
-
 (* TESTS *)
 let%test _ = tri_fusion (fun x y -> x<y) [] =[]
 let%test _ = tri_fusion (fun x y -> x<y) [4;2;4;3;1] =[1;2;3;4;4]
 let%test _ = tri_fusion (fun x y -> x > y) [4;7;2;4;1;2;2;7]=[7;7;4;4;2;2;2;1]
-
-
 
 (** Parsing du fichier *)
 open Lexing

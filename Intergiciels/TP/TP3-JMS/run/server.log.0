@@ -1,0 +1,9 @@
+main WARNING 2020-02-18 17:17:22,307, AgentServer#0, init()
+main WARNING 2020-02-18 17:17:22,313, Trying to find [a3cmlconfig] using jdk.internal.loader.ClassLoaders$AppClassLoader@3d4eac69 class loader.
+main WARNING 2020-02-18 17:17:22,314, Trying to find serialized config using ClassLoader.getSystemResource().
+main WARNING 2020-02-18 17:17:22,314, Unable to find configuration file: a3cmlconfig
+main WARNING 2020-02-18 17:17:22,315, AgentServer#0, serialized a3cmlconfig not found
+main WARNING 2020-02-18 17:17:22,396, Engine#0, factory created
+main WARNING 2020-02-18 17:17:22,404, AgentServer#0, initialized at Tue Feb 18 17:17:22 CET 2020
+main WARNING 2020-02-18 17:17:22,408, AgentServer#0, start()
+main WARNING 2020-02-18 17:17:22,555, AgentServer#0, started at Tue Feb 18 17:17:22 CET 2020

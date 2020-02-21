@@ -35,11 +35,11 @@ public class ClientTxt {
 		/* Action de la commande 'peupler' */
 		Action peupler = new Action() {
 				public void executer(StringTokenizer st) throws Exception {
-					carnet.inserer (new IndividuImpl ("aaa", 10));
-					carnet.inserer (new IndividuImpl ("bbb", 18));
-					carnet.inserer (new IndividuImpl ("ccc", 12));
-					carnet.inserer (new IndividuImpl ("ddd", 20));
-					carnet.inserer (new IndividuImpl ("eee", 30));
+					carnet.inserer (new IndividuLocal ("aaa", 10));
+					carnet.inserer (new IndividuLocal ("bbb", 18));
+					carnet.inserer (new IndividuLocal ("ccc", 12));
+					carnet.inserer (new IndividuLocal ("ddd", 20));
+					carnet.inserer (new IndividuLocal ("eee", 30));
 				}};
 		actions.put("p",peupler);
 		actions.put("peupler",peupler);
@@ -54,7 +54,7 @@ public class ClientTxt {
 					String nom = st.nextToken();
 					int age = Integer.parseInt (st.nextToken());
 					
-					carnet.inserer(new IndividuImpl(nom, age));
+					carnet.inserer(new IndividuLocal(nom, age));
 				}};
 		actions.put("i",inserer);
 		actions.put("insérer",inserer);
@@ -106,8 +106,8 @@ public class ClientTxt {
 		/* Action de la commande 'getall' */
 		Action getall = new Action() {
 				public void executer(StringTokenizer st) throws Exception {
-					
 					Individu[] individus = carnet.getAll();
+					
 					System.out.println("\nListe des individus:\n");
 					for (Individu ind: individus) {
 						System.out.println("   Nom: " + ind.nom());

@@ -2,8 +2,8 @@
 
 ## Présentation par groupe de 2/3
 
-Présentation de 50 minutes avec une vidéo au début.  
-Possibilité d'ajouter une activité, un quiz.  
+Présentation de 50 minutes avec une vidéo au début.
+Possibilité d'ajouter une activité, un quiz.
 Débat à la fin.
 
 Traiter un des sujets suivants:
